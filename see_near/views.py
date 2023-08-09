@@ -47,7 +47,7 @@ def post_create(request):
             # post.title = request.POST['title']
             # post.price = request.POST['price']
             # post.categories = request.POST['categories']
-            # post.content = request.POST['content']
+            # post.content = req uest.POST['content']
             # post.situation = request.POST['situation']
             # post.user = request.user
 
