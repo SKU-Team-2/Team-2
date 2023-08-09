@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>제품 상세 설명</title>
+	<link rel="stylesheet" href="{% static 'see_near/bootstrap/bootstrap.min.css' %}">
+</head>
+<body>
+	<h1>제품 상세 설명</h1>
+	<hr>
+	{% for product in products %}
+	<img class="card-img-top embed-responsive-item" src="{{ product.images.url }}" width="100" alt="images/" />
+	{{ product.title }}
+    {{ product.price }}
+    {{ product.situations }}
+    {{ product.categories }}
+    {{ product.content }}
+	{% endfor %}
+</body>
+</html>
