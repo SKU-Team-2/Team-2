@@ -48,8 +48,6 @@ class UserManager(BaseUserManager):
 # # timezone.localtime()
 
 
-
-
 #게시물
 class Post(models.Model):
     #user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
@@ -81,6 +79,7 @@ class Cart(models.Model):
         
     def __str__(self):
         return self.cart_id
+
     
 class CartItem(models.Model):
     product=models.ForeignKey(Post, on_delete=models.CASCADE)

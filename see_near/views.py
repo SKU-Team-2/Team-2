@@ -1,19 +1,16 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .forms import ProductForm
 
 from .models import Post, Cart, CartItem
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 
-#메인 화면
-def home(request):
-    product_list(request)
-    return render(request, 'see_near/index.html')
 
-#상품 정보를 전달하는 함수
+#메인 화면(상품 정보를 전달하는 함수)
 def product_list(request):
     products = Post.objects.all()
-
+    for i in products:
+        print(i.post_id)
+        
     return render(
         request,
         'see_near/index.html', #메인 홈 화면
@@ -22,14 +19,14 @@ def product_list(request):
         }
     )
 
-def product_detail(request):
-    products = Post.objects.all()
+def product_detail(request, post_id):
+    post=get_object_or_404(Post, pk=post_id)
     
     return render(
         request,
         'see_near/post_detail.html',
         {
-            'products':products
+            'post':post
         }
     )
     
@@ -43,13 +40,6 @@ def post_create(request):
 
         if form.is_valid():
             post = form.save(commit=False)
-            #post.post_id = request.POST.get('post_id', '')
-            # post.title = request.POST['title']
-            # post.price = request.POST['price']
-            # post.categories = request.POST['categories']
-            # post.content = req uest.POST['content']
-            # post.situation = request.POST['situation']
-            # post.user = request.user
 
             post.save()
 
@@ -68,7 +58,7 @@ def cart_id(request):
         cart=request.session.create()
     return cart
 
-def add_cart(request, post_id): #카트에 저장 후 카트 페이지로 넘어감
+def add_cart(request, post_id): #카트에 저장 후 카트 페이지로 넘어감(이 아이로 넘겨줘야 함)
     product=Post.objects.get(id=post_id)
     try:
         cart=Cart.objects.get(cart_id=cart_id(request))

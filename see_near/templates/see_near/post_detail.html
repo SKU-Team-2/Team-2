@@ -9,13 +9,16 @@
 <body>
 	<h1>제품 상세 설명</h1>
 	<hr>
-	{% for product in products %}
-	<img class="card-img-top embed-responsive-item" src="{{ product.images.url }}" width="100" alt="images/" />
-	{{ product.title }}
-    {{ product.price }}
-    {{ product.situations }}
-    {{ product.categories }}
-    {{ product.content }}
-	{% endfor %}
+	<br><br>
+	<img class="card-img-top embed-responsive-item" src="{{ post.images.url }}" width="100" alt="images/" />
+	<p>제목: {{ post.title }}, 가격: {{ post.price }}, 거래상황: {{ post.situation }}
+    <br>
+	카테고리: {{ post.categories }}
+    내용: {{ post.content }}
+	<br>
+	</p>
+	<ul>
+		<li class="nav-item"><a class="nav-link" href="cart/">장바구니</a></li>
+	</ul>
 </body>
 </html>
