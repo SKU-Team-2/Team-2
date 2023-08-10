@@ -51,6 +51,7 @@ def post_create(request):
     context = {'form': form}
     return render(request, 'see_near/post_write.html', context)
 
+
 #카트 저장하는 함수
 def cart_id(request):
     cart=request.session.session_key
@@ -59,7 +60,7 @@ def cart_id(request):
     return cart
 
 def add_cart(request, post_id): #카트에 저장 후 카트 페이지로 넘어감(이 아이로 넘겨줘야 함)
-    product=Post.objects.get(id=post_id)
+    product=Post.objects.get(pk=post_id)
     try:
         cart=Cart.objects.get(cart_id=cart_id(request))
     except Cart.DoesNotExist:
@@ -78,6 +79,7 @@ def add_cart(request, post_id): #카트에 저장 후 카트 페이지로 넘어
         )
         cart_item.save()
     return redirect('cart:cart_detail')
+
 
 def cart_detail(request, total=0, counter=0, cart_items=None): #카트 페이지 정보
     try:

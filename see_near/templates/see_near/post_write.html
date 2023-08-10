@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Write a Post</title>
-	<link rel="stylesheet" href="{% static 'todo/bootstrap/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'see_near/bootstrap/bootstrap.min.css' %}">
 </head>
 <body>
 	<h1>Write a Post</h1>
@@ -13,7 +13,7 @@
 		{% csrf_token %}
 		<table>
 			<tbody>
-        {{form.as_p}}
+        	{{form.as_p}}
 				{% comment %} <tr>
 					<th><label for="id_product">Title:</label></th>
 					<td><input type="text" name="title" maxlength="30" required="" id="id_todo"></td>

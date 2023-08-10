@@ -102,29 +102,3 @@ class CartItem(models.Model):
 #     title=models.CharField(max_length=30)
 #     content=models.TextField()
 
-# #상품
-# class Product(models.Model): 
-#     product_number=models.BigAutoField(primary_key=True) #상품고유번호(기본키)
-    
-#     # product_name=models.CharField(max_length=200) #상품명(외)
-#     # local=models.CharField(max_length=100) #지역(외)
-#     # description=models.TextField() #상세내용, 상품설명 (외)
-#     # seller=models.CharField(max_length=100) #판매자 (외)
-#     # categories=models.CharField(max_length=100) #카테고리(외)
-#     # price=models.IntegerField(null=True) #가격(외)
-#     # update_date=models.DateTimeField() #업데이트 시간(외)
-#     product_title=models.ForeignKey(Post, on_delete=models.CASCADE, related_name='product_title') #상품 제목    
-#     product_situation=models.ForeignKey(Post, on_delete=models.CASCADE, related_name='product_situation') #상태
-#     product_description=models.ForeignKey(Post, on_delete=models.CASCADE, related_name='product_content') #상세내용, 상품설명 (외)
-#     product_categories=models.ForeignKey(Post, on_delete=models.CASCADE, related_name='product_categories', default=None ) #카테고리
-#     product_price=models.ForeignKey(Post, on_delete=models.CASCADE, related_name='product_price') #가격
-#     product_images=models.ForeignKey(Post, on_delete=models.CASCADE, related_name='product_images') #이미지 경로 저장
-#     # update_time=models.ForeignKey(Post, on_delete=models.CASCADE, db_column='update_time') #업데이트 시간
-    
-#     def __str__(self): #상품명을 문자열로 저장
-#         return self.product_name
-    
-#     class Meta: #데이터 알기 쉽게 저장
-#         db_table = "my_product"
-#         verbose_name = '상품'
-#        verbose_name_plural = '상품'
