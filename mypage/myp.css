@@ -1,0 +1,183 @@
+@font-face {
+    font-family: 'HANAMDAUM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/HANAMDAUM.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.HANAMDAUM {
+    font-family: 'HANAMDAUM';
+}
+
+.container {
+    position: relative;
+}
+
+.full-container {
+    position: absolute;
+}
+/*제 1면*/
+.profile {
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 50px 2px 390px;
+}
+.profile-img {
+    background-color: green;
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    border-radius: 100px;
+    margin: auto;
+
+}
+
+
+.img-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+/*제 2면*/
+.subtext-title {
+    font-size: 20px;
+    font-family: 'HANAMDAUM';
+}
+
+.mypoint {
+    position: relative;
+    background-color: rgb(255, 108, 108);
+    color: rgb(210, 195, 195);
+    font-size: 18px;
+    font-family: 'HANAMDAUM';
+    padding: 30px 50px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+    margin: auto;
+    border-radius: 8px;
+}
+
+.mypoint .point-text {
+    color: aliceblue;
+}
+
+.tomato-text {
+    justify-content: center;
+}
+/*나의토마토지수*/
+.mytomato {
+    position: relative;
+    background-color: black;
+    justify-content: center;
+    text-align: center;
+    padding: 30px 100px;
+    color: white;
+    height: 70px;
+    font-family: 'HANAMDAUM';
+    margin: auto;
+}
+
+/*나의 리뷰메뉴*/
+.myreview {
+    background-color: rgb(232, 232, 232);
+    border-color: rgb(232, 232, 232);
+    color: #ff5141;
+    font-family: 'HANAMDAUM';
+}
+
+.myreview:hover {
+    border-style: none;
+}
+
+/**최근 본 상품과 판매한 상품**/
+
+.recent-look {
+    background-color: rgb(233, 233, 233);
+}
+
+.sold-look {
+    background-color: rgb(225, 225, 225);
+}
+
+.recent-txt {
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'HANAMDAUM';
+}
+/*쇼핑몰 박스*/
+
+.shoptxt {
+    background-color: white;
+    padding: 10px 0px 10px;
+}
+
+.slider {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .slider-wrapper {
+    position: relative;
+  }
+  
+  .slider-items {
+    display: flex;
+    width: fit-content;
+    flex-wrap: nowrap;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .slider-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+  }
+  
+  .slider-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  
+  .prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    cursor: pointer;
+  }
+  
+  .prev-btn {
+    left: 0;
+    z-index: 5;
+    color: #000;
+  }
+  
+  .next-btn {
+    right: 0;
+    z-index: 5;
+    color: #000;
+  }
+  
+  .prev-btn-i, .next-btn-i {
+    color: #000;
+  }
+  
+  .prev-btn i, .next-btn i{
+    height: 50px;
+    width: 50px;
+  }
+  
+  .btn-color {
+    color: #000;
+  }

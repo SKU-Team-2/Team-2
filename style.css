@@ -1,0 +1,118 @@
+@font-face {
+    font-family: 'HANAMDAUM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/HANAMDAUM.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+.hanam-font {
+    font-family: 'HANAMDAUM';
+}
+
+
+/*로그인 타이틀*/
+
+.signup {
+    position: relative;
+    margin-top: 30px;
+    text-align: center;
+    text-decoration: solid;
+    padding: 22px;
+}
+
+.parent-size {
+    font-size: 0;
+}
+
+.parent-size a {
+    font-size: 42px;
+    text-decoration: none;
+}
+.signtitle {
+    font-family: 'HANAMDAUM';
+    color: black;
+    text-align: center;
+}
+.signtitle:hover {
+    color: black;
+}
+
+/*아이디 및 비밀번호 입력*/
+
+.idpw {
+    color: rgb(206, 165, 161);
+    font-size: 12px;
+}
+.idpw .logid {
+    position: relative;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration-line: none;
+    border-radius: 30px;
+    font-family: 'HANAMDAUM';
+}
+
+.radi {
+    border-radius: 5px;
+    width: 300px;
+    height: 35px;
+}
+
+
+/*또는*/
+
+.or {
+   font-size: 12px;
+   font-family: 'HANAMDAUM';
+   text-align: center;
+}
+/*button*/
+
+.button {
+    position: relative;
+    padding: 10px 10px;
+    margin-bottom: 2px!important;
+    z-index: 1;
+    text-decoration-line: none;
+    text-align: center;
+    border-radius: 20px!important;
+    font-family: 'HANAMDAUM';
+    }
+
+/*button google*/
+
+.asize {
+    width: 300px;
+}
+.signupbtn {
+    width: 300px;
+}
+button .googleb-image {
+    width: 25px;
+    height: 25px;
+    border-radius: 10px;
+}
+
+.btn {
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    border-style: inherit;
+}
+
+.signupbtn:hover {
+    background-color: white;
+    color: black;
+    border-style: none;
+}
+
+.iphoneimg {
+    color: white;
+    z-index: -2;
+}
+
+.gotojoin {
+    text-align: right;
+    color: black;
+    text-decoration: underline;
+}
