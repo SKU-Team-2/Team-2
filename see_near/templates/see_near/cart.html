@@ -35,14 +35,14 @@
                             <br>
                             price: {{cart_item.product.price}}원
                             <br>
-                            quantity: {{cart_item.quantity}}
+                            quantity: {{cart_item.quantity}}개
                         </td>
                         <td>
                             total: {{cart_item.sub_total}}원
                         </td>
                         {% if cart_item.quantity <= cart_item.product.stock %}
                             <td>
-                                <a href="{% url 'cart:add_cart' cart_item.product.pk %}" class="custom_a">
+                                <a href="{% url 'cart:add_cart' cart_item.product.post_id %}" class="custom_a">
                             </td>
                         {% else %}
                             <td>

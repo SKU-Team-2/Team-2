@@ -8,9 +8,9 @@ from django.core.exceptions import ObjectDoesNotExist
 #메인 화면(상품 정보를 전달하는 함수)
 def product_list(request):
     products = Post.objects.all()
-    for i in products:
-        print(i.post_id)
-        
+    
+    print(products[0].post_id)
+
     return render(
         request,
         'see_near/index.html', #메인 홈 화면
@@ -20,7 +20,7 @@ def product_list(request):
     )
 
 def product_detail(request, post_id):
-    post=get_object_or_404(Post, pk=post_id)
+    post=get_object_or_404(Post, post_id=post_id)
     
     return render(
         request,
@@ -78,7 +78,7 @@ def add_cart(request, post_id): #카트에 저장 후 카트 페이지로 넘어
             cart=cart
         )
         cart_item.save()
-    return redirect('cart:cart_detail')
+    return redirect('cart', post_id=post_id)
 
 
 def cart_detail(request, total=0, counter=0, cart_items=None): #카트 페이지 정보
