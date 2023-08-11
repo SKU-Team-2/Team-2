@@ -28,20 +28,24 @@ class Category(models.Model):
     
     def __str__(self):
         return self.name
-    
+
 class Post(models.Model):
     post_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     name = models.CharField(max_length=100, default='null')
     content = models.TextField()
-    post_price = models.IntegerField()
-    p_category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    price = models.IntegerField()
+    situation = models.CharField(max_length=200, default="판매중") #거래 상황
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     seller = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     location = models.CharField(max_length=100)
-    P_pub_time = models.DateTimeField(auto_now_add=True)
+    pub_time = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return self.title
+    
+    def summary(self):
+        return self.content[:100]
 
 class Image(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='images')
@@ -55,3 +59,29 @@ class Comment(models.Model):
     
     def __str__(self):
         return f"{self.author.username}의 댓글"
+    
+class Cart(models.Model):
+    cart_id=models.CharField(max_length=250, blank=True)
+    date_added=models.DateField(auto_now_add=True)
+    
+    class Meta:
+        db_table='Cart'
+        ordering=['date_added']
+        
+    def __str__(self):
+        return self.cart_id
+
+    
+class CartItem(models.Model):
+    product=models.ForeignKey(Post, on_delete=models.CASCADE)
+    cart=models.ForeignKey(Cart, on_delete=models.CASCADE)
+    quantity=models.IntegerField()
+    active=models.BooleanField(default=True)
+    class Meta:
+        db_table='CarItem'
+        
+    def sub_total(self):
+        return self.product.price * self.quantity
+    
+    def __str__(self):
+        return self.product

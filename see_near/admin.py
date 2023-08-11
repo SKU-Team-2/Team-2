@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Post, Comment, Image
+from .models import Category, Post, Comment, Image, Cart, CartItem
 
 # Register your models here.
 
@@ -8,7 +8,4 @@ from .models import Category, Post, Comment, Image
 #     list_filter = ('parent_category', )
 #     search_fields = ('name', )
     
-admin.site.register(Category)
-admin.site.register(Post)
-admin.site.register(Comment)
-admin.site.register(Image)
+admin.site.register([Category, Post, Comment, Image, CartItem, Cart])
