@@ -19,6 +19,7 @@ def product_list(request):
         }
     )
 
+
 def product_detail(request, post_id):
     post=get_object_or_404(Post, post_id=post_id)
     
@@ -26,7 +27,7 @@ def product_detail(request, post_id):
         request,
         'see_near/post_detail.html',
         {
-            'post':post
+            'post':post,
         }
     )
     
@@ -51,6 +52,8 @@ def post_create(request):
     context = {'form': form}
     return render(request, 'see_near/post_write.html', context)
 
+
+#--------------------여기부턴 장바구니에요--------------------
 
 #카트 저장하는 함수
 def cart_id(request):
@@ -78,8 +81,8 @@ def add_cart(request, post_id): #카트에 저장 후 카트 페이지로 넘어
             cart=cart
         )
         cart_item.save()
-    return redirect('cart', post_id=post_id)
-
+        
+    return redirect('cart_detail')
 
 def cart_detail(request, total=0, counter=0, cart_items=None): #카트 페이지 정보
     try:

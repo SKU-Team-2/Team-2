@@ -10,15 +10,25 @@
 	<h1>제품 상세 설명</h1>
 	<hr>
 	<br><br>
-	<img class="card-img-top embed-responsive-item" src="{{ post.images.url }}" width="100" alt="images/" />
-	<p>제목: {{ post.title }}, 가격: {{ post.price }}, 거래상황: {{ post.situation }}
-    <br>
-	카테고리: {{ post.categories }}
-    내용: {{ post.content }}
-	<br>
-	</p>
-	<ul>
-		<a href="{% url 'cart' post.post_id %}"><li class="nav-item">장바구니</li></a>
-	</ul>
+	<div>
+		<img class="card-img-top embed-responsive-item" src="{{ post.images.url }}" width="100" alt="images/" />
+		<p>제목: {{ post.title }}, 가격: {{ post.price }}, 거래상황: {{ post.situation }}
+		<br>
+		카테고리: {{ post.categories }}
+		내용: {{ post.content }}
+		<br>
+		</p>
+		<ul>
+			<a href="{% url 'add_cart' post.post_id %}"><li class="nav-item">장바구니</li></a>
+		</ul>
+	</div>
+	{% for comment in comments %}
+	 <div class="comment">
+		<div class="date">{{ comment.comment_date }}</div>
+		<p>{{comment.content}}</p>
+	 </div>
+	{% empty %}
+	<p>No comments here yet</p>
+	{% endfor %}
 </body>
 </html>

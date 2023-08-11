@@ -26,36 +26,10 @@ class UserManager(BaseUserManager):
 
         return user
 
-
-# #사용자
-# class User(AbstractBaseUser): 
-#     user_id=models.CharField(max_length=200, default="쥬미")
-#     password=models.CharField(max_length=200)
-#     nickname=models.CharField(max_length=200)
-#     user_name=models.CharField(max_length=200)
-#     email=models.EmailField(max_length=200)
-#     # address_location_1=models.CharField(max_length=200)
-#     # address_location_2=models.CharField(max_length=200)
-#     # address=models.CharField(max_length=200)
-#     user_number=models.CharField(max_length=200)
-#     # reg_date=models.DateTimeField(auto_now_add=True) 사용자 계정 만든 시간 굳이 저장할 필요없음
-    
-#     objects = UserManager()
-    
-#     def __str__(self):
-#         return f'{self.nickname}(email: {self.email} id: {self.user_id})'
-    
-# # timezone.localtime()
-
-
 #게시물
 class Post(models.Model):
-    #user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     post_id=models.AutoField(primary_key=True) #게시물 아이디
     title=models.CharField(max_length=200) #제목
-    # create_time=models.DateTimeField(auto_now_add = True) #업데이트 시간
-    # create_date = models.DateTimeField(auto_now_add=True)
-    # update_date = models.DateTimeField(auto_now=True)
     content=models.TextField() #내용
     price=models.IntegerField() #가격
     situation=models.CharField(max_length=200, default="판매중") #거래 상황
@@ -67,6 +41,10 @@ class Post(models.Model):
     
     def summary(self):
         return self.content[:100]
+    
+    def get_comments(self):
+        # Comment 객체 호출
+        return self.comments.all()
 
 
 #장바구니 모델
@@ -95,10 +73,4 @@ class CartItem(models.Model):
     def __str__(self):
         return self.product
     
-#  #댓글   
-# class Comment(models.Model):
-#     userkey=models.ForeignKey('User', on_delete=models.CASCADE, db_column='userkey') #유저 넘버 참조
-#     product_number=models.ForeignKey('Product', on_delete=models.CASCADE, db_column='product_number') #상품번호 참조
-#     title=models.CharField(max_length=30)
-#     content=models.TextField()
 
