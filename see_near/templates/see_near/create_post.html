@@ -13,11 +13,11 @@
 		{% csrf_token %}
 		<table>
 			<tbody>
-			<select name="p_category" required>
+			{% comment %} <select name="p_category" required>
 				{% for category in categories %}
 					<option value="{{ category.id }}">{{ category.name }}</option>
 				{% endfor %}
-			</select>
+			</select> {% endcomment %}
         	{{form.as_p}}
 				{% comment %} <tr>
 					<th><label for="id_product">Title:</label></th>

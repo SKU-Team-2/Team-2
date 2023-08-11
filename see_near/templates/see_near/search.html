@@ -6,7 +6,7 @@
 <body>
     <h1>Search Results for '{{ searched }}'</h1>
     <ul>
-        {% for post in posts %}
+        {% for post in products %}
             <li><a href="{% url 'post_detail' post_id=post.pk %}">{{ post.title }}</a></li>
         {% empty %}
             <li>No results found.</li>

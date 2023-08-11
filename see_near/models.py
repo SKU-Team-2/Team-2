@@ -1,55 +1,87 @@
 # from datetime import timezone
 from django.db import models
-from django.contrib.auth.models import BaseUserManager
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 
-#슈퍼유저
-class UserManager(BaseUserManager):
-    def create_user(self, email, password):
-        if not email:
-            raise ValueError("이메일을 입력해주세요!")
-        if not password:
-            raise ValueError("비밀번호를 입력해주세요!")
+# #슈퍼유저
+# class UserManager(BaseUserManager):
+#     def create_user(self, email, password):
+#         if not email:
+#             raise ValueError("이메일을 입력해주세요!")
+#         if not password:
+#             raise ValueError("비밀번호를 입력해주세요!")
 
-        email = self.normalize_email(email)
-        user = self.model(email=email)
+#         email = self.normalize_email(email)
+#         user = self.model(email=email)
+#         user.set_password(password)
+#         user.save(using=self._db)
+
+#         return user
+
+#     def create_superuser(self, email, password):
+#         user = self.create_user(email, password)
+#         user.is_staff = True
+#         user.is_superuser = True
+#         user.save(using=self._db)
+
+#         return user
+
+class SeenearUserManager(BaseUserManager):
+    def create_user(self, user_id, password, **extra_fields):
+        user = self.model(user_id=user_id, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-
         return user
 
-    def create_superuser(self, email, password):
-        user = self.create_user(email, password)
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self._db)
-
-        return user
-
-#게시물
-class Post(models.Model):
-    post_id=models.AutoField(primary_key=True) #게시물 아이디
-    title=models.CharField(max_length=200) #제목
-    content=models.TextField() #내용
-    price=models.IntegerField() #가격
-    situation=models.CharField(max_length=200, default="판매중") #거래 상황
-    categories=models.CharField(max_length=100, default=None ) #카테고리
-    images=models.ImageField(blank=True, upload_to="images/", null=True) #업로드된 이미지파일을 이미지에 저장
+class seenear_user(AbstractBaseUser):
+    user_id=models.TextField(max_length=200)
+    password=models.TextField(max_length=200)
+    nickname=models.TextField(max_length=200)
+    user_name=models.TextField(max_length=200)
+    email=models.EmailField(max_length=254)
+    address=models.TextField(max_length=200)
+    user_number=models.TextField(max_length=200)
+    reg_date=models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(auto_now=True)
     
+    objects = SeenearUserManager()
+
+    USERNAME_FIELD = 'user_id'
+
     def __str__(self):
-        return self.title
+        return self.user_id
     
-    def summary(self):
-        return self.content[:100]
-    
+    def set_password(self, raw_password):
+        self.password = make_password(raw_password)
 
-#카테고리
+#카테고리(글이 있으면 삭제가 안됨 ㅠ)
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    # category_id = models.AutoField(primary_key=True)
     
     def __str__(self):
         return self.name
 
+#게시물
+class Post(models.Model):
+    post_id = models.AutoField(primary_key=True) #게시물 아이디
+    title = models.CharField(max_length=100) # 제목
+    name = models.CharField(max_length=100)  # 제품명
+    content = models.TextField() #내용
+    price = models.IntegerField() #가격
+    situation = models.CharField(max_length=200, default="판매중") #거래 상황
+    categories = models.ForeignKey(Category, on_delete=models.CASCADE) #카테고리
+    seller = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    images = models.ImageField(blank=True, upload_to="images/", null=True) #업로드된 이미지파일을 이미지에 저장
+    
+    def __str__(self):
+        return self.title
+    
+    # def summary(self):
+    #     return self.content[:100]
+
+# 댓글
 class Comment(models.Model):
     post_id = models.ForeignKey('Post', on_delete=models.CASCADE)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
@@ -84,5 +116,3 @@ class CartItem(models.Model):
     
     def __str__(self):
         return self.product
-    
-
