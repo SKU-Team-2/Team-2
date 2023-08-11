@@ -73,8 +73,7 @@ def create_post(request):
             post.seller = request.user
             post.save()
 
-        return redirect('home')
-
+            return redirect('home')
     else:
         form = ProductForm()
         categories = Category.objects.all()
