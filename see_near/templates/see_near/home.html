@@ -22,13 +22,14 @@
                 <a href="{% url 'register'%}"><button type="button">회원가입</a>
             </ul>
             <form class="d-flex" method="POST" action="{% url 'search' %}">
-              {% comment %} {% csrf_token %}         {% endcomment %}
+              {% csrf_token %}
               <input class="form-control me-2" type="search" placeholder="Search" name="searched" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
             <section class="shop_section layout_padding">
                 <div class="container">
                   <form>
+                    {% csrf_token %}
                     <label for="category">Select Category:</label>
                     <select name="category" id="category">
                         <option value="" selected>All Categories</option>
