@@ -1,23 +1,38 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import ProductForm
 
-from .models import Post, Cart, CartItem
+from .models import Category, Post, Cart, CartItem
 from django.core.exceptions import ObjectDoesNotExist
 
 
 #메인 화면(상품 정보를 전달하는 함수)
 def product_list(request):
     products = Post.objects.all()
-    
-    print(products[0].post_id)
+    sort_by = request.GET.get('sort', 'name')
+    category_id = request.GET.get('category')
 
-    return render(
-        request,
-        'see_near/index.html', #메인 홈 화면
-        {
-            'products': products
-        }
-    )
+    if category_id:
+        category = get_object_or_404(Category, pk=category_id)
+        products = Post.objects.filter(p_category=category)
+    else:
+        products = Post.objects.all()
+    
+    if sort_by == 'name':
+        products = Post.objects.order_by('title')
+    searched = request.GET.get('searched', '')
+    if searched:
+        products = products.filter(title__icontains=searched)
+    
+    categories = Category.objects.all()
+    
+    context = {
+        'products':products,
+        'categories':categories,
+        'searched':searched
+    }
+    
+    return render(request, 'see_near/home.html', context)
+
 
 
 def product_detail(request, post_id):
@@ -31,9 +46,20 @@ def product_detail(request, post_id):
         }
     )
     
+# 카테고리 분류 함수
+def post_list_by_category(request, category_id):
+    category = Category.objects.get(pk=category_id)
+    posts = Post.objects.filter(p_category=category)
+    
+    context = {
+        'category':category,
+        'posts':posts
+    }
+    return render(request, 'see_near/category.html', context)
+
     
 #상품 글을 작성해 html로 보내는 함수
-def post_create(request):
+def create_post(request):
     post = Post.objects.all()
 
     if request.method == "POST":
@@ -48,11 +74,21 @@ def post_create(request):
 
     else:
         form = ProductForm()
+        categories = Category.objects.all()
 
-    context = {'form': form}
-    return render(request, 'see_near/post_write.html', context)
+    context = {'form': form, 'categories':categories}
+    return render(request, 'see_near/create_post.html', context)
 
-
+#검색창
+def search(request):
+    if request.method =='POST':
+        searched = request.POST['searched']
+        products = Post.objects.filter(title__contains=searched)
+        return render(request, 'see_near/search.html', {'searched':searched, 'products':products})
+    else:
+        return render(request, 'see_near/search.html')
+    
+    
 #--------------------여기부턴 장바구니에요--------------------
 
 #카트 저장하는 함수

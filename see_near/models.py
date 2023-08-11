@@ -1,7 +1,7 @@
 # from datetime import timezone
 from django.db import models
 from django.contrib.auth.models import BaseUserManager
-
+from django.contrib.auth import get_user_model
 
 #슈퍼유저
 class UserManager(BaseUserManager):
@@ -42,10 +42,22 @@ class Post(models.Model):
     def summary(self):
         return self.content[:100]
     
-    def get_comments(self):
-        # Comment 객체 호출
-        return self.comments.all()
 
+#카테고리
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.name
+
+class Comment(models.Model):
+    post_id = models.ForeignKey('Post', on_delete=models.CASCADE)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    content = models.TextField()
+    C_pub_time = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.author.username}의 댓글"
 
 #장바구니 모델
 class Cart(models.Model):

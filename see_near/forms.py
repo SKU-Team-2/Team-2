@@ -1,5 +1,5 @@
 from django import forms
-from see_near.models import Post
+from see_near.models import Post, Comment
 
 
 class ProductForm(forms.ModelForm): # ModelForm 은 장고 모델 폼
@@ -15,3 +15,8 @@ class ProductForm(forms.ModelForm): # ModelForm 은 장고 모델 폼
             'images': '이미지',
             'situation': '거래상황'
         }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']

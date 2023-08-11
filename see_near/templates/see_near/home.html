@@ -16,11 +16,26 @@
     <body>
         <div class="container">
             <ul>
-                <li class="nav-item"><a class="nav-link" href="post_write/">게시물</a></li>
+                <li class="nav-item"><a class="nav-link" href="create_post/">게시물</a></li>
                 <li class="nav-item"><a href="{% url 'cart_detail' %}">장바구니</a></li>
             </ul>
+            <form class="d-flex" method="POST" action="{% url 'search' %}">
+              {% csrf_token %}        
+              <input class="form-control me-2" type="search" placeholder="Search" name="searched" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
             <section class="shop_section layout_padding">
                 <div class="container">
+                  <form>
+                    <label for="category">Select Category:</label>
+                    <select name="category" id="category">
+                        <option value="" selected>All Categories</option>
+                        {% for category in categories %}
+                            <option value="{{ category.pk }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </form>
                   <div class="heading_container heading_center">
                     <h2>
                       Latest Products
