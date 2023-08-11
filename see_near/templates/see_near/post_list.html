@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post List</title>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"> Navbar </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#"> Home </a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"> Link </a></li>
+                </ul>
+                <form class="d-flex" method="POST" action="{% url 'search' %}">
+                    {% csrf_token %}        
+                    <input class="form-control me-2" type="search" placeholder="Search" name="searched" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                
+            </div>
+        </div>
+    </nav>
+</head>
+<body>
+    <a href="{% url 'create_post' %}" class="btn btn-primary">Create New Post</a>
+    <h1>Post List</h1>
+    <!-- 정렬 버튼 -->
+    <div class="btn-group mb-2" role="group" aria-label="Sort Posts">
+        <a href="{% url 'post_list' %}?sort=name" class="btn btn-secondary">Sort by Name</a>
+        <a href="{% url 'post_list' %}?sort=date" class="btn btn-secondary">Sort by Date</a>
+    </div>
+
+    <form method="GET" action="{% url 'post_list' %}">
+        <label for="category">Select Category:</label>
+        <select name="category" id="category">
+            <option value="" selected>All Categories</option>
+            {% for category in categories %}
+                <option value="{{ category.pk }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <ul>
+        {% for post in posts %}
+        <li><a href="{% url 'post_detail' post_id=post.post_id %}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

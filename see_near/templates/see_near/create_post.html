@@ -1,0 +1,40 @@
+<!-- templates/create_post.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create New Post</title>
+</head>
+<body>
+    <h1>Create New Post</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% comment %} {{ post_form.as_p }} {% endcomment %}
+
+        <label for="title">Title:</label>
+        <input type="text" name="title" required><br><br>
+
+        <label for="content">Content:</label><br>
+        <textarea name="content" rows="5" cols="50" required></textarea><br><br>
+
+        <label for="post_price">Price:</label>
+        <input type="number" name="post_price" required><br><br>
+
+        <label for="p_category">Category:</label>
+        <select name="p_category" required>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="location">Location:</label>
+        <input type="text" name="location" required><br><br>
+
+        {{ image_form.as_p }}
+
+        {% comment %} <label for="images">Images:</label>
+        <input type="file" name="images"><br><br> {% endcomment %}
+
+        <input type="submit" value="Create Post">
+    </form>
+</body>
+</html>

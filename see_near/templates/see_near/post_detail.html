@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>Seller: {{ post.seller }}  {{ post.P_pub_date }}</p>
+    <p>{{ post.content }}</p>
+    
+    <h2>Images</h2>
+    {% for image in images %}
+    {% comment %} {% for post in post %} {% endcomment %}
+        <img src="{{ image.image.url }}" alt="Image">
+    {% endfor %}
+    {% comment %} {% endfor %} {% endcomment %}
+
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in post.comments.all %}
+        <li>{{ comment.text }}</li>
+        {% empty %}
+        <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
