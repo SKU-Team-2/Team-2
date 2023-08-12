@@ -12,6 +12,11 @@
 	<hr>
 	<br><br>
 	<div>
+		<a href="{% url 'edit_post' post_id=post.pk %}">수정</a>
+        <form action="{% url 'delete_post' post_id=post.pk %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">삭제</button>
+        </form>
 		<img class="card-img-top embed-responsive-item" src="{{ post.images.url }}" width="100" alt="images/" />
 		<p>제목: {{ post.title }}, 가격: {{ post.price }}, 거래상황: {{ post.situation }}
 		<br>

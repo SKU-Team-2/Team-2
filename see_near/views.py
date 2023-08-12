@@ -1,9 +1,11 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import ProductForm
 from .models import Category, Post, Cart, CartItem, seenear_user
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
 from django.conf import settings
 # from iamport import Iamport
@@ -64,6 +66,7 @@ def post_list_by_category(request, category_id):
 
 
 # 글 작성
+@login_required
 def create_post(request):
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES)
@@ -82,14 +85,47 @@ def create_post(request):
     return render(request, 'see_near/create_post.html', context)
 
 # 게시글 수정
+@login_required
+def edit_post(request, post_id):
+    post = get_object_or_404(Post, post_id=post_id)
+    
+    if request.user == post.seller:  # 로그인한 사용자와 게시물 작성자 비교
+        if request.method == "POST":
+            form = ProductForm(request.POST, request.FILES, instance=post)
+
+            if form.is_valid():
+                form.save()
+                return redirect('home')
+        else:
+            form = ProductForm(instance=post)
+        return render(request, 'see_near/edit_post.html', {'form': form, 'post': post})
+    else:
+        return redirect('home')  # 권한이 없는 경우 홈 화면으로 리다이렉트
 
 # 게시글 삭제
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    
+    if post.seller == request.user:
+        if request.method == "POST":
+            post.delete()
+            return redirect('home')
+    else:
+        return HttpResponseForbidden("You do not have permission to delete this post.")
+    
+    context = {'post': post}
+    return render(request, 'see_near/delete_post.html', context)
+
 
 # 댓글 작성
 
+
 # 댓글 수정
 
+
 # 댓글 삭제
+
 
 # 검색창
 def search(request):

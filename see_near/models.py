@@ -55,7 +55,7 @@ class seenear_user(AbstractBaseUser):
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
 
-#카테고리(글이 있으면 삭제가 안됨 ㅠ)
+#카테고리
 class Category(models.Model):
     name = models.CharField(max_length=100)
     # category_id = models.AutoField(primary_key=True)
