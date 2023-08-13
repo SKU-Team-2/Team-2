@@ -37,6 +37,13 @@
                             <option value="{{ category.pk }}">{{ category.name }}</option>
                         {% endfor %}
                     </select>
+                    <label for="sort_by">Sort By:</label>
+                    <select name="sort" id="sort_by">
+                        <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name</option>
+                        <option value="date" {% if sort_by == 'date' %}selected{% endif %}>Date</option>
+                    </select>
+    
+    
                     <button type="submit" class="btn btn-primary">Filter</button>
                 </form>
                   <div class="heading_container heading_center">

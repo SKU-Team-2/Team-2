@@ -4,28 +4,6 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 
-# #슈퍼유저
-# class UserManager(BaseUserManager):
-#     def create_user(self, email, password):
-#         if not email:
-#             raise ValueError("이메일을 입력해주세요!")
-#         if not password:
-#             raise ValueError("비밀번호를 입력해주세요!")
-
-#         email = self.normalize_email(email)
-#         user = self.model(email=email)
-#         user.set_password(password)
-#         user.save(using=self._db)
-
-#         return user
-
-#     def create_superuser(self, email, password):
-#         user = self.create_user(email, password)
-#         user.is_staff = True
-#         user.is_superuser = True
-#         user.save(using=self._db)
-
-#         return user
 
 class SeenearUserManager(BaseUserManager):
     def create_user(self, user_id, password, **extra_fields):
@@ -35,14 +13,14 @@ class SeenearUserManager(BaseUserManager):
         return user
 
 class seenear_user(AbstractBaseUser):
-    user_id=models.TextField(max_length=200)
-    password=models.TextField(max_length=200)
-    nickname=models.TextField(max_length=200)
-    user_name=models.TextField(max_length=200)
-    email=models.EmailField(max_length=254)
-    address=models.TextField(max_length=200)
-    user_number=models.TextField(max_length=200)
-    reg_date=models.DateTimeField(auto_now_add=True)
+    user_number = models.AutoField(primary_key=True)
+    user_id = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
+    nickname = models.CharField(max_length=200)
+    user_name = models.CharField(max_length=200)
+    email = models.EmailField(max_length=254)
+    address = models.TextField(max_length=200)
+    reg_date = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
     
     objects = SeenearUserManager()
@@ -73,6 +51,7 @@ class Post(models.Model):
     situation = models.CharField(max_length=200, default="판매중") #거래 상황
     categories = models.ForeignKey(Category, on_delete=models.CASCADE) #카테고리
     seller = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(auto_now_add=True)
     images = models.ImageField(blank=True, upload_to="images/", null=True) #업로드된 이미지파일을 이미지에 저장
     
     def __str__(self):

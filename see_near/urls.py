@@ -1,10 +1,15 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 from . import views
 
+from rest_framework import routers
 
-urlpatterns = [#name 속성 추가
+router = routers.DefaultRouter() # DefaultRouter를 설정
+router.register('Post', views.PostViewSet) # itemviewset 과 Post라는 router 등록
+
+
+urlpatterns = [
     # 게시물
     path('', views.product_list, name = 'home'),
     path('create_post/', views.create_post, name = 'create_post'),
@@ -21,4 +26,6 @@ urlpatterns = [#name 속성 추가
     path('login_sn/', views.login_sn, name='login'),
     # 결제
     path('payment/', views.payment, name='payment'),
+    # swagger api
+    path('', include(router.urls))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

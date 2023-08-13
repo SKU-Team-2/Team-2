@@ -7,8 +7,15 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import viewsets
+from .serializers import PostSerializer
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
+
 from django.conf import settings
-# from iamport import Iamport
 
 
 # 메인 화면(상품 정보를 전달하는 함수)
@@ -25,6 +32,8 @@ def product_list(request):
     
     if sort_by == 'name':
         products = Post.objects.order_by('title')
+    elif sort_by == 'date':
+        products = products.order_by('-pub_date')
     searched = request.GET.get('searched', '')
     if searched:
         products = products.filter(title__icontains=searched)
@@ -232,8 +241,22 @@ def payment(request):
         
         # 결제 정보를 템플릿으로 전달하여 보여줌
         context = {
-            # 결제 정보 및 폼 데이터 등을 context에 추가
+                # 결제 정보 및 폼 데이터 등을 context에 추가
         }
         return render(request, 'see_near/payment.html', context)
     
     return render(request, 'see_near/payment.html')
+
+
+#-----------------------여기부턴 swagger api
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+    @swagger_auto_schema(request_body=PostSerializer)
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(request_body=PostSerializer)
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
