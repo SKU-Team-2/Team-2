@@ -455,6 +455,7 @@ input {
   width: 100%;
   margin-bottom: 0;
   padding-left: 0;
+  overflow: hidden;
 }
 
 .category_container ul li {
@@ -956,7 +957,7 @@ input {
   /* top: 10px; */
   /* left: 10px; */
   top: 16px;
-  left: 44px;
+  left: 16px;
   background-color: #ffffff;
   display: -webkit-box;
   display: -ms-flexbox;

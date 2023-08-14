@@ -449,8 +449,8 @@ input {
   -ms-flex-align: center;
   align-items: center;
   position: absolute;
-  bottom: -25px;
-  left: 5%;
+  bottom: -3px;
+  right: 0;
   padding: 7px 10px;
   border-radius: 5px 5px 0 0;
 }
@@ -745,6 +745,12 @@ input {
   left: 0;
   width: 100%;
 }
+.swiper-button-prev {
+  margin-left: 50px;
+}
+.swiper-button-next {
+  margin-right: 50px;
+}
 /*----------------------------------------------*/
 /*shope section*/
 .shop_section .box {
@@ -812,7 +818,7 @@ input {
   /* top: 10px; */
   /* left: 10px; */
   top: 16px;
-  left: 44px;
+  left: 16px;
   background-color: #ffffff;
   display: -webkit-box;
   display: -ms-flexbox;
