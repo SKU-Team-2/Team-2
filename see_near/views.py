@@ -1,4 +1,4 @@
-from django.http import HttpResponseForbidden
+from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import ProductForm
 from .models import Category, Post, Cart, CartItem, seenear_user
@@ -177,6 +177,23 @@ def add_cart(request, post_id): #카트에 저장 후 카트 페이지로 넘어
         
     return redirect('cart_detail')
 
+
+def minus_cart(request, post_id):
+    cart_items=CartItem.objects.filter(product=post_id)
+    product=Post.objects.get(pk=post_id)
+    try:
+        for cart_item in cart_items:
+            if cart_item.product.name==product.name:
+                if cart_item.quantity > 1:
+                    cart_item.quantity -= 1
+                    cart_item.save()
+                return redirect('cart_detail')
+            else:
+                return redirect('cart_detail')
+    except CartItem.DoesNotExist:
+        raise Http404
+
+
 def cart_detail(request, total=0, counter=0, cart_items=None): #카트 페이지 정보
     try:
         cart=Cart.objects.get(cart_id=cart_id(request))
@@ -235,17 +252,24 @@ def login_sn(request):
 
 # 결제
 def payment(request):
-    if request.method == 'POST':
-        # 결제 정보 처리 로직 추가
-        # 아임포트 API 호출, 결제 정보 생성 등
-        
-        # 결제 정보를 템플릿으로 전달하여 보여줌
-        context = {
-                # 결제 정보 및 폼 데이터 등을 context에 추가
-        }
-        return render(request, 'see_near/payment.html', context)
+    total = 0
+    counter = 0
+    cart_items = None
     
-    return render(request, 'see_near/payment.html')
+    if request.method == 'GET':
+        cart = Cart.objects.get(cart_id=cart_id(request))
+        cart_items = CartItem.objects.filter(cart=cart, active=True)
+        for cart_item in cart_items:
+            total += (cart_item.product.price * cart_item.quantity)
+            counter += cart_item.quantity
+                
+    context = {
+        'cart_items': cart_items,
+        'total': total,
+        'counter': counter
+    }
+    
+    return render(request, 'see_near/cart.html', context)
 
 
 #-----------------------여기부턴 swagger api

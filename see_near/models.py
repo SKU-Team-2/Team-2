@@ -51,7 +51,7 @@ class Post(models.Model):
     situation = models.CharField(max_length=200, default="판매중") #거래 상황
     categories = models.ForeignKey(Category, on_delete=models.CASCADE) #카테고리
     seller = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    pub_date = models.DateTimeField(auto_now_add=True)
+    # pub_date = models.DateTimeField(auto_now_add=True)
     images = models.ImageField(blank=True, upload_to="images/", null=True) #업로드된 이미지파일을 이미지에 저장
     
     def __str__(self):

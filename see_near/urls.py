@@ -19,13 +19,15 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('category/<int:category_id>/', views.post_list_by_category, name='category'),
     # 장바구니
-    path('post_detail/cart/<int:post_id>/', views.add_cart, name='add_cart'),
+    path('post_detail/add_cart/<int:post_id>/', views.add_cart, name='add_cart'),
+    path('post_detail/minus_cart/<int:post_id>/', views.minus_cart, name='minus_cart'),
     path('post_detail/cart/', views.cart_detail, name='cart_detail'), 
+    # 결제
+     path('cart/payment/', views.payment, name='payment'),
     # 회원가입/로그인
     path('register_sn/', views.register_sn, name='register'),
     path('login_sn/', views.login_sn, name='login'),
-    # 결제
-    path('payment/', views.payment, name='payment'),
+    
     # swagger api
     path('', include(router.urls))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
