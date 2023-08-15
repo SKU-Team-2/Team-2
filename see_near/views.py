@@ -1,19 +1,19 @@
 from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import ProductForm
-from .models import Category, Post, Cart, CartItem, seenear_user
+from .models import Category, Post, Cart, CartItem, seenear_user, Comment
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import viewsets
-from .serializers import PostSerializer
+from .serializers import (
+    CategorySerializer, PostSerializer, CommentSerializer,
+    CartSerializer, CartItemSerializer, SeenearUserSerializer
+)
 from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
-
+from rest_framework.permissions import IsAuthenticated
 
 from django.conf import settings
 
@@ -59,7 +59,7 @@ def product_detail(request, post_id):
             'post':post,
         }
     )
-    
+
 # 카테고리 분류 함수(왜안될까)
 def post_list_by_category(request, category_id):
     category = Category.objects.get(pk=category_id)
@@ -273,6 +273,10 @@ def payment(request):
 
 
 #-----------------------여기부턴 swagger api
+class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -284,3 +288,22 @@ class PostViewSet(viewsets.ModelViewSet):
     @swagger_auto_schema(request_body=PostSerializer)
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+class CartViewSet(viewsets.ModelViewSet):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+    permission_classes = [IsAuthenticated]
+
+class CartItemViewSet(viewsets.ModelViewSet):
+    queryset = CartItem.objects.all()
+    serializer_class = CartItemSerializer
+    permission_classes = [IsAuthenticated]
+
+class SeenearUserViewSet(viewsets.ModelViewSet):
+    queryset = seenear_user.objects.all()
+    serializer_class = SeenearUserSerializer
+    permission_classes = [IsAuthenticated]

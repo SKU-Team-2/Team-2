@@ -6,7 +6,12 @@ from . import views
 from rest_framework import routers
 
 router = routers.DefaultRouter() # DefaultRouter를 설정
-router.register('Post', views.PostViewSet) # itemviewset 과 Post라는 router 등록
+router.register(r'Post', views.PostViewSet)
+router.register(r'categories', views.CategoryViewSet)
+router.register(r'comments', views.CommentViewSet)
+router.register(r'carts', views.CartViewSet)
+router.register(r'cart-items', views.CartItemViewSet)
+router.register(r'users', views.SeenearUserViewSet)
 
 
 urlpatterns = [
