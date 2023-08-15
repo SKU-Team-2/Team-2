@@ -203,8 +203,9 @@ def minus_cart(request, post_id):
         raise Http404
 
 
-def cart_detail(request, total=0, counter=0, cart_items=None): #카트 페이지 정보
+def cart_detail(request, total=0, counter=0, cart_items=None, selected=None): #카트 페이지 정보
     try:
+        selected = request.POST.getlist('selected')
         cart=Cart.objects.get(cart_id=cart_id(request))
         cart_items=CartItem.objects.filter(cart=cart, active=True)
         for cart_item in cart_items:
@@ -213,7 +214,27 @@ def cart_detail(request, total=0, counter=0, cart_items=None): #카트 페이지
     except ObjectDoesNotExist:
         pass
     
-    return render(request, 'see_near/cart.html', dict(cart_items=cart_items, total=total, counter=counter))
+    return render(request, 'see_near/cart.html', dict(cart_items=cart_items, total=total, counter=counter, selected=selected))
+
+def remove_selected(request):
+    if request.method =="POST":
+        selected_items=request.POST.getlist('selected')
+        cart=Cart.objects.get(cart_id=cart_id(request))
+        
+        for item_id in selected_items:
+            cart_item=get_object_or_404(CartItem, id=item_id)
+            if cart_item.cart ==cart:
+                cart_item.delete()
+                
+    return redirect('cart_detail')
+    
+    
+#     def full_remove(request, post_id):
+#     cart=Cart.objects.get(cart_id=cart_id(request))
+#     product=get_object_or_404(Post, popst_id=post_id)
+#     cart_item=CartItem.objects.get(product=product, cart=cart)
+#     cart_item.delete()
+#     return redirect('cart_detail')
 
 #--------------------여기부턴 유저관리
 

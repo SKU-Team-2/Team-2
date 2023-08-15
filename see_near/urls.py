@@ -26,6 +26,8 @@ urlpatterns = [
     # 장바구니
     path('post_detail/add_cart/<int:post_id>/', views.add_cart, name='add_cart'),
     path('post_detail/minus_cart/<int:post_id>/', views.minus_cart, name='minus_cart'),
+    path('post_detail/remove_selected/', views.remove_selected, name='remove_selected'),
+    path('post_detail/remove_seleted/',views.remove_selected, name='remove_selected'),
     path('post_detail/cart/', views.cart_detail, name='cart_detail'), 
     # 결제
      path('cart/payment/', views.payment, name='payment'),
