@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     
     'see_near',
     'drf_yasg',
-    'rest_framework'
+    'rest_framework',
+    'mptt',
 ]
 
 MIDDLEWARE = [

@@ -32,6 +32,8 @@ urlpatterns = [
     # 회원가입/로그인
     path('register_sn/', views.register_sn, name='register'),
     path('login_sn/', views.login_sn, name='login'),
+    path('update_user/<int:pk>/', views.update_user, name="update_user"),
+    path("logout/", views.logout_view, name="logout"),
     
     # swagger api
     path('', include(router.urls))

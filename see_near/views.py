@@ -4,7 +4,7 @@ from .forms import ProductForm
 from .models import Category, Post, Cart, CartItem, seenear_user, Comment
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
 from rest_framework import viewsets
@@ -62,12 +62,12 @@ def product_detail(request, post_id):
 
 # 카테고리 분류 함수(왜안될까)
 def post_list_by_category(request, category_id):
-    category = Category.objects.get(pk=category_id)
-    posts = Post.objects.filter(categories=category)
-    
+    category = get_object_or_404(Category, id=category_id)
+    posts = Post.objects.filter(categories__in=category.get_descendants(include_self=True))
+
     context = {
-        'category':category,
-        'posts':posts
+        'category': category,
+        'posts': posts
     }
     return render(request, 'see_near/category.html', context)
 
@@ -244,9 +244,28 @@ def login_sn(request):
     return render(request, 'see_near/login.html')
 
 # 로그아웃
+def logout_view(request):
+    logout(request)
+    return redirect("see_near:login")
 
-# 회원정보 확인
-
+# 회원정보 수정
+def update_user(request, pk):
+    user = get_object_or_404(seenear_user, pk=pk)
+    if request.method == 'POST':
+        user.full_name = request.POST['full_name']
+        user.email = request.POST['email']
+        user.nick_name = request.POST['nick_name'] 
+        user.username = request.POST['username'] 
+        user.password = request.POST.get('password')  
+        user.save()
+        return redirect('see_near:home')
+    return render(
+		request,
+		'see_near/user_update.html',
+		{
+			'user' : user,
+		},
+	)
 
 #-----------------------여기부턴 결제
 
