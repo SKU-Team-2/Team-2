@@ -51,14 +51,23 @@ def product_list(request):
 # 상품 상세정보
 def product_detail(request, post_id):
     post=get_object_or_404(Post, post_id=post_id)
-    
+    comments = Comment.objects.filter(post=post_id).all()
+    if request.method == 'POST':
+        nick_name = request.user.nick_name
+        content = request.POST.get('content', '').strip()  # POST 요청에서 'content' 키의 값을 가져옵니다.
+
+        if content:
+            # 댓글이 비어있지 않을 경우에만 새로운 댓글을 생성하고 저장합니다.
+            comment = Comment(post=post.pk, nick_name=nick_name, content=content)
+            comment.save()
+            # 댓글을 저장한 후에 해당 블로그 포스트 페이지로 리다이렉트
+            return redirect('body', pk=post_id)
+        
     return render(
-        request,
-        'see_near/post_detail.html',
-        {
-            'post':post,
-        }
-    )
+		request,
+		'see_near/post_detail.html', 
+		{'post': post, 'comments': comments}
+	)
 
 # 카테고리 분류 함수(왜안될까)
 def post_list_by_category(request, category_id):
@@ -209,15 +218,15 @@ def cart_detail(request, total=0, counter=0, cart_items=None): #카트 페이지
 #--------------------여기부턴 유저관리
 
 # 회원가입
-def register_sn(request):
+def register(request):
     if request.method == 'POST':
-        user_name = request.POST.get('user_name')
+        username = request.POST.get('username')
         email = request.POST.get('email')
-        nickname = request.POST.get('nickname')
+        nickname = request.POST.get('nick_name')
         user_id = request.POST.get('user_id')
         password = request.POST.get('password')
 
-        new_user = seenear_user(user_name=user_name, email=email, nickname=nickname, user_id=user_id, password=password)
+        new_user = seenear_user(username=username, nick_name=nickname, email=email, user_id=user_id, password=password)
         new_user.save()
         messages.success(request, '회원가입이 완료되었습니다.')
         return redirect('login')
@@ -225,7 +234,7 @@ def register_sn(request):
     return render(request, 'see_near/register.html')
 
 # 로그인
-def login_sn(request):
+def login(request):
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
         password = request.POST.get('password')
@@ -246,7 +255,7 @@ def login_sn(request):
 # 로그아웃
 def logout_view(request):
     logout(request)
-    return redirect("see_near:login")
+    return redirect("login")
 
 # 회원정보 수정
 def update_user(request, pk):

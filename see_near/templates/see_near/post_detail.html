@@ -28,6 +28,11 @@
 			<a href="{% url 'add_cart' post.post_id %}"><li class="nav-item">장바구니</li></a>
 		</ul>
 	</div>
+	<form method="post">
+	{% csrf_token %}
+	<textarea class="form-control" name="content" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+	<button type="submit" class="btn btn-primary mt-3">Submit Comment</button>
+	</form>
 	{% for comment in comments %}
 	 <div class="comment">
 		<div class="date">{{ comment.comment_date }}</div>

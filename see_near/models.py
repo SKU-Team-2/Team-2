@@ -35,15 +35,14 @@ class SeenearUserManager(BaseUserManager):
 
 
 class seenear_user(AbstractBaseUser):
-    username = models.CharField(max_length=200, unique=True)
-    user_id = models.CharField(max_length=200)    
-    password=models.TextField(max_length=200)
-    nick_name=models.TextField(max_length=200)
-    full_name=models.TextField(max_length=200)
-    email=models.EmailField(max_length=254)
-    address=models.TextField(max_length=200)
-    user_number=models.TextField(max_length=200)
-    reg_date=models.DateTimeField(auto_now_add=True)
+    user_number = models.AutoField(primary_key=True)
+    user_id = models.CharField(max_length=200, unique=True)    
+    password = models.CharField(max_length=200)
+    username = models.CharField(max_length=200, unique=True)   # 이름
+    nick_name = models.CharField(max_length=200)               # 닉네임
+    email = models.EmailField(max_length=254)                  # 이메일
+    address = models.TextField(max_length=200)                 # 주소
+    reg_date = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
     
     objects = SeenearUserManager()
@@ -51,7 +50,7 @@ class seenear_user(AbstractBaseUser):
     USERNAME_FIELD = 'username'
 
     def __str__(self):
-        return self.username
+        return self.nick_name
     
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
@@ -88,7 +87,7 @@ class Post(models.Model):
 
 # 댓글
 class Comment(models.Model):
-    post_id = models.ForeignKey('Post', on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     content = models.TextField()
     C_pub_time = models.DateTimeField(auto_now_add=True)
