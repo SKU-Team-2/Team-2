@@ -22,7 +22,7 @@
                 <li class="nav-item"><a class="nav-link" href="create_post/">게시물</a></li>
                 <li class="nav-item"><a href="{% url 'cart_detail' %}">장바구니</a></li>
                 <a href="{% url 'payment'%}"><button type="button">상품 구매</a></button>
-                {% comment %} <a href="{% url 'update_user' user.pk %}"><button type="button">회원정보 수정</a></button> {% endcomment %}
+                <a href="{% url 'update_user' user.pk %}"><button type="button">회원정보 수정</a></button>
 
                 {% else %}
                 <!-- 로그인하지 않은 경우: 로그인 버튼 표시 -->
@@ -34,10 +34,10 @@
               {% csrf_token %}
               <input class="form-control me-2" type="search" placeholder="Search" name="searched" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+            </form>
             <section class="shop_section layout_padding">
                 <div class="container">
-                  <form>
+                  <form action="{% url 'category' selected_category.pk %}">
                     {% csrf_token %}
                     <label for="category">Select Category:</label>
                     <select name="category" id="category">
@@ -46,15 +46,19 @@
                             <option value="{{ category.pk }}">{{ category.name }}</option>
                         {% endfor %}
                     </select>
+                    <button type="submit" class="btn btn-primary">Category Filter</button>
+                  </form>                
+
+                  <form>
+                    {% csrf_token %}
                     <label for="sort_by">Sort By:</label>
                     <select name="sort" id="sort_by">
-                        <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name</option>
-                        <option value="date" {% if sort_by == 'date' %}selected{% endif %}>Date</option>
+                        <option value="name" {% if sort_by == 'name' %}selected{% endif %}>이름순</option>
+                        <option value="date" {% if sort_by == 'date' %}selected{% endif %}>최신순</option>
                     </select>
-    
-    
-                    <button type="submit" class="btn btn-primary">Filter</button>
-                </form>
+                    <button type="submit" class="btn btn-primary">Sort Filter</button>
+                  </form>
+                  
                   <div class="heading_container heading_center">
                     <h2>
                       Latest Products

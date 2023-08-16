@@ -22,19 +22,17 @@ urlpatterns = [
     path('main/edit_post/<int:post_id>/', views.edit_post, name='edit_post'),
     path('main/delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
     path('search/', views.search, name='search'),
-    path('category/<int:category_id>/', views.post_list_by_category, name='category'),
+    path('category/<int:category_id>/', views.category_view, name='category'),
     # 장바구니
     path('post_detail/add_cart/<int:post_id>/', views.add_cart, name='add_cart'),
     path('post_detail/minus_cart/<int:post_id>/', views.minus_cart, name='minus_cart'),
     path('post_detail/remove_selected/', views.remove_selected, name='remove_selected'),
-    path('post_detail/remove_seleted/',views.remove_selected, name='remove_selected'),
     path('post_detail/cart/', views.cart_detail, name='cart_detail'), 
     # 결제
     path('cart/payment/', views.payment, name='payment'),
     # 회원가입/로그인
     path('register/', views.register, name='register'),
     path('login/', views.login_sn, name='login'),
-    path('update_user/<int:pk>/', views.update_user, name='update_user'),
     path("logout/", views.logout_view, name='logout'),
     path('update_user/<int:pk>/', views.update_user, name='update_user'),
     

@@ -50,34 +50,37 @@ def product_list(request):
 
 # 상품 상세정보
 def product_detail(request, post_id):
-    post=get_object_or_404(Post, post_id=post_id)
-    comments = Comment.objects.filter(post=post_id).all()
+    post = get_object_or_404(Post, post_id=post_id)
+    
     if request.method == 'POST':
-        nick_name = request.user.nick_name
-        content = request.POST.get('content', '').strip()  # POST 요청에서 'content' 키의 값을 가져옵니다.
+        if request.user.is_authenticated:  # Check if the user is authenticated
+            user_instance = request.user  # Get the seenear_user instance
 
-        if content:
-            # 댓글이 비어있지 않을 경우에만 새로운 댓글을 생성하고 저장합니다.
-            comment = Comment(post=post.pk, nick_name=nick_name, content=content)
-            comment.save()
-            # 댓글을 저장한 후에 해당 블로그 포스트 페이지로 리다이렉트
-            return redirect('body', pk=post_id)
-        
+            content = request.POST.get('content', '').strip()
+
+            if content:
+                post_instance = Post.objects.get(pk=post.pk)
+                comment = Comment(post=post_instance, nickname=user_instance, content=content)
+                comment.save()
+                return redirect('post_detail', post_id=post_id)
+            
+    comments = Comment.objects.filter(post=post_id).all()
     return render(
-		request,
-		'see_near/post_detail.html', 
-		{'post': post, 'comments': comments}
-	)
+        request,
+        'see_near/post_detail.html', 
+        {'post': post, 'comments': comments}
+    )
 
 # 카테고리 분류 함수(왜안될까)
-def post_list_by_category(request, category_id):
-    category = get_object_or_404(Category, id=category_id)
-    posts = Post.objects.filter(categories__in=category.get_descendants(include_self=True))
-
+def category_view(request, category_id):
+    selected_category = Category.objects.get(pk=category_id)
+    category_posts = Post.objects.filter(category=selected_category)
+    
     context = {
-        'category': category,
-        'posts': posts
+        'selected_category': selected_category,
+        'category_posts': category_posts,
     }
+    
     return render(request, 'see_near/category.html', context)
 
 # 카테고리별 검색
@@ -106,6 +109,7 @@ def create_post(request):
 @login_required
 def edit_post(request, post_id):
     post = get_object_or_404(Post, post_id=post_id)
+    print(post.seller)
     
     if request.user == post.seller:  # 로그인한 사용자와 게시물 작성자 비교
         if request.method == "POST":
@@ -124,6 +128,7 @@ def edit_post(request, post_id):
 @login_required
 def delete_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
+    print(post.seller)
     
     if post.seller == request.user:
         if request.method == "POST":
@@ -134,10 +139,6 @@ def delete_post(request, post_id):
     
     context = {'post': post}
     return render(request, 'see_near/delete_post.html', context)
-
-
-# 댓글 작성
-
 
 # 댓글 수정
 
@@ -150,6 +151,7 @@ def search(request):
     if request.method =='POST':
         searched = request.POST['searched']
         products = Post.objects.filter(title__contains=searched)
+        
         return render(request, 'see_near/search.html', {'searched':searched, 'products':products})
     else:
         return render(request, 'see_near/search.html')
@@ -241,13 +243,13 @@ def remove_selected(request):
 # 회원가입
 def register(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        user_id = request.POST.get('user_id')
         email = request.POST.get('email')
-        nick_name = request.POST.get('nick_name')
+        nickname = request.POST.get('nickname')
         full_name = request.POST.get('full_name')
         password = request.POST.get('password')
 
-        new_user = seenear_user.objects.create_user(username=username, email=email, nick_name=nick_name, full_name=full_name, password=password)
+        new_user = seenear_user.objects.create_user(user_id=user_id, email=email, nickname=nickname, full_name=full_name, password=password)
         # new_user.set_password(password)
         # new_user.save()
         messages.success(request, '회원가입이 완료되었습니다.')
@@ -277,9 +279,6 @@ def login_sn(request):
 @login_required
 def logout_view(request):
     logout(request)
-    # if not request.user.is_superuser:
-    #     # 일반 사용자인 경우에만 로그아웃 처리
-    #     logout(request)
     return redirect("home")
 
 # 회원정보 수정
@@ -293,7 +292,7 @@ def update_user(request, pk):
         user.username = request.POST['username'] 
         user.password = request.POST.get('password')  
         user.save()
-        return redirect('see_near:home')
+        return redirect('home')
     return render(
 		request,
 		'see_near/user_update.html',
@@ -301,6 +300,7 @@ def update_user(request, pk):
 			'user' : user,
 		},
 	)
+    
 
 #-----------------------여기부턴 결제
 
