@@ -76,8 +76,8 @@ class SeenearUserManager(BaseUserManager):
         user.user_id = user_id
         user.nickname = nickname
         user.full_name = full_name
-        # user.staff = staff
-        # user.admin = admin
+        user.staff = staff
+        user.admin = admin
         user.active = active
         user.save(using=self._db)
         
