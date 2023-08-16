@@ -1,70 +1,61 @@
 @font-face {
-    font-family: 'HANAMDAUM';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/HANAMDAUM.woff2') format('woff2');
-    font-weight: 400;
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
     font-style: normal;
 }
 
-.hanam-font {
-    font-family: 'HANAMDAUM';
+.gmarket-font {
+    font-family: 'GmarketSansMedium';
 }
 
-
+.title {
+    margin-top: 30px;
+   color: brown;
+   font-size: 40px;
+}
 /*로그인 타이틀*/
 
-.signup {
+.login {
+    display: flex;
+    flex-direction: column;
     position: relative;
-    margin-top: 30px;
+    margin:0 auto;
     text-align: center;
     text-decoration: solid;
     padding: 22px;
+    width: 600px;
+    font-family: 'GmarketSansMedium';
 }
 
-.parent-size {
-    font-size: 0;
-}
-
-.parent-size a {
-    font-size: 42px;
-    text-decoration: none;
+.form-label {
+    padding: 3px 0px 0px;
+    margin-top: 10px;
+    text-align: left;
 }
 .signtitle {
-    font-family: 'HANAMDAUM';
-    color: black;
+    color: brown;
     text-align: center;
+    font-size: 15px;
+    text-decoration-line: none;
+    margin-top: 25px;
 }
 .signtitle:hover {
     color: black;
 }
 
-/*아이디 및 비밀번호 입력*/
-
-.idpw {
-    color: rgb(206, 165, 161);
-    font-size: 12px;
+.submit {
+    padding: 10px 15px;
+    font-size:15px;
 }
-.idpw .logid {
-    position: relative;
-    padding: 10px 10px;
-    text-align: center;
-    text-decoration-line: none;
-    border-radius: 30px;
-    font-family: 'HANAMDAUM';
-}
-
-.radi {
-    border-radius: 5px;
-    width: 300px;
-    height: 35px;
-}
-
 
 /*또는*/
 
 .or {
    font-size: 12px;
-   font-family: 'HANAMDAUM';
+   font-family: 'GmarketSansMedium';
    text-align: center;
+   margin-bottom: 20px
 }
 /*button*/
 
@@ -76,7 +67,7 @@
     text-decoration-line: none;
     text-align: center;
     border-radius: 20px!important;
-    font-family: 'HANAMDAUM';
+    font-family: 'GmarketSansMedium';
     }
 
 /*button google*/
@@ -85,11 +76,12 @@
     width: 300px;
 }
 .signupbtn {
-    width: 300px;
+    width: 400px;
+    padding: 10px 15px;
 }
 button .googleb-image {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     border-radius: 10px;
 }
 

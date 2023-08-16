@@ -1,0 +1,115 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.gmarket-font {
+    font-family: 'GmarketSansMedium';
+}
+
+
+
+.topimg {
+    width: 12px;
+    height: 12px;
+}
+
+/*메인페이지*/
+
+.box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 220, 217);
+
+}
+.sellnav {
+    background-color: rgb(255, 220, 217);
+}
+.selling-nav {
+    font-size: 25px;
+}
+
+.sellnav a {
+    color: black
+  }
+
+  .sellnav a:hover {
+    color:red
+  }
+/*제품이미지*/
+
+.carousel-item img {
+    max-height: 300px;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    position: relative;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgb(0, 0, 0);
+}
+
+
+.square-image-container {
+    width: 100%;
+    padding-bottom: 30px;
+    position: relative;
+    border-radius: 20px;
+}
+
+.square-image {
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.btn-heart {
+    width: 20px;
+    height: 20px;
+}
+
+.button-heart:hover {
+    background-color: black;
+    color: wheat
+}
+
+/*후기통계와 전체후기*/
+
+.sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+}
+
+.profile-image {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.sub-text {
+    font-size: 35px;
+}
+
+.progress-content {
+    background-color: rgb(255, 220, 217);
+    padding: 20px 50px 10px 20px;
+}
+.progress-bar {
+    width: 90%;
+}
+
+
+
+

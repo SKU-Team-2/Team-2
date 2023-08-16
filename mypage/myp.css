@@ -1,183 +1,167 @@
 @font-face {
-    font-family: 'HANAMDAUM';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/HANAMDAUM.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
-.HANAMDAUM {
-    font-family: 'HANAMDAUM';
-}
-
-.container {
-    position: relative;
-}
-
-.full-container {
-    position: absolute;
-}
-/*제 1면*/
-.profile {
-    background-color: rgb(255, 255, 255);
-    text-align: center;
-    padding: 50px 2px 390px;
-}
-.profile-img {
-    background-color: green;
-    width: 200px;
-    height: 200px;
-    top: 50%;
-    left: 50%;
-    border-radius: 100px;
-    margin: auto;
-
-}
-
-
-.img-wrapper {
-    display: flex;
-    align-items: center;
-}
-
-/*제 2면*/
-.subtext-title {
-    font-size: 20px;
-    font-family: 'HANAMDAUM';
-}
-
-.mypoint {
-    position: relative;
-    background-color: rgb(255, 108, 108);
-    color: rgb(210, 195, 195);
-    font-size: 18px;
-    font-family: 'HANAMDAUM';
-    padding: 30px 50px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid;
-    margin: auto;
-    border-radius: 8px;
-}
-
-.mypoint .point-text {
-    color: aliceblue;
+.gmarket-font {
+  font-family: 'GmarketSansMedium';
 }
 
 .tomato-text {
-    justify-content: center;
-}
-/*나의토마토지수*/
-.mytomato {
-    position: relative;
-    background-color: black;
-    justify-content: center;
-    text-align: center;
-    padding: 30px 100px;
-    color: white;
-    height: 70px;
-    font-family: 'HANAMDAUM';
-    margin: auto;
+  font-size: 20px;
+  text-align: center;
 }
 
-/*나의 리뷰메뉴*/
-.myreview {
-    background-color: rgb(232, 232, 232);
-    border-color: rgb(232, 232, 232);
-    color: #ff5141;
-    font-family: 'HANAMDAUM';
+.tomato-text a {
+  color: rgb(246, 117, 117);
+}
+.tomatobtn {
+  background-color: rgb(255, 205, 205);
+  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
 }
 
-.myreview:hover {
-    border-style: none;
+.regularbtn {
+  background-color: rgb(234, 79, 79);
+  color: white;
+  border-radius: 10px;
+}
+/*프로필*/
+
+body {
+  font-family: 'GmarketSansMedium', sans-serif;
 }
 
-/**최근 본 상품과 판매한 상품**/
-
-.recent-look {
-    background-color: rgb(233, 233, 233);
+.navbar-brand {
+  font-weight: bold;
 }
 
-.sold-look {
-    background-color: rgb(225, 225, 225);
+.carousel-content-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-.recent-txt {
-    padding: 10px;
-    font-size: 20px;
-    font-family: 'HANAMDAUM';
+h1 {
+  font-weight: bold;
 }
-/*쇼핑몰 박스*/
 
-.shoptxt {
-    background-color: white;
-    padding: 10px 0px 10px;
+.carousel {
+  margin-top: 2rem;
 }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+}
+
+.carousel-indicators {
+  bottom: 26px;
+}
+
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+}
+
+/*slider*/
 
 .slider {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .slider-wrapper {
-    position: relative;
-  }
-  
-  .slider-items {
-    display: flex;
-    width: fit-content;
-    flex-wrap: nowrap;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .slider-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 100%;
-  }
-  
-  .slider-item img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-  
-  .prev-btn, .next-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;  
-    cursor: pointer;
-  }
-  
-  .prev-btn {
-    left: 0;
-    z-index: 5;
-    color: #000;
-  }
-  
-  .next-btn {
-    right: 0;
-    z-index: 5;
-    color: #000;
-  }
-  
-  .prev-btn-i, .next-btn-i {
-    color: #000;
-  }
-  
-  .prev-btn i, .next-btn i{
-    height: 50px;
-    width: 50px;
-  }
-  
-  .btn-color {
-    color: #000;
-  }
+  position: relative;
+  overflow: hidden;
+  width: 800px;
+  height: 400px;
+}
+
+.slider-wrapper {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s;
+}
+
+.slider-item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-color {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.prev-btn,
+.next-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: all;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s;
+  color: #ffffff;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev-btn {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.next-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+.carousel-item img {
+  max-height: 300px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+  position: relative;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgb(0, 0, 0);
+}
+

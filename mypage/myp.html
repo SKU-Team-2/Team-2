@@ -21,13 +21,14 @@
                <h1>My page</h1>
                 <br/>
                     <div class="img-wrapper"></div>
-                      <div class="profile-img display-block"><img src="" alt=""></div>
+                      <div class=" display-block"><img src="../selling/sellingimg/user.png" class="profile-img" alt="개인프로필"></div>
                  <div>
                   <br/>
                   <h2>닉네임</h2>
                   <p>회원등급</p>
                  </div>
-                <a href="#"><img src="#" alt="">설정</a>
+                <a href="#">정보 수정</a><br/>
+                <a href="#">로그아웃</a>
              </div>
 
             </div>
@@ -37,26 +38,28 @@
                <div class="flex-column">
                  <div class="p-2">
                   <br/>
-                   <div class="mypoint box display-block">
-                     <div>
-                      <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                          <li class="breadcrumb-item active point-text" aria-current="page">나의 토마토지수 100P</li>
-                        </ol>
-                      </nav>
-                     </div>
-                   </div>
-                   <br/>
+
                    <div class="mytomato rounded container">
                       <div class="display-block">
-                        <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                        <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb" class="tomatobtn tomato-text">
                           <ol class="breadcrumb">
-                            <li class="breadcrumb-item active" aria-current="page">나의 토마토지수 100P</li>
-                            <li class="breadcrumb-item"><a class="tomato-text" href="#">새 판매글 작성</a></li>
+                            <li class="breadcrumb-item active" aria-current="page" class="tomato-text">나의 토마토지수 100P</li>
+                            <li class="breadcrumb-item "><a href="#" class="tomato-text">새 판매글 작성</a></li>
                           </ol>
                         </nav>
                       </div>
                    </div>
+                   <br/>
+                   <div class="mytomato rounded container">
+                    <div class="display-block">
+                      <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb" class="tomatobtn tomato-text">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item active" aria-current="page" class="tomato-text">나의 판매지수 100P</li>
+                          <li class="breadcrumb-item "><a href="#" class="tomato-text">판매한 상품 보기</a></li>
+                        </ol>
+                      </nav>
+                    </div>
+                 </div>
                    <br/>
                    <div class="myreview rounded">
                      <div class="row">
@@ -64,18 +67,19 @@
                         <ul class="pagination">
                           <div class></div>
                             <div class="container">
-                              <li class="page-item"><a class="page-link myreview" href="#">주문 내역 <div>11</div></a></li><hr/>
-                              <li class="page-item"><a class="page-link myreview" href="#">나의 리뷰<div>11</div></a></li><hr/>
-                              <li class="page-item"><a class="page-link myreview" href="#">고객 문의<div>1</div></a></li>
+                              <li class="page-item"><a class="page-link myreview regularbtn" href="#">주문 내역 <div>11</div></a></li><hr/>
+                              <li class="page-item"><a class="page-link myreview regularbtn" href="#">나의 리뷰<div>11</div></a></li><hr/>
+                              <li class="page-item"><a class="page-link myreview regularbtn" href="#">고객 문의<div>1</div></a></li>
                             </div>
                         </ul>
                       </nav>
                      </div>
                     </div>
+                    <br/>
 
                  <div class="p-2">
                      <div class="recent-look shoptxt">
-                      <div><p>최근 본 상품</p></div>
+                      <div><p class="tomato-text">최근 본 상품</p></div>
                               <div class="slider">
                                 <div class="slider-wrapper">
                                   <div class="slider-items">
@@ -92,14 +96,15 @@
                                       <img src="https://via.placeholder.com/800x400?text=Slide+4" alt="Slide 4"/>
                                     </div>
                                   </div>
-                                   <div class="btn-color">
-                                    <div class="prev-btn">
-                                      <i class="fas fa-chevron-left"></i>
-                                    </div>
-                                    <div class="next-btn">
-                                      <i class="fas fa-chevron-right"></i>
-                                    </div>
-                                   </div>
+                                  <div style="z-index: 1000;">
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">이전</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">다음</span>
+                                    </button>
 
                                 </div>
                       </div>
