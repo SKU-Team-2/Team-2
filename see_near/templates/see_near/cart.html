@@ -54,6 +54,8 @@
     <h1>장바구니</h1>
     <div class="row mx-auto">
         <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+            <form method="post" action="{%url 'remove_selected'%}">
+            {% csrf_token %}
             <table class="table my_custom_table">
                 <thread class="my_custom_table">
                     <tr>
@@ -66,6 +68,9 @@
                     {% for cart_item in cart_items %}
                     <tr>
                         <td>
+                            <input id="selected" type="checkbox" name="selected" value="{{ cart_item.id }}">
+                        </td>
+                        <td>
                             <a href="{{ cart_item.product.get_absolute_url }}"><img src="{{ cart_item.product.images.url }}" alt="" class="float-left rounded custom_image"></a>
                         </td>
                         <td class="text-align">
@@ -76,22 +81,24 @@
                             price: {{cart_item.product.price}}원
                             <br>
                             quantity: {{cart_item.quantity}}개
+                            {% if cart_item.quantity <= counter %}
+                            {% comment %} <a href="{% url 'add_cart' cart_item.product.post_id %}" class="custom_a">
+                                <i class="fas fa--plus-circle custom_icon"></i>
+                                </a> {% endcomment %}
+                                <a href="{% url 'minus_cart' cart_item.product.post_id %}"><p>수량빼기</p></a>
+                                <a href="{% url 'add_cart' cart_item.product.post_id %}"><p>수량더하기</p></a>
+                            {% else %}
+                            {% endif %}
                         </td>
                         <td>
                             total: {{cart_item.sub_total}}원
-                        </td>
-                        {% if cart_item.quantity <= counter %}
-                            {% comment %} <a href="{% url 'add_cart' cart_item.product.post_id %}" class="custom_a">
-                                <i class="fas fa--plus-circle custom_icon"></i>
-                            </a> {% endcomment %}
-                            <a href="{% url 'minus_cart' cart_item.product.post_id %}"><p>수량빼기</p></a>
-                            <a href="{% url 'add_cart' cart_item.product.post_id %}"><p>수량더하기</p></a>
-                        {% else %}
-                        {% endif %}
+                        </td>    
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            <button type="submit">선택한 항목 삭제</button>
+        </form>
         </div>
         <div class="col-12 col-sm-21 col-md-12 col-lg-6 text-center">
             <table class="table my_custom_table">
