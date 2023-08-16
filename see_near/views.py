@@ -73,15 +73,17 @@ def product_detail(request, post_id):
 
 # 카테고리 분류 함수(왜안될까)
 def category_view(request, category_id):
-    selected_category = Category.objects.get(pk=category_id)
-    category_posts = Post.objects.filter(category=selected_category)
-    
-    context = {
-        'selected_category': selected_category,
-        'category_posts': category_posts,
-    }
-    
-    return render(request, 'see_near/category.html', context)
+    if request.method == "POST":
+        selected_category = Category.objects.get(pk=category_id)
+        category_posts = Post.objects.filter(category=selected_category)
+        
+        print("asdfg")
+        context = {
+            'selected_category_id': selected_category.id,
+            'category_posts': category_posts,
+        }
+        
+        return render(request, 'see_near/category.html', context)
 
 # 카테고리별 검색
 
