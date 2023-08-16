@@ -241,13 +241,13 @@ def remove_selected(request):
 # 회원가입
 def register(request):
     if request.method == 'POST':
-        user_id = request.POST.get('user_id')
+        username = request.POST.get('username')
         email = request.POST.get('email')
-        nickname = request.POST.get('nickname')
+        nick_name = request.POST.get('nick_name')
         full_name = request.POST.get('full_name')
         password = request.POST.get('password')
 
-        new_user = seenear_user.objects.create_user(user_id=user_id, email=email, nickname=nickname, full_name=full_name, password=password)
+        new_user = seenear_user.objects.create_user(username=username, email=email, nick_name=nick_name, full_name=full_name, password=password)
         # new_user.set_password(password)
         # new_user.save()
         messages.success(request, '회원가입이 완료되었습니다.')
@@ -256,7 +256,7 @@ def register(request):
     return render(request, 'see_near/register.html')
 
 # 로그인
-def login(request):
+def login_sn(request):
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
         password = request.POST.get('password')
@@ -264,7 +264,7 @@ def login(request):
         user = authenticate(username=user_id, password=password)
         if user is not None:
             print(user)
-            login(request)
+            login(request, user)
             return redirect('home')
         else:
             print(user, '...')

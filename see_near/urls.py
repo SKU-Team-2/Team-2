@@ -33,7 +33,7 @@ urlpatterns = [
     path('cart/payment/', views.payment, name='payment'),
     # 회원가입/로그인
     path('register/', views.register, name='register'),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_sn, name='login'),
     path('update_user/<int:pk>/', views.update_user, name='update_user'),
     path("logout/", views.logout_view, name='logout'),
     path('update_user/<int:pk>/', views.update_user, name='update_user'),
