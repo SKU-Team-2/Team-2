@@ -23,7 +23,12 @@ def product_list(request):
     products = Post.objects.all()
     sort_by = request.GET.get('sort', 'name')
     category_id = request.GET.get('category')
-
+    
+    if request.method == "POST":
+        if request.POST.get('category'):
+            category_get = get_object_or_404(Category, id=request.POST.get('category'))
+            return redirect('category', category_id=category_get.id)
+        
     if category_id:
         category = get_object_or_404(Category, pk=category_id)
         products = Post.objects.filter(categories=category)
@@ -73,17 +78,17 @@ def product_detail(request, post_id):
 
 # 카테고리 분류 함수(왜안될까)
 def category_view(request, category_id):
-    if request.method == "POST":
-        selected_category = Category.objects.get(pk=category_id)
-        category_posts = Post.objects.filter(category=selected_category)
-        
-        print("asdfg")
-        context = {
-            'selected_category_id': selected_category.id,
-            'category_posts': category_posts,
-        }
-        
-        return render(request, 'see_near/category.html', context)
+    
+    selected_category = Category.objects.get(pk=category_id)
+    category_posts = Post.objects.filter(categories=selected_category)
+    
+    print("asdfg")
+    context = {
+        'selected_category_id': selected_category.id,
+        'category_posts': category_posts,
+    }
+
+    return render(request, 'see_near/category.html', context)
 
 # 카테고리별 검색
 

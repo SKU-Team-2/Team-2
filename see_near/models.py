@@ -64,8 +64,8 @@ class seenear_user(AbstractBaseUser):
     @property
     def is_superuser(self):
         return self.admin
-    
-    
+
+
 # 카테고리
 class Category(MPTTModel):
     name = models.CharField(max_length=100)
@@ -82,13 +82,13 @@ class Post(models.Model):
     post_id = models.AutoField(primary_key=True) #게시물 아이디
     title = models.CharField(max_length=100) # 제목
     name = models.CharField(max_length=100)  # 제품명
-    content = models.TextField() #내용
-    price = models.IntegerField() #가격
-    situation = models.CharField(max_length=200, default="판매중") #거래 상황
+    content = models.TextField()  # 내용
+    price = models.IntegerField() # 가격
+    situation = models.CharField(max_length=200, default="판매중") # 거래 상황
     categories = models.ForeignKey(Category, on_delete=models.CASCADE)
     seller = models.ForeignKey(seenear_user, on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True)
-    images = models.ImageField(blank=True, upload_to="images/", null=True) #업로드된 이미지파일을 이미지에 저장
+    images = models.ImageField(blank=True, upload_to="images/", null=True) # 업로드된 이미지파일을 이미지에 저장
     
     def __str__(self):
         return self.title
