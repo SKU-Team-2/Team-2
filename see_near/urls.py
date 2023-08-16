@@ -28,12 +28,13 @@ urlpatterns = [
     path('post_detail/minus_cart/<int:post_id>/', views.minus_cart, name='minus_cart'),
     path('post_detail/cart/', views.cart_detail, name='cart_detail'), 
     # 결제
-     path('cart/payment/', views.payment, name='payment'),
+    path('cart/payment/', views.payment, name='payment'),
     # 회원가입/로그인
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
     path('update_user/<int:pk>/', views.update_user, name='update_user'),
     path("logout/", views.logout_view, name='logout'),
+    path('update_user/<int:pk>/', views.update_user, name='update_user'),
     
     # swagger api
     path('', include(router.urls))

@@ -220,14 +220,15 @@ def cart_detail(request, total=0, counter=0, cart_items=None): #카트 페이지
 # 회원가입
 def register(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        nickname = request.POST.get('nick_name')
         user_id = request.POST.get('user_id')
+        email = request.POST.get('email')
+        nickname = request.POST.get('nickname')
+        full_name = request.POST.get('full_name')
         password = request.POST.get('password')
 
-        new_user = seenear_user(username=username, nick_name=nickname, email=email, user_id=user_id, password=password)
-        new_user.save()
+        new_user = seenear_user.objects.create_user(user_id=user_id, email=email, nickname=nickname, full_name=full_name, password=password)
+        # new_user.set_password(password)
+        # new_user.save()
         messages.success(request, '회원가입이 완료되었습니다.')
         return redirect('login')
     
@@ -239,25 +240,29 @@ def login(request):
         user_id = request.POST.get('user_id')
         password = request.POST.get('password')
 
-        user = seenear_user.objects.filter(user_id=user_id, password=password).first()
-        # user = authenticate(username=user_id, password=password)
+        user = authenticate(username=user_id, password=password)
         if user is not None:
             print(user)
-            login(request, user)
+            login(request)
             return redirect('home')
         else:
-            # print(user)
+            print(user, '...')
             message = '아이디 또는 비밀번호가 틀렸습니다.'
             return render(request, 'see_near/login.html', {'message': message})
 
     return render(request, 'see_near/login.html')
 
 # 로그아웃
+@login_required
 def logout_view(request):
     logout(request)
-    return redirect("login")
+    # if not request.user.is_superuser:
+    #     # 일반 사용자인 경우에만 로그아웃 처리
+    #     logout(request)
+    return redirect("home")
 
 # 회원정보 수정
+@login_required
 def update_user(request, pk):
     user = get_object_or_404(seenear_user, pk=pk)
     if request.method == 'POST':

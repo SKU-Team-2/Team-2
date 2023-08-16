@@ -1,5 +1,5 @@
 from django import forms
-from see_near.models import Post, Category, seenear_user
+from see_near.models import Post, Category
 
 
 class ProductForm(forms.ModelForm): # ModelForm 은 장고 모델 폼

@@ -1,4 +1,4 @@
-# from datetime import timezone
+from datetime import timezone
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.hashers import make_password
@@ -7,54 +7,129 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 import uuid
 
-class SeenearUserManager(BaseUserManager):
-    def create_user(self, user_id=None, password=None, **extra_fields):
-        if user_id is None:
-            user_id = str(uuid.uuid4())
+# class SeenearUserManager(BaseUserManager):
+#     def create_user(self, username=None, password=None, **extra_fields):
+#         if username is None:
+#             username = str(uuid.uuid4())
 
-        user = self.model(user_id=user_id, **extra_fields)
+#         user = self.model(username=username, **extra_fields)
+#         user.set_password(password)
+#         user.save(using=self._db)
+#         return user
+
+#     def create_superuser(self, username=None, password=None, **extra_fields):
+#         if username is None:
+#             username = str(uuid.uuid4())
+#         extra_fields.setdefault('is_staff', True)
+#         extra_fields.setdefault('is_superuser', True)
+
+#         if extra_fields.get('is_staff') is not True:
+#             raise ValueError('Superuser must have is_staff=True.')
+#         if extra_fields.get('is_superuser') is not True:
+#             raise ValueError('Superuser must have is_superuser=True.')
+
+#         if password is None:
+#             raise ValueError("The 'password' argument must be provided when creating a superuser.")
+
+#         return self.create_user(username=username, password=password, **extra_fields)
+
+
+# class seenear_user(AbstractBaseUser):
+#     username = models.CharField(max_length=200, unique=True)   # id
+#     nick_name = models.CharField(primary_key=True, max_length=100, unique=True)   # 닉네임
+#     Full_name = models.CharField(max_length=100)               # 이름
+#     email = models.EmailField(max_length=254)                  # 이메일
+#     address = models.TextField(max_length=200)                 # 주소
+#     reg_date = models.DateTimeField(auto_now_add=True)
+#     last_login = models.DateTimeField(auto_now=True)
+    
+#     is_active = models.BooleanField(default=True)
+#     is_staff = models.BooleanField(default=False)
+#     is_superuser = models.BooleanField(default=False)
+    
+#     objects = SeenearUserManager()
+
+#     USERNAME_FIELD = 'username'
+
+#     def __str__(self):
+#         return self.username
+    
+#     def set_password(self, raw_password):
+#         self.password = make_password(raw_password)
+    
+#     def has_perm(self, perm, obj=None):
+#         return self.is_superuser
+    
+#     def has_module_perms(self, app_label):
+#         return self.is_superuser
+
+        
+class SeenearUserManager(BaseUserManager):
+    def create_user(self, user_id, email, nickname, full_name, password, staff=False, admin=False, active=True):
+        # if not user_id:
+        #     raise ValueError('id를 입력해주세요!')
+        # if not password:
+        #     raise ValueError('비밀번호를 입력해주세요!')
+
+        user = self.model(email=self.normalize_email(email))
         user.set_password(password)
+        user.user_id = user_id
+        user.nickname = nickname
+        user.full_name = full_name
+        # user.staff = staff
+        # user.admin = admin
+        user.active = active
         user.save(using=self._db)
+        
         return user
 
-    def create_superuser(self, user_id=None, password=None, **extra_fields):
-        if user_id is None:
-            user_id = str(uuid.uuid4())
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-
-        if password is None:
-            raise ValueError("The 'password' argument must be provided when creating a superuser.")
-
-        return self.create_user(user_id=user_id, password=password, **extra_fields)
-
-
-class seenear_user(AbstractBaseUser):
-    user_number = models.AutoField(primary_key=True)
-    user_id = models.CharField(max_length=200, unique=True)    
-    password = models.CharField(max_length=200)
-    username = models.CharField(max_length=200, unique=True)   # 이름
-    nick_name = models.CharField(max_length=200)               # 닉네임
-    email = models.EmailField(max_length=254)                  # 이메일
-    address = models.TextField(max_length=200)                 # 주소
-    reg_date = models.DateTimeField(auto_now_add=True)
-    last_login = models.DateTimeField(auto_now=True)
-    
-    objects = SeenearUserManager()
-
-    USERNAME_FIELD = 'username'
-
-    def __str__(self):
-        return self.nick_name
-    
-    def set_password(self, raw_password):
-        self.password = make_password(raw_password)
+    def create_superuser(self, user_id, email, nickname, full_name, password):
+        user = self.create_user(
+            user_id,
+            email,
+            nickname,
+            full_name,
+            password,
+            staff = True,
+            admin = True
+        )
         
+        return user
+
+
+class seenear_user(AbstractBaseUser):  
+    user_id = models.CharField(max_length=200, unique=True)     # id
+    nickname = models.CharField(max_length=255, blank=True)     # nickname
+    email = models.EmailField(max_length=255, null=True)   # email
+    full_name = models.CharField(max_length=100)                # 이름
+    address = models.TextField(max_length=200, null=True)       # 주소
+
+    active = models.BooleanField(default=True)
+    staff = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'user_id'
+    REQUIRED_FIELDS = ['nickname', 'full_name', 'email']
+    objects = SeenearUserManager()
+    
+    def __str__(self):
+        return self.user_id
+
+    def has_perm(self, perm, obj=None):
+        return self.admin
+
+    def has_module_perms(self, app_label):
+        return self.admin
+
+    @property
+    def is_staff(self):
+        return self.staff
+
+    @property
+    def is_superuser(self):
+        return self.admin
+    
+    
 # 카테고리
 class Category(MPTTModel):
     name = models.CharField(max_length=100)
@@ -75,7 +150,7 @@ class Post(models.Model):
     price = models.IntegerField() #가격
     situation = models.CharField(max_length=200, default="판매중") #거래 상황
     categories = models.ManyToManyField(Category)
-    seller = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    seller = models.ForeignKey(seenear_user, on_delete=models.CASCADE)
     pub_date = models.DateTimeField(auto_now_add=True)
     images = models.ImageField(blank=True, upload_to="images/", null=True) #업로드된 이미지파일을 이미지에 저장
     
@@ -87,8 +162,8 @@ class Post(models.Model):
 
 # 댓글
 class Comment(models.Model):
-    post = models.ForeignKey('Post', on_delete=models.CASCADE)
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(seenear_user, on_delete=models.CASCADE)
     content = models.TextField()
     C_pub_time = models.DateTimeField(auto_now_add=True)
     

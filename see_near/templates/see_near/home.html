@@ -22,7 +22,7 @@
                 <li class="nav-item"><a class="nav-link" href="create_post/">게시물</a></li>
                 <li class="nav-item"><a href="{% url 'cart_detail' %}">장바구니</a></li>
                 <a href="{% url 'payment'%}"><button type="button">상품 구매</a></button>
-                <a href="{% url 'update_user' user.pk %}"><button type="button">회원정보 수정</a></button>
+                {% comment %} <a href="{% url 'update_user' user.pk %}"><button type="button">회원정보 수정</a></button> {% endcomment %}
 
                 {% else %}
                 <!-- 로그인하지 않은 경우: 로그인 버튼 표시 -->
