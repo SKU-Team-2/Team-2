@@ -13,6 +13,7 @@
     margin-top: 30px;
    color: brown;
    font-size: 40px;
+   font-weight: 500px;
 }
 /*로그인 타이틀*/
 
@@ -22,10 +23,14 @@
     position: relative;
     margin:0 auto;
     text-align: center;
-    text-decoration: solid;
     padding: 22px;
-    width: 600px;
+    width: 500px;
     font-family: 'GmarketSansMedium';
+}
+
+.btnround {
+    border-radius: 10px;
+    height: 40px;
 }
 
 .form-label {
@@ -52,7 +57,7 @@
 /*또는*/
 
 .or {
-   font-size: 12px;
+   font-size: 15px;
    font-family: 'GmarketSansMedium';
    text-align: center;
    margin-bottom: 20px
@@ -66,29 +71,29 @@
     z-index: 1;
     text-decoration-line: none;
     text-align: center;
-    border-radius: 20px!important;
+    border-radius: 15px!important;
     font-family: 'GmarketSansMedium';
     }
 
 /*button google*/
 
 .asize {
-    width: 300px;
+    width: 500px;
 }
 .signupbtn {
-    width: 400px;
+    width: 450px;
     padding: 10px 15px;
 }
 button .googleb-image {
     width: 20px;
     height: 20px;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .btn {
     background-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
-    font-size: 12px;
+    font-size: 15px;
     border-style: inherit;
 }
 
