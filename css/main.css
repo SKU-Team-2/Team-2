@@ -905,8 +905,8 @@ input {
 .floating_button {
   display: flex;
   position: fixed;
-  right: 10px;
-  bottom: 15px;
+  right: 30px;
+  bottom: 30px;
   z-index: 100;
 }
 .write-btn::before {
@@ -965,6 +965,7 @@ input {
 .pagination li {
   display: inline;
   text-align: center;
+  white-space: nowrap; /* 추가: 텍스트 한 줄로 출력 */
 }
 .pagination a {
   float: left;
@@ -975,8 +976,8 @@ input {
   color: #db4f66;
   line-height: 1.5;
 }
-.first {
-  margin-right: 15px;
+.pagination li:first-child {
+  margin-right: 46px; /* 추가: 오른쪽 마진 추가 */
 }
 .last {
   margin-left: 15px;
