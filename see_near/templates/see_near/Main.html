@@ -29,6 +29,8 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href={% static "see_near/css/main.css" %} />
     <link rel="stylesheet" href={% static "see_near/css/font-awesome.min.css"%}>
   </head>
@@ -43,60 +45,50 @@
           <form class="d-flex" method="POST" action="{% url 'search' %}">
             {% csrf_token %}
           <div class="search_mode">
-            <input type="search" placeholder="Search" name="searched" aria-label="Search">
+            <input type="search" placeholder="Search" name="searched" aria-label="Search" >
             <button class="search_btn" type="submit">
-              <i class="icon"></i>
+              <i class="icon1"></i>
             </button>
           </div>
         </form>
           <div class="nav2">
           <!-- 로그인한 경우: 로그아웃 버튼과 회원정보 수정 버튼 표시 -->
           {% if request.user.is_authenticated %}
+            <div class="basket">
             <a href ="{% url 'logout' %}">
-              로그아웃
+              <h6>로그아웃<h6>
             </a>
-            <a class="nav-link" href="create_post/">
-              게시물
-            </a>
+            </div>
             <div class="basket">
               <a href="{% url 'cart_detail' %}">
                 <h6>장바구니</h6>
               </a>
             </div>
-            <a href="{% url 'update_user' user.pk %}">
-              <button type="button">
-                회원정보 수정
-              </button>
-            </a>
           {% else %}
             <div class="login">
               <a href="{% url 'login' %}">
                 <h6>로그인</h6>
               </a>
             </div>
-            <div class="signin">
-              <a href="{% url 'register' %}">
-                <h6>회원가입</h6>
-              </a>
-            </div>
           {% endif %}
-          </div>
-            {% comment %} <div class="basket">
-              <a href="">
-                <h6>장바구니</h6>
-              </a>
-            </div> {% endcomment %}
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class=""></span>
-            </button>
+        <div>
+          <input type="checkbox" id="navi-toggle" class="checkbox" />
+          <label for="navi-toggle" class="button">
+            <span class="icon">&nbsp;</span>
+          </label>
+          <div class="background">&nbsp;</div>
+
+          <!-- nav -->
+          <nav class="nav nav-style">
+            <ul class="list">
+              {% if request.user.is_authenticated %}
+              <li class="item"><a class="link" href="{% url 'update_user' user.pk %}">마이페이지</a></li>
+              {% endif %}
+              <li class="item"><a class="link">서비스 소개</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
           </div>
         </nav>
       </header>
@@ -201,84 +193,28 @@
         </div>
       </section>
       <!-- shop section -->
-      <section class="shop_section layout_padding">
+      <section class="shop_section layout_padding3">
       <div class="heading_container heading_center">
         <h2>카테고리</h2>
       </div>
-      <form method="post">
-        {% csrf_token %}
-        <label for="category">Select Category:</label>
-        <select name="category" id="category">
-            <option value="" selected>All Categories</option>
-            {% for category in categories %}
-                <option value="{{ category.pk }}">{{ category.name }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit" class="btn btn-primary">Category Filter</button>  
-      </form>
       <div class="board_slide">
         <div class="swiper-container">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <a href="./vegetable.html">
-                <div class="img-box">
-                  <img src={% static "see_near/images/vegetables.jpg"%} alt="채소류" />
-                </div>
-                <div class="name">
-                  <span> 채소류 </span>
-                </div>
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a href="./fruit.html">
-                <div class="img-box">
-                  <img src={% static "see_near/images/fruit.jpg"%} alt="과일류" />
-                </div>
-                <div class="name">
-                  <span> 과일류 </span>
-                </div>
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a href="./shellfish.html">
-                <div class="img-box">
-                  <img src={% static "see_near/images/clam.jpeg"%} alt="어패류" />
-                </div>
-                <div class="name">
-                  <span> 어패류 </span>
-                </div>
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a href="./meat.html">
-                <div class="img-box">
-                  <img src={% static "see_near/images/meat.jpg" %} alt="육류" />
-                </div>
-                <div class="name">
-                  <span> 육류 </span>
-                </div>
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a href="./milk.html">
-                <div class="img-box">
-                  <img src={% static "see_near/images/milk.jpg" %} alt="유제품" />
-                </div>
-                <div class="name">
-                  <span> 유제품 </span>
-                </div>
-              </a>
-            </div>
-            <div class="swiper-slide">
-              <a href="./cereals.html">
-                <div class="img-box">
-                  <img src={% static "see_near/images/rice.jpg" %} alt="곡류" />
-                </div>
-                <div class="name">
-                  <span> 곡류 </span>
-                </div>
-              </a>
-            </div>
+
+            {% for category in categories %}
+            {% if forloop.counter <= 6 %}
+              <div class="swiper-slide">
+                <a href="{% url 'category' category_id=category.pk %}">
+                  <div class="img-box">
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}" />
+                  </div>
+                  <div class="name">
+                    <span>{{ category.name }}</span>
+                  </div>
+                </a>
+              </div>
+            {% endif %}
+            {% endfor %}
             <!-- Repeat for other slide items -->
             <!-- (Repeat the same structure for other slide items) -->
           </div>
@@ -292,8 +228,57 @@
           <div class="heading_container heading_center2">
             <h2>베스트 아이템</h2>
           </div>
-          <div class="row">
+          <div class="row2">
             {% for product in products %}
+            {% if forloop.counter <= 4 %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="box">
+                <a href="{% url 'post_detail' product.post_id %}">
+                  <div class="img-box">
+                    <img src="{{ product.images.url }}" alt="로메인" />
+                  </div>
+                  <div class="detail-box">
+                    <h6> {{ product.title }} </h6>
+                    <h6>
+                      <span>
+                        {{ product.price }}
+                      </span>
+                    </h6>
+                  </div>
+                  <div class="new">
+                    <span> Best </span>
+                  </div>
+                </a>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="box">
+                <a href="">
+                  <div class="img-box">
+                    <img src="./images/watermelon.jpeg" alt="수박" />
+                  </div>
+                  <div class="detail-box">
+                    <h6>고당도 꿀수박</h6>
+                    <h6>
+                      <span> 5% </span>
+                    </h6>
+                  </div>
+                  <div class="new">
+                    <span> Best </span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!------------------------------------------------------>
+          <div class="heading_container heading_center2">
+            <h2>전체 상품</h2>
+          </div>
+          <div class="row2">
+            {% for product in products %}
+            {% if forloop.counter > 4 %}
             <div class="col-sm-6 col-md-4 col-lg-3">
               <div class="box">
                 <a href="{% url 'post_detail' product.post_id %}">
@@ -310,22 +295,44 @@
                       </span>
                     </h6>
                   </div>
-                  <div class="new">
-                    <span> Best </span>
-                  </div>
                 </a>
               </div>
             </div>
+            {% endif %}
             {% endfor %}
-          </div>
-        </div>
-        <div class="btn-box">
-          <a href="./DetailPage.html"> 전체상품 </a>
-        </div>
-      </div>
     </section>
     </section>
     <!-- end slider section -->
+      <!-- pagination -->
+      <section class="pagination_section">
+        <div class="pagination_container">
+          <ul class="pagination modal" id="pagination">
+            <li><a class="first" href="#">처음 페이지</a></li>
+            <li><a class="arrow left" href="#"><<</a></li>
+            <li><a class="active num" href="#">1</a></li>
+            <li><a class="num" href="#">2</a></li>
+            <li><a class="num" href="#">3</a></li>
+            <li><a class="num" href="#">4</a></li>
+            <li><a class="num" href="#">5</a></li>
+            <li><a class="num" href="#">6</a></li>
+            <li><a class="num" href="#">7</a></li>
+            <li><a class="num" href="#">8</a></li>
+            <li><a class="num" href="#">9</a></li>
+            <li><a class="arrow right" href="#">>></a></li>
+            <li><a class="last" href="#">끝 페이지</a></li>
+          </ul>
+        </div>
+      </section>
+      <!-- end pagination -->
+    <!-- floating button  -->
+    <section class="floating_button">
+      <span class="move-write">
+        <a class="write-btn" href="create_post/">
+          <i class="fas fa-regular fa-pen-to-square fa-lg" style="color: #db4f66;"></i>
+        </a>
+      </span>
+    </section>
+    <!-- end floating button  -->
     <!-- info section -->
     <section class="info_section layout_padding2-top">
         <div class="social_container">
@@ -386,12 +393,12 @@
         </footer>
         <!-- footer section -->
       </section>
-  
       <!-- end info section -->
-    <script src={% static "see_near/js/jquery-3.4.1.min.js"%}></script>
-    <script src={% static "see_near/js/bootstrap.js"%}></script>
-    <script src={% static "see_near/js/custom.js"%}></script>
-    <script src={% static "see_near/js/swiper.js"%}></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/swiper.js"></script>
+    <script src="js/pagination.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script

@@ -76,7 +76,7 @@
                         
 
    </div>
-
+{% comment %} 
    <div class="container box">
      <div class="sellnav">
         <ul class="nav nav-underline selling-nav sticky-nav">
@@ -88,15 +88,22 @@
             </li>
           </ul>
      </div>
-   </div>
+   </div> {% endcomment %}
 
    <div class="container">
      <div class="row">
          <div>
             <div class="container">
+                {% if user.is_authenticated and user == post.seller %}
+                <a href="{% url 'edit_post' post_id=post.pk %}">수정</a>
+                <form action="{% url 'delete_post' post_id=post.pk %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                    <button type="submit">삭제</button>
+                </form>
+                {% endif %}
                 <section>
                     <h2 id="product-details" class="my-3">상품 설명</h2><br/>
-                    <div></div>
+                    <p class="mb-0"><strong>{{ post.content }}</strong></p>
                 </section>
             </div>
          </div>
@@ -105,6 +112,12 @@
          <div>
             <div id="product-reviewStarts" class="my-3 sub-text"><p>이용후기</p><p style="color: rgb(224, 75, 75);">522</p></div>
             <div class="my-3 sub-text">전체 후기</div>
+
+            <form method="post">
+            {% csrf_token %}
+            <textarea class="form-control" name="content" rows="3" placeholder="후기를 남겨주세요!"></textarea>
+            <button type="submit" class="btn btn-primary mt-3">댓글 작성</button>
+            </form>
             {% for comment in comments %}
             <div class="mb-3">
                     <img src="./sellingimg/user.png" class="profile-image" alt="사용자 프로필 이미지">

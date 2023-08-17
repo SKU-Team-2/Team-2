@@ -6,6 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 
 from rest_framework import viewsets
 from .serializers import (
@@ -90,23 +91,59 @@ def category_view(request, category_id):
     return render(request, 'see_near/category.html', context)
 
 # 글 작성
+# @login_required
+# def create_post(request):
+#     if request.method == "POST":
+#         form = ProductForm(request.POST, request.FILES)
+
+#         if form.is_valid():
+#             post = form.save(commit=False)
+#             post.seller = request.user
+#             post.save()
+
+#             return redirect('home')
+#     else:
+#         form = ProductForm()
+#         categories = Category.objects.all()
+
+#     context = {'form': form, 'categories':categories}
+#     return render(request, 'see_near/create_post.html', context)
+
+
 @login_required
 def create_post(request):
     if request.method == "POST":
-        form = ProductForm(request.POST, request.FILES)
+        title = request.POST['title']
+        name = request.POST['name']
+        content = request.POST['content']
+        price = request.POST['price']
+        situation = request.POST.get('situation', "판매중")  # 기본값 설정
+        category_id = request.POST['category']
+        images = request.FILES['image'] if 'image' in request.FILES else None
+        
+        try:
+            category = Category.objects.get(pk=category_id)
+        except Category.DoesNotExist:
+            pass
+        
+        post = Post(
+            title=title,
+            name=name,
+            content=content,
+            price=price,
+            situation=situation,
+            categories=category,
+            seller=request.user,
+            images=images
+        )
+        post.save()
 
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.seller = request.user
-            post.save()
-
-            return redirect('home')
+        return redirect('home')
     else:
-        form = ProductForm()
         categories = Category.objects.all()
 
-    context = {'form': form, 'categories':categories}
-    return render(request, 'see_near/create_post.html', context)
+    return render(request, 'see_near/create_post.html', {'categories': categories})
+
 
 # 게시글 수정
 @login_required
@@ -211,21 +248,6 @@ def add_cart(request, post_id): #카트에 저장 후 카트 페이지로 넘어
         
     return redirect('cart_detail')
 
-
-# def minus_cart(request, post_id):
-#     cart_items=CartItem.objects.filter(product=post_id)
-#     product=Post.objects.get(pk=post_id)
-#     try:
-#         for cart_item in cart_items:
-#             if cart_item.product.name==product.name:
-#                 if cart_item.quantity > 1:
-#                     cart_item.quantity -= 1
-#                     cart_item.save()
-#                 return redirect('cart_detail')
-#             else:
-#                 return redirect('cart_detail')
-#     except CartItem.DoesNotExist:
-#         raise Http404
 def minus_cart(request, post_id):
     product=Post.objects.get(pk=post_id)
     
@@ -326,7 +348,7 @@ def logout_view(request):
     logout(request)
     return redirect("home")
 
-# 회원정보 수정
+# 마이페이지
 @login_required
 def update_user(request, pk):
     user = get_object_or_404(seenear_user, pk=pk)
@@ -345,8 +367,33 @@ def update_user(request, pk):
 			'user' : user,
 		},
 	)
-    
 
+# 회원정보 수정
+@login_required
+def update_user(request, pk):
+    user = get_object_or_404(seenear_user, pk=pk)
+    
+    if request.method == 'POST':
+        user.full_name = request.POST['full_name']
+        user.email = request.POST['email']
+        user.nickname = request.POST['nickname'] 
+        user.user_id = request.POST['user_id'] 
+        new_password = request.POST.get('password')
+        
+        if new_password:
+            user.password = make_password(new_password)
+        
+        user.save()
+        return redirect('home')
+    
+    return render(
+        request,
+        'see_near/user_update.html',
+        {
+            'user': user,
+        },
+    )
+    
 #-----------------------여기부턴 결제
 # 결제
 def payment(request):

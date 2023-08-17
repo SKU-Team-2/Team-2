@@ -70,6 +70,7 @@ class seenear_user(AbstractBaseUser):
 class Category(MPTTModel):
     name = models.CharField(max_length=100)
     parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    image = models.ImageField(upload_to='category_images/', blank=True)
     
     class MPTTMeta:
         order_insertion_by = ['name']

@@ -23,7 +23,6 @@
                 <li class="nav-item"><a href="{% url 'cart_detail' %}">장바구니</a></li>
                 <a href="{% url 'payment'%}"><button type="button">상품 구매</a></button>
                 <a href="{% url 'update_user' user.pk %}"><button type="button">회원정보 수정</a></button>
-
                 {% else %}
                 <!-- 로그인하지 않은 경우: 로그인 버튼 표시 -->
                 <a href="{% url 'login' %}">로그인</a>
@@ -37,17 +36,6 @@
             </form>
             <section class="shop_section layout_padding">
                 <div class="container">
-                  {% comment %} <form method="post">
-                    {% csrf_token %}
-                    <label for="category">Select Category:</label>
-                    <select name="category" id="category">
-                        <option value="" selected>All Categories</option>
-                        {% for category in categories %}
-                            <option value="{{ category.pk }}">{{ category.name }}</option>
-                        {% endfor %}
-                    </select>
-                  <button type="submit" class="btn btn-primary">Category Filter</button>  
-                  </form> {% endcomment %}
                   {% for category in categories %}
                   <form action="{% url 'category' category_id=category.pk %}" method="post" style="display: inline;">
                       {% csrf_token %}
