@@ -371,10 +371,8 @@ input {
 .link:link,
 .link:visited {
   /* display: inline-block; */
-  font-size: 1.5rem;
-  font-weight: 300;
   padding: 0rem 1rem;
-  color: #d50000;
+  color: #000000;
   text-decoration: none;
   text-transform: uppercase;
   background-image: linear-gradient(
