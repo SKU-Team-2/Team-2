@@ -322,8 +322,8 @@ def update_user(request, pk):
     if request.method == 'POST':
         user.full_name = request.POST['full_name']
         user.email = request.POST['email']
-        user.nick_name = request.POST['nick_name'] 
-        user.username = request.POST['username'] 
+        user.nickname = request.POST['nickname'] 
+        user.user_id = request.POST['user_id'] 
         user.password = request.POST.get('password')  
         user.save()
         return redirect('home')
