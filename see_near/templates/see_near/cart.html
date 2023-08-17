@@ -1,13 +1,11 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 {% load static %}
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>장바구니</title>
-    <link href="{% static 'see_near/bootstrap/bootstrap.min.css'%}" rel="stylesheet"/>
+    <link rel="stylesheet" href={% static "see_near\css\cart.css" %}>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
@@ -16,7 +14,8 @@
         IMP.init("imp53883146");
 
         {% comment %} var productName = "{{ cart_items.product.name }}"; {% endcomment %}
-        var productName="good";
+        {% comment %} var productName="good"; {% endcomment %}
+        var productName="{% for item in cart_items %}{{item.product.name}}<br> {% endfor %}";
         var counter="{{ counter }}";
         var total="{{ total }}"; 
 
@@ -51,83 +50,83 @@
     </script>
 </head>
 <body>
-    <h1>장바구니</h1>
-    <div class="row mx-auto">
-        <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
-            <form method="post" action="{%url 'remove_selected'%}">
-            {% csrf_token %}
-            <table class="table my_custom_table">
-                <thread class="my_custom_table">
+    <section class="cart">
+        {% comment %} nav 바 넣을 자리 {% endcomment %}
+        <table class="cart__list">
+            <form  method="post" action="{%url 'remove_selected' %}">
+                {% csrf_token %}
+                <thead>
                     <tr>
-                        <th colspan="5">
-                            Your items
-                        </th>
+                        <td></td>
+                        <td colspan="2">상품정보</td>
+                        <td>옵션</td>
+                        <td>상품금액</td>
+                        <td>배송비</td>
                     </tr>
-                </thread>
+                </thead>
                 <tbody>
                     {% for cart_item in cart_items %}
-                    <tr>
-                        <td>
-                            <input id="selected" type="checkbox" name="selected" value="{{ cart_item.id }}">
+                    <tr class="cart__list__detail">
+                        <td><input id="selected" type="checkbox" name="selected" value="{{ cart_item.id }}"></td>
+                        <td><a href="{{ cart_item.product.get_absolute_url }}"><img src="{{ cart_item.product.images.url }}" alt="magic keyboard"></td></a>
+                        <td><a href="#">애플 공식 브랜드스토어</a><span class="cart__list__smartstore"> 스마트스토어</span>
+                            <p>{{cart_item.product.title}}</p>
+                            <span class="price">{{cart_item.product.price}}원</span>
+
                         </td>
-                        <td>
-                            <a href="{{ cart_item.product.get_absolute_url }}"><img src="{{ cart_item.product.images.url }}" alt="" class="float-left rounded custom_image"></a>
+                        <td class="cart__list__option">
+                            <p>상품 주문 수량: {{cart_item.quantity}}개</p>
+                            
+                            <span class="quantity">
+                                {% if cart_item.quantity <= counter %}
+                                <a href="{% url 'minus_cart' cart_item.product.post_id %}" class="quantity__decrease">
+                                    -
+                                </a>
+                                {{cart_item.quantity}}
+                                <a href="{% url 'add_cart' cart_item.product.post_id %}" class="quantity__increase">
+                                    +
+                                </a>
+                                
+                                {% else %}
+                                {% endif %}
+                            </span>
                         </td>
-                        <td class="text-align">
-                            {{cart_item.product.title}}
-                            <br>
-                            id: {{cart_item.product.post_id}}
-                            <br>
-                            price: {{cart_item.product.price}}원
-                            <br>
-                            quantity: {{cart_item.quantity}}개
-                            {% if cart_item.quantity <= counter %}
-                            {% comment %} <a href="{% url 'add_cart' cart_item.product.post_id %}" class="custom_a">
-                                <i class="fas fa--plus-circle custom_icon"></i>
-                                </a> {% endcomment %}
-                                <a href="{% url 'minus_cart' cart_item.product.post_id %}"><p>수량빼기</p></a>
-                                <a href="{% url 'add_cart' cart_item.product.post_id %}"><p>수량더하기</p></a>
-                            {% else %}
-                            {% endif %}
-                        </td>
-                        <td>
-                            total: {{cart_item.sub_total}}원
-                        </td>    
+                        <td><span class="price">{{cart_item.sub_total}}원</span><br></td>
+                        <td>무료</td>
                     </tr>
                     {% endfor %}
                 </tbody>
-            </table>
-            <button type="submit">선택한 항목 삭제</button>
-        </form>
+                <tfoot>
+                    <tr>
+                        <td colspan="4"><button class="cart__list__optionbtn" type="submit">선택상품 삭제</button></td>
+                        <td colspan="2">총 가격: <b>{{ total }}원</b></td>
+                    
+                    </tr>
+                </tfoot>
+            </form>
+        </table>
+        <div class="cart__mainbtns">
+            <a href="{% url 'home' %}"><button class="cart__bigorderbtn left">쇼핑 계속하기</button></a>
+            <button class="cart__bigorderbtn right" onclick="requestPay()">결제하기</button>
         </div>
-        <div class="col-12 col-sm-21 col-md-12 col-lg-6 text-center">
-            <table class="table my_custom_table">
-                <thread class="my_custom_thread">
-                    <tr>
-                        <th>
-                            Checkout
-                        </th>
-                    </tr>
-                </thread>
-                <tbody>
-                    <tr>
-                        <td>
-                            결제 금액
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-left">
-                            총 개수: <b>{{ counter }}개</b> 총 가격: <b>{{ total }}원</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button class='btn btn-outline-success' onclick="requestPay()">결제</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    </section>
+    <script>
+        document.querySelectorAll('.quantity__increase').forEach(function(increaseButton) {
+          increaseButton.addEventListener('click', function() {
+            const quantityInput = this.previousElementSibling;
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+          });
+        });
+      
+        document.querySelectorAll('.quantity__decrease').forEach(function(decreaseButton) {
+          decreaseButton.addEventListener('click', function() {
+            const quantityInput = this.nextElementSibling;
+            if (parseInt(quantityInput.value) > 1) {
+              quantityInput.value = parseInt(quantityInput.value) - 1;
+            }
+          });
+        });
+      </script>
+      
 </body>
 </html>

@@ -51,35 +51,16 @@ def product_list(request):
         'searched':searched
     }
     
-    return render(request, 'see_near/home.html', context)
+    return render(request, 'see_near/main.html', context)
 
 # 상품 상세정보
-# def product_detail(request, post_id):
-#     post_detail = get_object_or_404(Post, pk=post_id)
-#     comments = Comment.objects.filter(post=post_detail)
-    
-#     if request.method == 'POST':
-#         if request.user.is_authenticated:  # Check if the user is authenticated
-#             content = request.POST.get('content', '').strip()
-            
-#             if content:
-#                 comment = Comment(post=post_detail, nickname=request.user, content=content)
-#                 comment.save()
-#                 return redirect('post_detail', post_id=post_id)
-    
-#     return render(
-#         request,
-#         'see_near/post_detail.html', 
-#         {'post': post_detail, 'comments': comments}
-#     )
-
 def product_detail(request, post_id):
     post = get_object_or_404(Post, post_id=post_id)
     comments = Comment.objects.filter(post=post)
     
     if request.method == 'POST':
-        if request.user.is_authenticated:  # Check if the user is authenticated
-            user_instance = request.user  # Get the seenear_user instance
+        if request.user.is_authenticated:
+            user_instance = request.user
             content = request.POST.get('content', '').strip()
 
             if content:
@@ -231,21 +212,43 @@ def add_cart(request, post_id): #카트에 저장 후 카트 페이지로 넘어
     return redirect('cart_detail')
 
 
+# def minus_cart(request, post_id):
+#     cart_items=CartItem.objects.filter(product=post_id)
+#     product=Post.objects.get(pk=post_id)
+#     try:
+#         for cart_item in cart_items:
+#             if cart_item.product.name==product.name:
+#                 if cart_item.quantity > 1:
+#                     cart_item.quantity -= 1
+#                     cart_item.save()
+#                 return redirect('cart_detail')
+#             else:
+#                 return redirect('cart_detail')
+#     except CartItem.DoesNotExist:
+#         raise Http404
 def minus_cart(request, post_id):
-    cart_items=CartItem.objects.filter(product=post_id)
     product=Post.objects.get(pk=post_id)
+    
     try:
-        for cart_item in cart_items:
-            if cart_item.product.name==product.name:
-                if cart_item.quantity > 1:
-                    cart_item.quantity -= 1
-                    cart_item.save()
-                return redirect('cart_detail')
-            else:
-                return redirect('cart_detail')
+        cart=Cart.objects.get(cart_id=cart_id(request))
+    except Cart.DoesNotExist:
+        cart=Cart.objects.create(cart_id=cart_id(request))
+        cart.save()
+        
+    try:
+        cart_item=CartItem.objects.get(product=product, cart=cart)
+        if cart_item.quantity >= 2:
+            cart_item.quantity -= 1
+            cart_item.save()
     except CartItem.DoesNotExist:
-        raise Http404
-
+        cart_item=CartItem.objects.create(
+            product=product,
+            quantity=1,
+            cart=cart
+        )
+        cart_item.save()
+        
+    return redirect('cart_detail')
 
 def cart_detail(request, total=0, counter=0, cart_items=None, selected=None): #카트 페이지 정보
     try:
@@ -284,8 +287,7 @@ def register(request):
         password = request.POST.get('password')
 
         new_user = seenear_user.objects.create_user(user_id=user_id, email=email, nickname=nickname, full_name=full_name, password=password)
-        # new_user.set_password(password)
-        # new_user.save()
+
         messages.success(request, '회원가입이 완료되었습니다.')
         return redirect('login')
     
@@ -329,7 +331,7 @@ def update_user(request, pk):
         return redirect('home')
     return render(
 		request,
-		'see_near/user_update.html',
+		'see_near/mypage.html',
 		{
 			'user' : user,
 		},
@@ -337,7 +339,6 @@ def update_user(request, pk):
     
 
 #-----------------------여기부턴 결제
-
 # 결제
 def payment(request):
     total = 0

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -28,8 +29,8 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="./css/main.css" />
-    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href={% static "see_near/css/main.css" %} />
+    <link rel="stylesheet" href={% static "see_near/css/font-awesome.min.css"%}>
   </head>
   <body>
     <div class="hero_area">
@@ -39,23 +40,52 @@
           <a class="navbar-brand" href="Main.html">
             <span> 心心한 토마토 </span>
           </a>
+          <form class="d-flex" method="POST" action="{% url 'search' %}">
+            {% csrf_token %}
           <div class="search_mode">
-            <input type="search" placeholder="검색" />
-            <button type="submit" class="search_btn">
+            <input type="search" placeholder="Search" name="searched" aria-label="Search">
+            <button class="search_btn" type="submit">
               <i class="icon"></i>
             </button>
           </div>
+        </form>
           <div class="nav2">
-            <div class="login">
-              <a href="">
-                <h6>로그인</h6>
-              </a>
-            </div>
+          <!-- 로그인한 경우: 로그아웃 버튼과 회원정보 수정 버튼 표시 -->
+          {% if request.user.is_authenticated %}
+            <a href ="{% url 'logout' %}">
+              로그아웃
+            </a>
+            <a class="nav-link" href="create_post/">
+              게시물
+            </a>
             <div class="basket">
-              <a href="">
+              <a href="{% url 'cart_detail' %}">
                 <h6>장바구니</h6>
               </a>
             </div>
+            <a href="{% url 'update_user' user.pk %}">
+              <button type="button">
+                회원정보 수정
+              </button>
+            </a>
+          {% else %}
+            <div class="login">
+              <a href="{% url 'login' %}">
+                <h6>로그인</h6>
+              </a>
+            </div>
+            <div class="signin">
+              <a href="{% url 'register' %}">
+                <h6>회원가입</h6>
+              </a>
+            </div>
+          {% endif %}
+          </div>
+            {% comment %} <div class="basket">
+              <a href="">
+                <h6>장바구니</h6>
+              </a>
+            </div> {% endcomment %}
             <button
               class="navbar-toggler"
               type="button"
@@ -175,13 +205,24 @@
       <div class="heading_container heading_center">
         <h2>카테고리</h2>
       </div>
+      <form method="post">
+        {% csrf_token %}
+        <label for="category">Select Category:</label>
+        <select name="category" id="category">
+            <option value="" selected>All Categories</option>
+            {% for category in categories %}
+                <option value="{{ category.pk }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">Category Filter</button>  
+      </form>
       <div class="board_slide">
         <div class="swiper-container">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <a href="./vegetable.html">
                 <div class="img-box">
-                  <img src="./images/vegetables.jpg" alt="채소류" />
+                  <img src={% static "see_near/images/vegetables.jpg"%} alt="채소류" />
                 </div>
                 <div class="name">
                   <span> 채소류 </span>
@@ -191,7 +232,7 @@
             <div class="swiper-slide">
               <a href="./fruit.html">
                 <div class="img-box">
-                  <img src="./images/fruit.jpg" alt="과일류" />
+                  <img src={% static "see_near/images/fruit.jpg"%} alt="과일류" />
                 </div>
                 <div class="name">
                   <span> 과일류 </span>
@@ -201,7 +242,7 @@
             <div class="swiper-slide">
               <a href="./shellfish.html">
                 <div class="img-box">
-                  <img src="./images/clam.jpeg" alt="어패류" />
+                  <img src={% static "see_near/images/clam.jpeg"%} alt="어패류" />
                 </div>
                 <div class="name">
                   <span> 어패류 </span>
@@ -211,7 +252,7 @@
             <div class="swiper-slide">
               <a href="./meat.html">
                 <div class="img-box">
-                  <img src="./images/meat.jpg" alt="육류" />
+                  <img src={% static "see_near/images/meat.jpg" %} alt="육류" />
                 </div>
                 <div class="name">
                   <span> 육류 </span>
@@ -221,7 +262,7 @@
             <div class="swiper-slide">
               <a href="./milk.html">
                 <div class="img-box">
-                  <img src="./images/milk.jpg" alt="유제품" />
+                  <img src={% static "see_near/images/milk.jpg" %} alt="유제품" />
                 </div>
                 <div class="name">
                   <span> 유제품 </span>
@@ -231,7 +272,7 @@
             <div class="swiper-slide">
               <a href="./cereals.html">
                 <div class="img-box">
-                  <img src="./images/rice.jpg" alt="곡류" />
+                  <img src={% static "see_near/images/rice.jpg" %} alt="곡류" />
                 </div>
                 <div class="name">
                   <span> 곡류 </span>
@@ -252,16 +293,21 @@
             <h2>베스트 아이템</h2>
           </div>
           <div class="row">
+            {% for product in products %}
             <div class="col-sm-6 col-md-4 col-lg-3">
               <div class="box">
-                <a href="">
+                <a href="{% url 'post_detail' product.post_id %}">
                   <div class="img-box">
-                    <img src="./images/peech.jpeg" alt="복숭아" />
+                    <img src="{{ product.images.url }}" alt="로메인" />
                   </div>
                   <div class="detail-box">
-                    <h6>햇사레 복숭아 </h6>
+                    <h6> 
+                      {{ product.title }}
+                    </h6>
                     <h6>
-                      <span> 22% </span>
+                      <span>
+                        {{ product.price }}
+                      </span>
                     </h6>
                   </div>
                   <div class="new">
@@ -270,132 +316,7 @@
                 </a>
               </div>
             </div>
-            <div class="col-sm-6 col-md-4 col-lg-3">
-              <div class="box">
-                <a href="">
-                  <div class="img-box">
-                    <img src="./images/pumkin.jpeg" alt="단호박" />
-                  </div>
-                  <div class="detail-box">
-                    <h6>제주 미니 밤호박</h6>
-                    <h6>
-                      <span> 7% </span>
-                    </h6>
-                  </div>
-                  <div class="new">
-                    <span> Best </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3">
-              <div class="box">
-                <a href="">
-                  <div class="img-box">
-                    <img src="./images/potato.jpeg" alt="감자" />
-                  </div>
-                  <div class="detail-box">
-                    <h6>국내산 햇감자</h6>
-                    <h6>
-                      <span> 5%</span>
-                    </h6>
-                  </div>
-                  <div class="new">
-                    <span> Best </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3">
-              <div class="box">
-                <a href="">
-                  <div class="img-box">
-                    <img src="./images/squid.jpeg" alt="오징어" />
-                  </div>
-                  <div class="detail-box">
-                    <h6>생물 오징어</h6>
-                    <h6>
-                      <span> 10% </span>
-                    </h6>
-                  </div>
-                  <div class="new">
-                    <span> Best </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3">
-              <div class="box">
-                <a href="">
-                  <div class="img-box">
-                    <img src="./images/watermelon.jpeg" alt="수박" />
-                  </div>
-                  <div class="detail-box">
-                    <h6>고당도 꿀수박</h6>
-                    <h6>
-                      <span> 5% </span>
-                    </h6>
-                  </div>
-                  <div class="new">
-                    <span> Best </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3">
-              <div class="box">
-                <a href="">
-                  <div class="img-box">
-                    <img src="./images/sweetpotato.jpeg" alt="고구마" />
-                  </div>
-                  <div class="detail-box">
-                    <h6>황금 꿀고구마</h6>
-                    <h6>
-                      <span> 3% </span>
-                    </h6>
-                  </div>
-                  <div class="new">
-                    <span> Best </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3">
-              <div class="box">
-                <a href="">
-                  <div class="img-box">
-                    <img src="./images/tomato.jpeg" alt="토마토" />
-                  </div>
-                  <div class="detail-box">
-                    <h6>대추 방울 토마토</h6>
-                    <h6>
-                      <span> 2% </span>
-                    </h6>
-                  </div>
-                  <div class="new">
-                    <span> Best </span>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3">
-              <div class="box">
-                <a href="">
-                  <div class="img-box">
-                    <img src="./images/romain.jpeg" alt="로메인" />
-                  </div>
-                  <div class="detail-box">
-                    <h6>신선 로메인</h6>
-                    <h6>
-                      <span> 3% </span>
-                    </h6>
-                  </div>
-                  <div class="new">
-                    <span> Best </span>
-                  </div>
-                </a>
-              </div>
-            </div>
+            {% endfor %}
           </div>
         </div>
         <div class="btn-box">
@@ -467,10 +388,10 @@
       </section>
   
       <!-- end info section -->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/custom.js"></script>
-    <script src="js/swiper.js"></script>
+    <script src={% static "see_near/js/jquery-3.4.1.min.js"%}></script>
+    <script src={% static "see_near/js/bootstrap.js"%}></script>
+    <script src={% static "see_near/js/custom.js"%}></script>
+    <script src={% static "see_near/js/swiper.js"%}></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script
