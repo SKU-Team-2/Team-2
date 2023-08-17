@@ -54,13 +54,32 @@ def product_list(request):
     return render(request, 'see_near/home.html', context)
 
 # 상품 상세정보
+# def product_detail(request, post_id):
+#     post_detail = get_object_or_404(Post, pk=post_id)
+#     comments = Comment.objects.filter(post=post_detail)
+    
+#     if request.method == 'POST':
+#         if request.user.is_authenticated:  # Check if the user is authenticated
+#             content = request.POST.get('content', '').strip()
+            
+#             if content:
+#                 comment = Comment(post=post_detail, nickname=request.user, content=content)
+#                 comment.save()
+#                 return redirect('post_detail', post_id=post_id)
+    
+#     return render(
+#         request,
+#         'see_near/post_detail.html', 
+#         {'post': post_detail, 'comments': comments}
+#     )
+
 def product_detail(request, post_id):
     post = get_object_or_404(Post, post_id=post_id)
+    comments = Comment.objects.filter(post=post)
     
     if request.method == 'POST':
         if request.user.is_authenticated:  # Check if the user is authenticated
             user_instance = request.user  # Get the seenear_user instance
-
             content = request.POST.get('content', '').strip()
 
             if content:
@@ -69,14 +88,13 @@ def product_detail(request, post_id):
                 comment.save()
                 return redirect('post_detail', post_id=post_id)
             
-    comments = Comment.objects.filter(post=post_id).all()
     return render(
         request,
         'see_near/post_detail.html', 
         {'post': post, 'comments': comments}
     )
 
-# 카테고리 분류 함수(왜안될까)
+# 카테고리 분류 함수
 def category_view(request, category_id):
     
     selected_category = Category.objects.get(pk=category_id)
@@ -89,9 +107,6 @@ def category_view(request, category_id):
     }
 
     return render(request, 'see_near/category.html', context)
-
-# 카테고리별 검색
-
 
 # 글 작성
 @login_required
@@ -148,9 +163,29 @@ def delete_post(request, post_id):
     return render(request, 'see_near/delete_post.html', context)
 
 # 댓글 수정
+@login_required
+def comment_edit(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    
+    if request.method == 'POST':
+        comment.content = request.POST.get('content', '').strip()
+        comment.save()
+        return redirect('post_detail', post_id=comment.post.pk)
+        
+    return render(request, 'see_near/comment_edit.html', {'comment': comment})
 
 
 # 댓글 삭제
+@login_required
+def comment_delete(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    
+    if request.method == 'POST':
+        post_pk = comment.post.pk  # Store the post pk before deleting the comment
+        comment.delete()
+        return redirect('post_detail', post_id=post_pk)  # Redirect to the correct post detail page
+    
+    return render(request, 'see_near/comment_delete.html', {'comment': comment})
 
 
 # 검색창
@@ -236,14 +271,6 @@ def remove_selected(request):
                 cart_item.delete()
                 
     return redirect('cart_detail')
-    
-    
-#     def full_remove(request, post_id):
-#     cart=Cart.objects.get(cart_id=cart_id(request))
-#     product=get_object_or_404(Post, popst_id=post_id)
-#     cart_item=CartItem.objects.get(product=product, cart=cart)
-#     cart_item.delete()
-#     return redirect('cart_detail')
 
 #--------------------여기부턴 유저관리
 

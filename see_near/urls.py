@@ -23,6 +23,9 @@ urlpatterns = [
     path('main/delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
     path('search/', views.search, name='search'),
     path('category/<int:category_id>/', views.category_view, name='category'),
+    # 댓글
+    path('coment/<int:comment_id>/edit/', views.comment_edit, name='comment_edit'),
+    path('comment/<int:comment_id>/delete/', views.comment_delete, name='comment_delete'),
     # 장바구니
     path('post_detail/add_cart/<int:post_id>/', views.add_cart, name='add_cart'),
     path('post_detail/minus_cart/<int:post_id>/', views.minus_cart, name='minus_cart'),

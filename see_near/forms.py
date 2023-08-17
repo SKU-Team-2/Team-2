@@ -1,5 +1,5 @@
 from django import forms
-from see_near.models import Post, Category
+from see_near.models import Post, Category, Comment
 
 
 class ProductForm(forms.ModelForm): # ModelForm 은 장고 모델 폼
@@ -21,3 +21,8 @@ class ProductForm(forms.ModelForm): # ModelForm 은 장고 모델 폼
     content = forms.CharField(required=True, widget=forms.Textarea(attrs={'rows': 4}))
     categories = forms.ModelChoiceField(queryset=Category.objects.all(), required=True)
     images = forms.ImageField(required=True)  # 이미지 필드는 선택적으로 설정 가능
+    
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']

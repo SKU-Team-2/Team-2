@@ -37,7 +37,7 @@
             </form>
             <section class="shop_section layout_padding">
                 <div class="container">
-                  <form method="post">
+                  {% comment %} <form method="post">
                     {% csrf_token %}
                     <label for="category">Select Category:</label>
                     <select name="category" id="category">
@@ -47,8 +47,15 @@
                         {% endfor %}
                     </select>
                   <button type="submit" class="btn btn-primary">Category Filter</button>  
+                  </form> {% endcomment %}
+                  {% for category in categories %}
+                  <form action="{% url 'category' category_id=category.pk %}" method="post" style="display: inline;">
+                      {% csrf_token %}
+                      <input type="hidden" name="category" value="{{ category.pk }}">
+                      <button type="submit" class="btn btn-primary">{{ category.name }} Filter</button>
                   </form>
-
+                  {% endfor %}  
+                  
                   <form>
                     {% csrf_token %}
                     <label for="sort_by">Sort By:</label>

@@ -1,0 +1,6 @@
+<h3>댓글 삭제</h3>
+<p>정말로 이 댓글을 삭제하시겠습니까?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">삭제</button>
+</form>
