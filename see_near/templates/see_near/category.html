@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Posts by Category</title>
+</head>
+<body>
+    <h1>Posts in {{ selected_category.name }}</h1>
+    <ul>
+        {% for post in category_posts %}
+            <li>{{ post.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

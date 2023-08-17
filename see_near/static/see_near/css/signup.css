@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.logotitle {
+  position: relative;
+  padding-left: 100px;
+  margin-top: 30px;
+  text-align: left;
+  font-size: 40px;
+}
+.gmarket-font {
+  font-family: "GmarketSansMedium";
+}
+
+.logo {
+  color: brown;
+  font-weight: 500;
+}
+
+.tomatohome-link {
+  text-decoration: underline;
+}
+
+.login-form {
+  background-color: rgb(255, 255, 255);
+  padding: 3px 20px 3px;
+  margin: auto;
+  width: 500px;
+}
+
+/*주소검색*/
+.btnstyle {
+  border-radius: 5px;
+  padding: 5px 10px;
+  border-color: gray;
+  font-size: 15px;
+}
+
+.signup-button {
+  margin-bottom: 40px;
+  background-color: #505050;
+}
+.signup-button:hover {
+  background-color: #ffeff1;
+  color: #d50000;
+}
+
+.moretxt {
+  color: brown;
+}

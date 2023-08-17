@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results for '{{ searched }}'</h1>
+    <ul>
+        {% for post in products %}
+            <li><a href="{% url 'post_detail' post_id=post.pk %}">{{ post.title }}</a></li>
+        {% empty %}
+            <li>No results found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

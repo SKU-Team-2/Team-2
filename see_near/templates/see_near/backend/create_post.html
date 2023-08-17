@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Write a Post</title>
+	<link rel="stylesheet" href="{% static 'see_near/bootstrap/bootstrap.min.css' %}">
+</head>
+<body>
+	<h1>판매 상품 등록</h1>
+	<hr>
+	<form method='post' enctype="multipart/form-data">
+		{% csrf_token %}
+		<table>
+			<tbody>
+			{% comment %} <select name="p_category" required>
+				{% for category in categories %}
+					<option value="{{ category.id }}">{{ category.name }}</option>
+				{% endfor %}
+			</select> {% endcomment %}
+        	{{form.as_p}}
+				{% comment %} <tr>
+					<th><label for="id_product">Title:</label></th>
+					<td><input type="text" name="title" maxlength="30" required="" id="id_todo"></td>
+				</tr>
+				<tr>
+					<th><label for="id_product">Price:</label></th>
+					<td><input name="price" cols="40" rows="10" required="" id="id_price"></input></td>
+				</tr>
+        <tr>
+					<th><label for="id_product">Categories:</label></th>
+					<td><input name="price" cols="40" rows="10" required="" id="id_price"></input></td>
+				</tr>
+        <tr>
+					<th><label for="id_product">Content:</label></th>
+					<td><input name="price" cols="40" rows="10" required="" id="id_price"></input></td>
+				</tr>
+        <tr>
+					<th><label for="id_product">Image:</label></th>
+					<td><input type="file" class="form-control" name="imgfile" id="imgfile"></td>
+				</tr> {% endcomment %}
+				</tbody>
+			</table>
+			<button type="submit" class="btn btn-primary" style="margin-left: 350px;">Submit</button>
+	</form>
+</body>
+</html>

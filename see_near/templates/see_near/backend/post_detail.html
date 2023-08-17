@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+   <meta charset="UTF-8">
+   <title>제품 상세 설명</title>
+   <link rel="stylesheet" href="{% static 'see_near/bootstrap/bootstrap.min.css' %}">
+</head>
+<body>
+   <h1>제품 상세 설명</h1>
+   <hr>
+   <br><br>
+   <div>
+      {% if user.is_authenticated and user == post.seller %}
+      <a href="{% url 'edit_post' post_id=post.pk %}">수정</a>
+        <form action="{% url 'delete_post' post_id=post.pk %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">삭제</button>
+        </form>
+        {% endif %}
+      <img class="card-img-top embed-responsive-item" src="{{ post.images.url }}" width="100" alt="images/" />
+      <p>제목: {{ post.title }}, 가격: {{ post.price }}, 거래상황: {{ post.situation }}
+      <br>
+      카테고리: {{ post.categories }}
+      내용: {{ post.content }}
+      <br>
+      판매자: {{ post.seller }}
+      <br>
+      </p>
+      <ul>
+         <a href="{% url 'add_cart' post.post_id %}"><li class="nav-item">장바구니</li></a>
+      </ul>
+   </div>
+   <form method="post">
+      {% csrf_token %}
+      
+      <textarea class="form-control" name="content" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+      <button type="submit" class="btn btn-primary mt-3">Submit Comment</button>
+   </form>
+   {% for comment in comments %}
+   <div class="comment">
+      <div class="date">작성자: {{ comment.nickname }} 작성시간: {{ comment.C_pub_time }} </div>  <!-- comment_date -> C_pub_time으로 수정 -->
+      <p>{{ comment.content }}</p>
+      {% if user.is_authenticated and user == comment.nickname %}
+      <a href="{% url 'comment_edit' comment_id=comment.id %}">수정</a>
+      <a href="{% url 'comment_delete' comment_id=comment.id %}">삭제</a>
+      {% endif %}
+   </div>
+   {% empty %}
+   <p>No comments here yet</p>
+   {% endfor %}
+</body>
+</html>

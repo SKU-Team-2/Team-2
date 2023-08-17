@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+   <meta charset="UTF-8">
+   <title>회원정보 수정</title>
+</head>
+<body>
+   <h1>회원정보 수정</h1>
+   <hr/>
+   <form method='post' enctype="multipart/form-data">
+      {% csrf_token %}
+    <table>
+        <tbody>
+            <tr>
+                <th><label for="id_full_name">성함:</label></th>
+                <td><input type="text" name="full_name" maxlength="30" required="" id="id_full_name" value="{{ user.full_name }}"></td>
+            </tr>
+            <tr>
+                <th><label for="id_email">Email:</label></th>
+                <td><input type="email" name="email" maxlength="30" required="" id="id_email" value="{{ user.email }}"></td>
+            </tr>
+            <tr>
+                <th><label for="id_nickname">Nickname:</label></th>
+                <td><input type="text" name="nickname" maxlength="30" required="" id="id_nickname" value="{{ user.nickname }}"></td>
+            </tr>
+            <tr>
+                <th><label for="id_user_id">User ID:</label></th>
+                <td><input type="text" name="user_id" maxlength="30" required="" id="id_user_id" value="{{ user.user_id }}"></td>
+            </tr>
+            <tr>
+                <th><label for="id_password">Password:<br>(비밀번호는 *로 길게 나타납니다.)</label></th>
+                <td><input type="password" name="password" maxlength="30" required="" id="id_password" value="{{ user.password }}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary" style="margin-left: 350px;">수정</button>
+</form>
+</body>
+</html>
