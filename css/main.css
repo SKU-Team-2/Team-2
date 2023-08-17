@@ -155,6 +155,7 @@ body {
   }
 }
 
+/*--------------------------------------------------------------------------*/
 /*header section*/
 .header_section {
   display: flex;
@@ -251,7 +252,7 @@ input {
   right: 2px;
   background: transparent;
 }
-.search_btn .icon {
+.search_btn .icon1 {
   background-image: url("../images/search.png");
   width: 24px;
   height: 24px;
@@ -307,75 +308,153 @@ input {
   -ms-flex-align: center;
   align-items: center;
 }
-@media (min-width: 991px) {
-  .navbar-toggler {
-    display: block !important; /* Override Bootstrap's style */
-  }
-}
-.custom_nav-container .navbar-toggler {
-  outline: none;
-  border: none;
+/* hamburger */
+.checkbox {
+  display: none;
 }
 
-.custom_nav-container .navbar-toggler {
-  outline: none;
+.button {
+  position: absolute;
+  background-color: white;
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 10%;
+  position: fixed;
+  z-index: 2000;
+  text-align: center;
+  cursor: pointer;
 }
 
-.custom_nav-container .navbar-toggler {
-  padding: 0;
-  width: 37px;
-  height: 42px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+.background {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  position: fixed;
+  background-color: #ffeff1;
+  z-index: 1000;
+
+  transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
 }
 
-.custom_nav-container .navbar-toggler span {
-  display: block;
-  width: 35px;
+.nav {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: -60vw;
+  z-index: 1500;
+  opacity: 0;
+  width: 0;
+  transition: all 0.8s;
+}
+.logo {
+  margin-right: 220px;
+}
+.logo img {
+  width: 55px;
+}
+.list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  list-style: none;
+  text-align: center;
+  width: 100%;
+  padding-left: 0;
+}
+
+.item {
+  margin: 1rem;
+  font-size: 25px;
+}
+
+.link:link,
+.link:visited {
+  /* display: inline-block; */
+  font-size: 1.5rem;
+  font-weight: 300;
+  padding: 0rem 1rem;
+  color: #d50000;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-image: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 50%,
+    white 50%
+  );
+  background-size: 220%;
+  transition: all 0.4s;
+}
+
+.link:hover,
+.link:active {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+/* functionality */
+.checkbox:checked ~ .background {
+  transform: scale(220);
+}
+.checkbox:checked ~ .nav {
+  opacity: 1;
+  width: 100%;
+  right: 0;
+}
+
+/*  */
+/* styling hamb ICON */
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icon,
+.icon::before,
+.icon::after {
   height: 4px;
+  width: 2rem;
   background-color: #6f4e04;
-  margin: 7px 0;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  position: relative;
-  border-radius: 5px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+  display: inline-block;
+  border-radius: 20px;
 }
 
-.custom_nav-container .navbar-toggler span::before,
-.custom_nav-container .navbar-toggler span::after {
+.icon::before,
+.icon::after {
   content: "";
   position: absolute;
   left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: #6f4e04;
-  top: -10px;
-  border-radius: 5px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
-.custom_nav-container .navbar-toggler span::after {
-  top: 10px;
+.icon::before {
+  top: -0.8rem;
+}
+.icon::after {
+  top: 0.8rem;
 }
 
-.custom_nav-container .navbar-toggler[aria-expanded="true"] {
-  -webkit-transform: rotate(360deg);
-  transform: rotate(360deg);
+.button:hover icon:before {
+  top: -1rem;
+}
+.button:hover icon::after {
+  top: 1rem;
 }
 
-.custom_nav-container .navbar-toggler[aria-expanded="true"] span {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
+.checkbox:checked + .button .icon {
+  background-color: transparent;
 }
 
-.custom_nav-container .navbar-toggler[aria-expanded="true"] span::before,
-.custom_nav-container .navbar-toggler[aria-expanded="true"] span::after {
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
+.checkbox:checked + .button .icon::before {
   top: 0;
+  transform: rotate(135deg);
+}
+.checkbox:checked + .button .icon::after {
+  top: 0;
+  transform: rotate(-135deg);
 }
 
 .user_option {

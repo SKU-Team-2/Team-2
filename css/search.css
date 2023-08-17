@@ -5,19 +5,15 @@ body {
   color: #101010;
   background-color: #ffffff;
 }
-/* */
+
 .layout_padding {
-  padding-top: 90px;
+  /* padding-top: 90px;  */
   padding-bottom: 90px;
 }
 
 .layout_padding2 {
   padding-top: 45px;
   padding-bottom: 45px;
-}
-
-.layout_padding3 {
-  padding-top: 90px;
 }
 
 .layout_padding2-top {
@@ -73,8 +69,8 @@ body {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  /* margin-right: -15px;
+  margin-left: -15px; */
   /* border-top: 1px solid #eee;
   border-bottom: 1px solid #eee; */
 }
@@ -233,6 +229,7 @@ a:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
   z-index: 1;
   opacity: 1;
 }
@@ -256,6 +253,7 @@ input {
   width: 24px;
   height: 24px;
 }
+
 .search {
   color: #808080;
 }
@@ -474,204 +472,243 @@ input {
 .user_option a span {
   margin-left: 5px;
 }
-/* --------------------------- */
 /*end header section*/
-/* write section*/
-/*제품이미지*/
-.write_section span {
+/*banner_section*/
+.banner_section {
   margin: 20px 0;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
-  font-weight: 600;
   padding: 15px 0;
   border-bottom: 1px solid #d6d6d6;
 }
-#imageCarousel {
-  border: 3px dashed #d6d6d6;
+.banner_section text {
+  display: inline;
 }
-
-#imageCarousel img {
-  max-height: 300px;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  top: 50%;
+/*end banner_section*/
+/*top section*/
+/*----------------------------------------------------*/
+/*----------------------------------------------*/
+/*shope section*/
+.shop_section .box {
+  background-color: transparent;
+  border-radius: 10px;
   position: relative;
+  padding: 10px;
+  margin-top: 25px;
+  margin-bottom: 40px;
 }
 
-#imageCarousel input {
-  border: none;
-  margin-left: 150px;
-  padding: 20px;
-  height: 60%;
+.shop_section .box a {
+  color: #000000;
 }
-#imageCarousel input #file-upload-button {
+
+.shop_section .img-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 30px;
+  /* height: 210px; */
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.shop_section .box .img-box img {
+  /* max-width: 100%;
+    max-height: 145px; */
+  width: 235px;
+  height: 245px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.shop_section .box .detail-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.shop_section .box .detail-box h6 span {
+  color: #db4f66;
+  margin-left: 15px;
+}
+
+.shop_section .box .new {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  /* top: 10px; */
+  /* left: 10px; */
+  top: 16px;
+  left: 16px;
+  background-color: #ffffff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 100%;
+  font-size: 15px;
+}
+.shop_section .box .name {
+  width: 55px;
+  height: 55px;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background-color: rgb(255, 255, 255);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 100%;
+  font-size: 20px;
+}
+
+.shop_section .btn-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 45px;
+}
+
+.shop_section .btn-box a {
+  display: inline-block;
+  padding: 10px 40px;
+  background-color: #f16179;
+  color: #ffffff;
+  border: 1px solid #f16179;
+  border-radius: 5px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.shop_section .btn-box a:hover {
+  background-color: transparent;
+  color: #f16179;
+}
+
+.shop_section .swiper-slide .img-box img {
+  /* max-width: 100%;
+    max-height: 145px; */
+  width: 256px;
+  height: 185px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+@media (min-width: 992px) {
+  .col-lg-3 {
+    width: 20%;
+  }
+}
+/*----------------------------------------------*/
+/* pagination */
+.pagination_section {
+  position: relative;
+  margin: auto 0;
+  height: 200px;
+}
+.pagination_container {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.pagination {
+  height: 100px;
+  list-style: none;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.imagePreviewContainer {
-  width: 100%;
-}
-#imagePreview {
-  width: 235px;
-  height: 245px;
-  display: block;
+  padding: 0;
   margin: 0 auto;
-}
-.carousel-inner {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  padding: 10px;
-  margin-bottom: 35px;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-color: rgb(0, 0, 0);
-}
-
-.square-image-container {
-  width: 100%;
-  height: 310px;
-  /* padding-bottom: 30px; */
-  position: relative;
-  border-radius: 20px;
-}
-
-.square-image {
-  object-fit: cover;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 200%;
 }
-
-.btn-heart {
-  width: 20px;
-  height: 20px;
-}
-
-.button-heart:hover {
-  background-color: black;
-  color: wheat;
-}
-
-/*후기통계와 전체후기*/
-
-.sticky-nav {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: white;
-}
-
-.profile-image {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-}
-
-.sub-text {
-  font-size: 35px;
-}
-
-.progress-content {
-  background-color: rgb(255, 220, 217);
-  padding: 20px 50px 10px 20px;
-}
-.progress-bar {
-  width: 90%;
-}
-.product {
-  display: flex;
-  align-items: center;
-  margin: 20px 0;
-}
-
-.producer img {
-  margin-right: 20px;
-}
-
-.product-info #title {
-  border-top: 1px solid #a5a5a573;
-  padding-top: 28px;
-}
-.product-info #username {
-  font-weight: 600;
-  font-size: 1.4rem;
-}
-
-.product-info {
-  padding-left: 55px;
-  margin-top: 2rem;
-}
-
-.product input {
-  border: 1px solid #a6a6a6;
-  border-radius: 10px;
-  width: 60%;
-  height: 40px;
-  padding-left: 15px;
-  margin-left: 37px;
-}
-#price input {
-  border: 1px solid #a6a6a6;
-  border-radius: 10px;
-  width: 60%;
-  height: 40px;
-  padding-left: 15px;
-  margin-left: 55px;
-}
-.product-detail textarea {
-  border-radius: 10px;
-  margin-bottom: 30px;
-  padding: 10px;
-}
-.product-info #date {
-  margin-top: 32px;
-}
-
-/* #product-category {
-  margin-left: 20px;
-} */
-.product select {
-  width: 50%;
-  margin-left: 23px;
-  border: 1px solid #a6a6a6;
-}
-.product h5 {
-  margin-top: 0.5rem;
-}
-.submit-btn {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 30px;
-}
-.submit-btn button {
-  font-size: 1.2rem;
-  font-weight: 600;
+.pagination li {
+  display: inline;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  justify-content: left;
-  width: 140px;
-  height: 50px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  cursor: pointer;
-  transition: 0.5s;
-  background-color: #ebebeb;
-  color: #d50000;
 }
-/* end write section */
+.pagination a {
+  float: left;
+  display: block;
+  font-size: 17px;
+  text-decoration: none;
+  padding: 5px 12px;
+  color: #db4f66;
+  line-height: 1.5;
+}
+.first {
+  margin-right: 15px;
+}
+.last {
+  margin-left: 15px;
+}
+.first:hover,
+.last:hover,
+.left:hover,
+.right:hover {
+  color: #000000;
+}
+.pagination a.active {
+  cursor: default;
+  color: #ffffff;
+}
+.pagination a:active {
+  outline: none;
+}
+.modal .num {
+  margin-left: 3px;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;
+  -moz-border-radius: 100%;
+}
+.modal .num:hover {
+  background-color: #7e7e7e;
+  color: #ffffff;
+}
+.modal .num.active,
+.modal .num:active {
+  background-color: #7e7e7e;
+  cursor: pointer;
+}
+.pagination .arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #db4f66;
+}
+/* end pagination */
+/*----------------------------------------------*/
 /* info section */
 .info_section {
   position: relative;
