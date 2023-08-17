@@ -2,14 +2,14 @@
 {% load static %}
 <html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<title>회원정보 수정</title>
+   <meta charset="UTF-8">
+   <title>회원정보 수정</title>
 </head>
 <body>
-	<h1>회원정보 수정</h1>
-	<hr/>
-	<form method='post' enctype="multipart/form-data">
-		{% csrf_token %}
+   <h1>회원정보 수정</h1>
+   <hr/>
+   <form method='post' enctype="multipart/form-data">
+      {% csrf_token %}
     <table>
         <tbody>
             <tr>
@@ -29,8 +29,8 @@
                 <td><input type="text" name="user_id" maxlength="30" required="" id="id_user_id" value="{{ user.user_id }}"></td>
             </tr>
             <tr>
-                <th><label for="id_password">Password:</label></th>
-                <td><input type="text" name="password" maxlength="30" required="" id="id_password" value="{{ user.password }}"></td>
+                <th><label for="id_password">Password:<br>(비밀번호는 *로 길게 나타납니다.)</label></th>
+                <td><input type="password" name="password" maxlength="30" required="" id="id_password" value="{{ user.password }}"></td>
             </tr>
         </tbody>
     </table>

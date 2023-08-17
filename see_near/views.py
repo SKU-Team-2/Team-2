@@ -286,8 +286,17 @@ def register(request):
         full_name = request.POST.get('full_name')
         password = request.POST.get('password')
 
-        new_user = seenear_user.objects.create_user(user_id=user_id, email=email, nickname=nickname, full_name=full_name, password=password)
+        # 아이디 중복 확인
+        if seenear_user.objects.filter(user_id=user_id).exists():
+            message = '이미 사용 중인 아이디입니다.'
+            return render(request, 'see_near/register.html', {'message': message})
 
+        # 닉네임 중복 확인
+        if seenear_user.objects.filter(nickname=nickname).exists():
+            error_message = '이미 사용 중인 닉네임입니다.'
+            return render(request, 'see_near/register.html', {'error_message': error_message})
+
+        new_user = seenear_user.objects.create_user(user_id=user_id, email=email, nickname=nickname, full_name=full_name, password=password)
         messages.success(request, '회원가입이 완료되었습니다.')
         return redirect('login')
     
