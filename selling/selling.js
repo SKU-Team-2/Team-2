@@ -28,7 +28,6 @@ async function fetchProductDetails() {
     const productWrapper = document.createElement('div');
     productWrapper.className = 'mb-4 row';
   
-    // 이미지 영역 생성
     const imageWrapper = document.createElement('div');
     imageWrapper.className = 'col-md-6';
     const productImage = document.createElement('img');
@@ -36,7 +35,6 @@ async function fetchProductDetails() {
     productImage.className = 'img-fluid';
     imageWrapper.appendChild(productImage);
     
-    // 상세 정보 영역 생성
     const detailsWrapper = document.createElement('div');
     detailsWrapper.className = 'col-md-6';
     const productName = document.createElement('h5');
@@ -83,7 +81,6 @@ async function fetchProductDetails() {
           });
       }
 
-      // 기존 댓글에 수정 및 삭제 기능 추가
       document.querySelectorAll('.edit-btn').forEach(editBtn => editComment(editBtn));
       document.querySelectorAll('.delete-btn').forEach(deleteBtn => deleteComment(deleteBtn));
 
@@ -118,7 +115,7 @@ async function fetchProductDetails() {
           commentForm.insertAdjacentHTML('afterend', newCommentTemplate);
           commentInput.value = '';
 
-          // 새로 작성된 댓글에 수정 및 삭제 기능 추가
+
           const newCommentEl = commentForm.nextElementSibling;
           const newEditBtn = newCommentEl.querySelector('.edit-btn');
           const newDeleteBtn = newCommentEl.querySelector('.delete-btn');
@@ -129,3 +126,4 @@ async function fetchProductDetails() {
           editComment(newEditBtn);
           deleteComment(newDeleteBtn);
       });
+
