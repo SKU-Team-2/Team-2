@@ -59,14 +59,11 @@
 
 
 .square-image-container {
-    max-width: 100%; 
-    width: 100%;
-    padding-bottom: 100%;
+    width: 600px; 
+    padding-bottom: 300px; 
     position: relative;
-    border-radius: 20px;
     overflow: hidden;
 }
-
 .square-image-container img {
     object-fit: cover;
     position: absolute;
@@ -121,7 +118,3 @@
 .progress-bar {
     width: 90%;
 }
-
-
-
-

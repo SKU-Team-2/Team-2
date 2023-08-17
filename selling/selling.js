@@ -58,3 +58,74 @@ async function fetchProductDetails() {
   loadProductDetails();
   
 
+//자바스크립트 댓글 기능 
+
+        // 댓글 수정 기능
+        function editComment(editBtn) {
+          editBtn.addEventListener('click', (e) => {
+              const commentEl = e.target.closest('.mb-3');
+              const commentTextEl = commentEl.querySelector('.comment-text');
+              
+              const newValue = prompt('댓글을 수정하세요.', commentTextEl.textContent);
+              if (newValue !== null) {
+                  commentTextEl.textContent = newValue;
+              }
+          });
+      }
+
+      // 댓글 삭제 기능
+      function deleteComment(deleteBtn) {
+          deleteBtn.addEventListener('click', (e) => {
+              if (confirm('댓글을 삭제하시겠습니까?')) {
+                  const commentEl = e.target.closest('.mb-3');
+                  commentEl.remove();
+              }
+          });
+      }
+
+      // 기존 댓글에 수정 및 삭제 기능 추가
+      document.querySelectorAll('.edit-btn').forEach(editBtn => editComment(editBtn));
+      document.querySelectorAll('.delete-btn').forEach(deleteBtn => deleteComment(deleteBtn));
+
+      // 댓글 작성 기능
+      const commentForm = document.querySelector('.comment-form');
+      const submitCommentBtn = document.getElementById('submit-comment');
+      const commentInput = document.getElementById('comment-input');
+
+      submitCommentBtn.addEventListener('click', () => {
+          const commentText = commentInput.value;
+
+          if (commentText === '') {
+              alert('댓글 작성란이 공백입니다. 댓글을 입력하세요.');
+              return;
+          }
+
+          const newCommentTemplate = `
+              <div class="mb-3">
+                  <div class="d-flex align-items-start slider-content">
+                      <img src="./sellingimg/user.png" class="profile-image" alt="사용자 프로필 이미지">
+                      <div class="ms-2">
+                          <p class="mb-0"><strong>익명</strong></p>
+                          <p class="mb-0 comment-text">${commentText}</p>
+                          <small>작성일: ${new Date().toISOString().slice(0, 10)}</small>
+                          <button class="edit-btn btn bg-light text-black mb-0">수정</button>
+                          <button class="delete-btn btn bg-light text-black mb-0">삭제</button>
+                      </div>
+                  </div>
+              </div>
+          `;
+
+          commentForm.insertAdjacentHTML('afterend', newCommentTemplate);
+          commentInput.value = '';
+
+          // 새로 작성된 댓글에 수정 및 삭제 기능 추가
+          const newCommentEl = commentForm.nextElementSibling;
+          const newEditBtn = newCommentEl.querySelector('.edit-btn');
+          const newDeleteBtn = newCommentEl.querySelector('.delete-btn');
+
+          newEditBtn.classList.add('edit-button'); 
+          newDeleteBtn.classList.add('delete-btn'); 
+          
+          editComment(newEditBtn);
+          deleteComment(newDeleteBtn);
+      });
