@@ -52,18 +52,18 @@
                                 <label for="nickname" class="form-label">닉네임</label>
                                 <input type="text" class="form-control" name="nickname" id="nickname" value="{{ user.nickname }}" required 
                                 placeholder="닉네임을 입력해주세요.">
-                                {% comment %} {% if error_message %}
+                                {% if error_message %}
                                 <p style="color: red;">{{ error_message }}</p>
-                                {% endif %} {% endcomment %}
+                                {% endif %}
                             </div>
                             <div class="mb-3">
-                                <label for="address" class="form-label">주소</label>
-                                <input type="text" class="form-control" id="address" required
-                                placeholder="배송을 위한 주소지를 정확히 입력해주세요.">
-                                <label for="address2" class="form-label"></label>
-                                <input type="text" class="form-control" id="Inputname" required placeholder="상세주소를 작성해주세요."><br/>
-                                <button id="searchAddress" type="button" class="btn-primary btnstyle text-bg-light ">주소 검색</button>
-                            </div><br/>
+                              <label for="address" class="form-label">주소</label>
+                              <input type="text" class="form-control" id="address" value="{{ user.address }}" required
+                              placeholder="배송을 위한 주소지를 정확히 입력해주세요.">
+                              <label for="address2" class="form-label"></label>
+                              <input type="text" class="form-control" id="Inputname" value="{{ user.Inputname }}" required placeholder="상세주소를 작성해주세요."><br/>
+                              <button id="searchAddress" type="button" class="btn-primary btnstyle text-bg-light ">주소 검색</button>
+                          </div><br/>
                             <div class="mb-3">
                                     <div>
                                         <label for="email" class="form-label">이메일</label>

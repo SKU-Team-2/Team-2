@@ -100,6 +100,7 @@ def category_view(request, category_id):
 
     return render(request, 'see_near/category.html', context)
 
+# 게시물 생성
 @login_required
 def create_post(request):
     if request.method == "POST":
@@ -301,7 +302,9 @@ def register(request):
         nickname = request.POST.get('nickname')
         full_name = request.POST.get('full_name')
         password = request.POST.get('password')
-
+        address = request.POST.get('address')
+        Inputname = request.POST.get('Inputname')
+        
         # 아이디 중복 확인
         if seenear_user.objects.filter(user_id=user_id).exists():
             message = '이미 사용 중인 아이디입니다.'
@@ -312,7 +315,10 @@ def register(request):
             error_message = '이미 사용 중인 닉네임입니다.'
             return render(request, 'see_near/register.html', {'error_message': error_message})
 
-        new_user = seenear_user.objects.create_user(user_id=user_id, email=email, nickname=nickname, full_name=full_name, password=password)
+        new_user = seenear_user.objects.create_user(user_id=user_id, email=email, nickname=nickname, full_name=full_name, password=password, address=address, Inputname=Inputname)
+        print(new_user)
+        new_user.save()
+        
         messages.success(request, '회원가입이 완료되었습니다.')
         return redirect('login')
     
@@ -352,15 +358,17 @@ def user_page(request, pk):
         user.nickname = request.POST['nickname'] 
         user.user_id = request.POST['user_id'] 
         user.password = request.POST.get('password')  
+        user.address = request.POST.get('address')
+        user.Inputname = request.POST.get('Inputname')
         user.save()
         return redirect('home')
     return render(
-		request,
-		'see_near/mypage.html',
-		{
-			'user' : user,
-		},
-	)
+      request,
+      'see_near/mypage.html',
+      {
+         'user' : user,
+      },
+   )
 
 # 회원정보 수정
 @login_required
@@ -373,7 +381,8 @@ def update_user(request, pk):
         user.nickname = request.POST['nickname'] 
         user.user_id = request.POST['user_id'] 
         new_password = request.POST.get('password')
-        
+        user.address = request.POST.get('address')
+        user.Inputname = request.POST.get('Inputname')
         if new_password:
             user.password = make_password(new_password)
         

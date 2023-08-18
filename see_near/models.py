@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from mptt.models import MPTTModel, TreeForeignKey
         
 class SeenearUserManager(BaseUserManager):
-    def create_user(self, user_id, email, nickname, full_name, password, staff=False, admin=False, active=True):
+    def create_user(self, user_id, email, nickname, full_name, password, address, Inputname, staff=False, admin=False, active=True):
         user = self.model(email=self.normalize_email(email))
         user.set_password(password)
         user.user_id = user_id
@@ -14,20 +14,26 @@ class SeenearUserManager(BaseUserManager):
         user.full_name = full_name
         user.staff = staff
         user.admin = admin
+        user.address = address
+        user.Inputname = Inputname
         user.active = active
         user.save(using=self._db)
         
+        
         return user
 
-    def create_superuser(self, user_id, email, nickname, full_name, password):
+    def create_superuser(self, user_id, email, nickname, full_name, password, address, Inputname):
         user = self.create_user(
             user_id,
             email,
             nickname,
             full_name,
             password,
+            address,
+            Inputname,
             staff = True,
             admin = True
+            
         )
         
         return user
@@ -39,13 +45,13 @@ class seenear_user(AbstractBaseUser):
     email = models.EmailField(max_length=255, null=True)   # email
     full_name = models.CharField(max_length=100)                # 이름
     address = models.TextField(max_length=200, null=True)       # 주소
-
+    Inputname = models.TextField(max_length=200, null=True)       # 주소
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'user_id'
-    REQUIRED_FIELDS = ['nickname', 'full_name', 'email']
+    REQUIRED_FIELDS = ['nickname', 'full_name', 'email', 'address', 'Inputname']
     objects = SeenearUserManager()
     
     def __str__(self):

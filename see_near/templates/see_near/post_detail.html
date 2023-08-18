@@ -12,7 +12,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href={% static "see_near/css/selling.css" %} />
-    <link rel="stylesheet" href={% static "see_near/css/main.css" %} />
+    {% comment %} <link rel="stylesheet" href={% static "see_near/css/main.css" %} /> {% endcomment %}
     <!-- <link rel="stylesheet" href="../css/main.css" /> -->
   </head>
   <body>
@@ -77,19 +77,20 @@
     <div class="container gmarket-font">
       <div class="container my-4">
         <div class="row">
-          <div class="col-6">
-            <!-- 이미지 영역 -->
-            <div>
-              <div id="imageCarousel" class="carousel slide my-4" data-bs-ride="carousel">
-                <div class="carousel-inner" id="inner">
-                  <div class="carousel-item img active square-image-container" id="item">      
-                    <div id="imagePreviewContainer">
-                      <img id="imagePreview" src="{{ post.images.url }}" alt="Image Preview" style="max-width: 100%; max-height: 300px;">
-                    </div>
-                  </div>
-                </div>
+            <div class="col">
+                <!-- 이미지 영역 -->
+                <div>
+                  {% comment %} <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel"> {% endcomment %}
+                    {% comment %} <div class="carousel-inner" id="inner"> {% endcomment %}
+                      {% comment %} <div class="carousel-item img active square-image-container" id="item">       {% endcomment %}
+                        {% comment %} <div id="imagePreviewContainer"> {% endcomment %}
+                          <img id="imagePreview" src="{{ post.images.url }}" alt="Image Preview" style="max-width: 100%; max-height: 300px;">
+                        {% comment %} </div> {% endcomment %}
+                      {% comment %} </div> {% endcomment %}
+                    {% comment %} </div> {% endcomment %}
+                  {% comment %} </div> {% endcomment %}
+                {% comment %} </div> {% endcomment %}
               </div>
-            </div>
           </div>
 
           <div class="col-6">
@@ -104,23 +105,13 @@
                     {% if user.is_authenticated and user == post.seller %}
                     <a href="{% url 'edit_post' post_id=post.pk %}">수정</a>
                     <a href="{% url 'delete_post' post_id=post.pk %}">삭제</a>
-                        {% comment %} <form action="{% url 'delete_post' post_id=post.pk %}" method="post" style="display: inline;">
-                            {% csrf_token %}
-                            <button type="submit">삭제</button>
-                        </form> {% endcomment %}
                     {% endif %}
                     </a>
                     <br/>
                     <a href="{% url 'add_cart' post.post_id %}">
-                    <button class="btn btn-primary btn-warning button-heart">
-                      <img
-                        id="heart"
-                        src={% static "see_near/images/shopping-cart.png" %}
-                        alt="장바구니"
-                        class="btn-heart"
-                      />
-                      주문하기
-                    </button>
+                    <button class="btn btn-primary btn-light btn-buy button-heart mb-0">
+                        주문하기
+                      </button>
                     </a>
                   </div>
                 </div>
@@ -167,7 +158,6 @@
                       <a href="{% url 'comment_delete' comment_id=comment.id %}">삭제</a>
                       {% endif %}
                   </div>
-                 
                 </div>
                   {% empty %}
                   <p>후기를 남겨주세요!</p>
