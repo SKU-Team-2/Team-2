@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-v_hp_wz*!fa^)bd7(ikcgt2u-76@i5vp8tq23cvsfyvcz!o1!2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['sku-team2.com']
 
 IAMPORT_API_KEY = '8313685102373366'
 IAMPORT_API_SECRET = 'J45fsqiIBGcrNSm1u29a4YCZLBom7hzwRlU8Wp57oASRQijSZoYMUAhipdOjpQGnzjbj2s7SRkYOJwmL'
@@ -131,9 +131,9 @@ STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'see_near', 'static')
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'see_near', 'static')
+# ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
