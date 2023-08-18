@@ -1,12 +1,14 @@
 async function fetchProductDetails() {
     // 임시 데이터 (실제 API 호출로 대체해야 함)
-    // const sample_data = {
-    //   id: 1, 
-    //   name: "특별기획 아삭상추 300g", 
-    //   img: "https://via.placeholder.com/250", 
-    //   price: "9,000원", 
-    //   description: "안심하고 드실 수 있도록 무농약으로 정성껏 키웠습니다.  국내에서 가장 건강한 방식으로 만든 맛 좋은 상추입니다."
-    // };
+    const sample_data = {
+      id: 1, 
+      name: "특별기획 아삭상추 300g", 
+      img: "https://via.placeholder.com/250", 
+      price: "9,000원", 
+      description: "안심하고 드실 수 있도록 무농약으로 정성껏 키웠습니다.  국내에서 가장 건강한 방식으로 만든 맛 좋은 상추입니다."
+
+
+    };
   
     return Promise.resolve(sample_data); // 임시 데이터 반환 (테스트용)
     

@@ -93,10 +93,10 @@
       <!--banner section-->
       <section class="banner_section">
         <div class="banner">
-          <img src="./images/VegetableBanner.jpg" alt="">
+          <img src="{{ selected_category_id.image.url }}" alt="{{ categories.name }}" />
         </div>
         <div class="banner_name">
-          <p>곡류</p>
+          <p>{{ selected_category_id.name }}</p>
         </div>
       </section>
       <!--end banner section-->
@@ -195,31 +195,7 @@
             </div>
           </div>
         </div>
-      <section class="category_container">
-        <ul> <!-- li를 button으로 바꾸면 어떻게 되는지-->
-          <li><a class="menu" href="./cereals.html">전체</a></li>
-          <li><a class="menu" href="./cereals1.html">백미</a></li>
-          <li><a class="menu" href="./cereals2.html">찹쌀/현미/흑미</a></li>
-          <li><a class="menu" href="./cereals3.html">혼합곡</a></li>
-          <li><a class="menu" href="./cereals4.html">수수/조/깨/잡곡</a></li>
-          <li><a class="menu" href="./cereals5.html">견과류</a></li>
-          <li><a class="menu" href=""></a></li>
-          <li><a class="menu" href=""></a></li>
-          <li><a class="menu" href=""></a></li>
-          <li><a class="menu" href=""></a></li>
-        </ul>
-      </section>
-      <!-- <section class="subcategory_container">
-        <ul>
-          <li><a href="">전체</a></li>
-          <li><a href="">상추</a></li>
-          <li><a href="">깻잎</a></li>
-          <li><a href="">청경채</a></li>
-          <li><a href="">모듬쌈채소</a></li>
-        </ul>
-      </section> -->
       <!---------------------------------------------------------->
-
       <!-- shop section -->
       <section class="shop_section layout_padding">
         <div class="container">
@@ -227,424 +203,88 @@
               <h2>최근 업데이트한 상품</h2>
             </div>
             <div class="row2">
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/peech.jpeg" alt="복숭아" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>햇사레 복숭아 </h6>
-                      <h6>
-                        <span> 22% </span>
-                      </h6>
-                    </div>
-                    <div class="new">
-                      <span> New </span>
-                    </div>
-                  </a>
-                </div>
+            {% for product in category_posts %}
+            {% if forloop.counter <= 5 %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="box">
+                <a href="{% url 'post_detail' product.post_id %}">
+                  <div class="img-box">
+                    <img src="{{ product.images.url }}" alt="로메인" />
+                  </div>
+                  <div class="detail-box">
+                    <h6> {{ product.title }} </h6>
+                    <h6>
+                      <span>
+                        {{ product.price }}
+                      </span>
+                    </h6>
+                  </div>
+                  <div class="new">
+                    <span> new </span>
+                  </div>
+                </a>
               </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/pumkin.jpeg" alt="단호박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>제주 미니 밤호박</h6>
-                      <h6>
-                        <span> 7% </span>
-                      </h6>
-                    </div>
-                    <div class="new">
-                      <span> New </span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/potato.jpeg" alt="감자" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>국내산 햇감자</h6>
-                      <h6>
-                        <span> 5%</span>
-                      </h6>
-                    </div>
-                    <div class="new">
-                      <span> New </span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/squid.jpeg" alt="오징어" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>생물 오징어</h6>
-                      <h6>
-                        <span> 10% </span>
-                      </h6>
-                    </div>
-                    <div class="new">
-                      <span> New </span>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/watermelon.jpeg" alt="수박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>고당도 꿀수박</h6>
-                      <h6>
-                        <span> 5% </span>
-                      </h6>
-                    </div>
-                    <div class="new">
-                      <span> New </span>
-                    </div>
-                  </a>
-                </div>
-              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+              {% comment %} </div> {% endcomment %}
             </div>
             <!------------------------------------------------------>
             <div class="heading_container heading_center2">
-              <h2>정육/계란류</h2>
+              <h2>전체 상품</h2>
             </div>
             <div class="row2">
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/peech.jpeg" alt="복숭아" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>햇사레 복숭아 </h6>
-                      <h6>
-                        <span> 22% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
+            {% for product in category_posts %}
+            {% if forloop.counter <= 5 %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="box">
+                <a href="{% url 'post_detail' product.post_id %}">
+                  <div class="img-box">
+                    <img src="{{ product.images.url }}" alt="로메인" />
+                  </div>
+                  <div class="detail-box">
+                    <h6> {{ product.title }} </h6>
+                    <h6>
+                      <span>
+                        {{ product.price }}
+                      </span>
+                    </h6>
+                  </div>
+                  <div class="new">
+                    <span> new </span>
+                  </div>
+                </a>
               </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/pumkin.jpeg" alt="단호박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>제주 미니 밤호박</h6>
-                      <h6>
-                        <span> 7% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/potato.jpeg" alt="감자" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>국내산 햇감자</h6>
-                      <h6>
-                        <span> 5%</span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/squid.jpeg" alt="오징어" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>생물 오징어</h6>
-                      <h6>
-                        <span> 10% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/watermelon.jpeg" alt="수박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>고당도 꿀수박</h6>
-                      <h6>
-                        <span> 5% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/peech.jpeg" alt="복숭아" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>햇사레 복숭아 </h6>
-                      <h6>
-                        <span> 22% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/pumkin.jpeg" alt="단호박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>제주 미니 밤호박</h6>
-                      <h6>
-                        <span> 7% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/potato.jpeg" alt="감자" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>국내산 햇감자</h6>
-                      <h6>
-                        <span> 5%</span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/squid.jpeg" alt="오징어" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>생물 오징어</h6>
-                      <h6>
-                        <span> 10% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/watermelon.jpeg" alt="수박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>고당도 꿀수박</h6>
-                      <h6>
-                        <span> 5% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/peech.jpeg" alt="복숭아" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>햇사레 복숭아 </h6>
-                      <h6>
-                        <span> 22% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/pumkin.jpeg" alt="단호박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>제주 미니 밤호박</h6>
-                      <h6>
-                        <span> 7% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/potato.jpeg" alt="감자" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>국내산 햇감자</h6>
-                      <h6>
-                        <span> 5%</span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/squid.jpeg" alt="오징어" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>생물 오징어</h6>
-                      <h6>
-                        <span> 10% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/watermelon.jpeg" alt="수박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>고당도 꿀수박</h6>
-                      <h6>
-                        <span> 5% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/peech.jpeg" alt="복숭아" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>햇사레 복숭아 </h6>
-                      <h6>
-                        <span> 22% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/pumkin.jpeg" alt="단호박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>제주 미니 밤호박</h6>
-                      <h6>
-                        <span> 7% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/potato.jpeg" alt="감자" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>국내산 햇감자</h6>
-                      <h6>
-                        <span> 5%</span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/squid.jpeg" alt="오징어" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>생물 오징어</h6>
-                      <h6>
-                        <span> 10% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/watermelon.jpeg" alt="수박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>고당도 꿀수박</h6>
-                      <h6>
-                        <span> 5% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
           </div>
-        </div>
       </section>
       </section>
       <!-- end slider section -->
       <!-- pagination -->
       <section class="pagination_section">
         <div class="pagination_container">
-          <ul class="pagination modal">
-            <li><a class="first" href="#">처음 페이지</a></li>
-            <li><a class="arrow left" href="#"><<</a></li>
-            <li><a class="active num" href="#">1</a></li>
-            <li><a class="num" href="#">2</a></li>
-            <li><a class="num" href="#">3</a></li>
-            <li><a class="num" href="#">4</a></li>
-            <li><a class="num" href="#">5</a></li>
-            <li><a class="num" href="#">6</a></li>
-            <li><a class="num" href="#">7</a></li>
-            <li><a class="num" href="#">8</a></li>
-            <li><a class="num" href="#">9</a></li>
-            <li><a class="arrow right" href="#">>></a></li>
-            <li><a class="last" href="#">끝 페이지</a></li>
+          <ul class="pagination modal" id="pagination">
+          <span class="step-links">
+              {% if page_obj.has_previous %}
+                  <li><a class="num" href="?page=1">&laquo; first</a></li>
+                  <li><a class="num" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+              {% endif %}
+              
+              {% for num in page_obj.paginator.page_range %}
+                  {% if num == page_obj.number %}
+                      <span class="current">{{ num }}</span>
+                  {% else %}
+                      <li><a href="?page={{ num }}">{{ num }}</a></li>
+                  {% endif %}
+              {% endfor %}
+
+              {% if page_obj.has_next %}
+                  <li><a class="num" href="?page={{ page_obj.next_page_number }}">next</a></li>
+                  <li><a class="num" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+              {% endif %}
+          </span>
           </ul>
         </div>
       </section>

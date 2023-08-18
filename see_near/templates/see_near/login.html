@@ -33,7 +33,9 @@
 
                                     <label for="password" class="form-label">비밀번호</label>
                                     <input type="password" id="password" name="password" required><br/>
-
+                                    {% if message %}
+                                        <p style="color: red;">{{ message }}</p>
+                                    {% endif %}
                                     <a href="#" class="or">비밀번호를 잊으셨나요?</a>
                                     <button type="submit" id="submit" onclick="signup()" class="btn btn-primary submit">로그인</button>
                                   </form>

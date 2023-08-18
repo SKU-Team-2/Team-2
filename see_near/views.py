@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
+from django.core.paginator import Paginator
 
 from rest_framework import viewsets
 from .serializers import (
@@ -28,28 +29,33 @@ def product_list(request):
     if request.method == "POST":
         if request.POST.get('category'):
             category_get = get_object_or_404(Category, id=request.POST.get('category'))
+            
             return redirect('category', category_id=category_get.id)
         
     if category_id:
         category = get_object_or_404(Category, pk=category_id)
         products = Post.objects.filter(categories=category)
-    else:
-        products = Post.objects.all()
     
     if sort_by == 'name':
         products = Post.objects.order_by('title')
     elif sort_by == 'date':
         products = products.order_by('-pub_date')
+        
     searched = request.GET.get('searched', '')
     if searched:
         products = products.filter(title__icontains=searched)
+        
+    paginator = Paginator(products, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     
     categories = Category.objects.all()
     
     context = {
         'products':products,
         'categories':categories,
-        'searched':searched
+        'searched':searched,
+        'page_obj':page_obj
     }
     
     return render(request, 'see_near/Main.html', context)
@@ -58,6 +64,7 @@ def product_list(request):
 def product_detail(request, post_id):
     post = get_object_or_404(Post, post_id=post_id)
     comments = Comment.objects.filter(post=post)
+    comment_count = comments.count()
     
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -73,19 +80,22 @@ def product_detail(request, post_id):
     return render(
         request,
         'see_near/post_detail.html', 
-        {'post': post, 'comments': comments}
+        {'post': post, 'comments': comments, 'comment_count': comment_count}
     )
 
 # 카테고리 분류 함수
 def category_view(request, category_id):
-    
     selected_category = Category.objects.get(pk=category_id)
     category_posts = Post.objects.filter(categories=selected_category)
     
-    print("asdfg")
+    paginator = Paginator(category_posts, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     context = {
-        'selected_category_id': selected_category.id,
+        'selected_category_id': selected_category,
         'category_posts': category_posts,
+        'page_obj':page_obj
     }
 
     return render(request, 'see_near/category.html', context)
@@ -192,7 +202,11 @@ def search(request):
         searched = request.POST['searched']
         products = Post.objects.filter(title__contains=searched)
         
-        return render(request, 'see_near/search.html', {'searched':searched, 'products':products})
+        paginator = Paginator(products, 20)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        
+        return render(request, 'see_near/search.html', {'searched':searched, 'products':products, 'page_obj':page_obj})
     else:
         return render(request, 'see_near/search.html')
     

@@ -215,6 +215,7 @@
               </div>
             {% endif %}
             {% endfor %}
+
             <!-- Repeat for other slide items -->
             <!-- (Repeat the same structure for other slide items) -->
           </div>
@@ -230,7 +231,7 @@
           </div>
           <div class="row2">
             {% for product in products %}
-            {% if forloop.counter <= 4 %}
+            {% if forloop.counter <= 5 %}
             <div class="col-sm-6 col-md-4 col-lg-3">
               <div class="box">
                 <a href="{% url 'post_detail' product.post_id %}">
@@ -253,7 +254,7 @@
             </div>
             {% endif %}
             {% endfor %}
-            <div class="col-sm-6 col-md-4 col-lg-3">
+            {% comment %} <div class="col-sm-6 col-md-4 col-lg-3">
               <div class="box">
                 <a href="">
                   <div class="img-box">
@@ -270,7 +271,7 @@
                   </div>
                 </a>
               </div>
-            </div>
+            </div> {% endcomment %}
           </div>
           <!------------------------------------------------------>
           <div class="heading_container heading_center2">
@@ -278,7 +279,6 @@
           </div>
           <div class="row2">
             {% for product in products %}
-            
             <div class="col-sm-6 col-md-4 col-lg-3">
               <div class="box">
                 <a href="{% url 'post_detail' product.post_id %}">
@@ -307,19 +307,26 @@
       <section class="pagination_section">
         <div class="pagination_container">
           <ul class="pagination modal" id="pagination">
-            <li><a class="first" href="#">처음 페이지</a></li>
-            <li><a class="arrow left" href="#"><<</a></li>
-            <li><a class="active num" href="#">1</a></li>
-            <li><a class="num" href="#">2</a></li>
-            <li><a class="num" href="#">3</a></li>
-            <li><a class="num" href="#">4</a></li>
-            <li><a class="num" href="#">5</a></li>
-            <li><a class="num" href="#">6</a></li>
-            <li><a class="num" href="#">7</a></li>
-            <li><a class="num" href="#">8</a></li>
-            <li><a class="num" href="#">9</a></li>
-            <li><a class="arrow right" href="#">>></a></li>
-            <li><a class="last" href="#">끝 페이지</a></li>
+          <span class="step-links">
+              {% if page_obj.has_previous %}
+                  <li><a class="num" href="?page=1">&laquo; first</a></li>
+                  <li><a class="num" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+              {% endif %}
+              
+
+              {% for num in page_obj.paginator.page_range %}
+                  {% if num == page_obj.number %}
+                      <span class="current">{{ num }}</span>
+                  {% else %}
+                      <li><a href="?page={{ num }}">{{ num }}</a></li>
+                  {% endif %}
+              {% endfor %}
+
+              {% if page_obj.has_next %}
+                  <li><a class="num" href="?page={{ page_obj.next_page_number }}">next</a></li>
+                  <li><a class="num" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+              {% endif %}
+          </span>
           </ul>
         </div>
       </section>

@@ -21,8 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
 
-    <link rel="stylesheet" href={% static "see_near/css/font-awesome.min.css"%}>
-    <link rel="stylesheet" href={% static "see_near/css/myp.css" %}/>
+    <link rel="stylesheet" href={% static "see_near/css/myp.css" %} />
   </head>
 
   <body>
@@ -34,14 +33,14 @@
             <span> 心心한 토마토 </span>
           </a>
           <form class="d-flex" method="POST" action="{% url 'search' %}">
-            {% csrf_token %}
-            <div class="search_mode">
-              <input type="search" placeholder="Search" name="searched" aria-label="Search" >
-              <button class="search_btn" type="submit">
-                <i class="icon1"></i>
-              </button>
-            </div>
-          </form>
+          {% csrf_token %}
+          <div class="search_mode">
+            <input type="search" placeholder="Search" name="searched" aria-label="Search" >
+            <button class="search_btn" type="submit">
+              <i class="icon1"></i>
+            </button>
+          </div>
+        </form>
           <div class="nav2">
             {% if request.user.is_authenticated %}
             <div class="basket">
@@ -132,15 +131,14 @@
                             class="breadcrumb-item active"
                             aria-current="page"
                             class="tomato-text"
-                          ><a href="{% url 'update_user' user.pk %}">회원 정보 수정</a>
+                          ><a href="{% url 'update_user' user.pk %}">정보 수정</a>
                           </li>
                           <div></div>
                         </ol>
                       </nav>
                     </div>
                   </div>
-                  <br />
-
+                  <br/>
                   <div class="mytomato rounded container">
                     <div class="display-block">
                       <nav
@@ -157,9 +155,13 @@
                             나의 토마토지수 100P
                           </li>
                           <div></div>
-                          <li class="breadcrumb-item">
+                          <li
+                            class="breadcrumb-item active"
+                            aria-current="page"
+                            class="tomato-text">
                             <a href="{% url 'create_post' %}" class="tomato-text"
-                              >새 판매글 작성</a>
+                              >새 판매글 작성</a
+                            >
                           </li>
                         </ol>
                       </nav>
@@ -305,11 +307,11 @@
         <!-- footer section -->
       </section>
       <!-- end info section -->
-    <script src="../js/jquery-3.4.1.min.js"></script>
-    <script src="../js/bootstrap.js"></script>
-    <script src="../js/custom.js"></script>
-    <script src="../js/swiper.js"></script>
-    <script src="../js/pagination.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/swiper.js"></script>
+    <script src="js/pagination.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script

@@ -21,14 +21,19 @@
 .tomatobtn {
   background-color: rgb(255, 205, 205);
   border-radius: 10px;
-  padding: 10px 20px 10px 20px;
+  padding: 20px;
 }
-
-.regularbtn {
-  background-color: rgb(234, 79, 79);
-  color: white;
+.tomatobtn2 {
+  background-color: #ebebeb;
+  color: rgb(0, 0, 0);
   border-radius: 10px;
+  padding: 20px;
 }
+/* .regularbtn {
+  background-color: #ebebeb;
+  color: rgb(0, 0, 0);
+  border-radius: 10px;
+} */
 /*프로필*/
 
 body {
@@ -150,7 +155,7 @@ input {
   text-decoration: none;
   color: black;
   width: 50px;
-  margin-right: 24px;
+  margin-right: 34px;
   padding: 10px 0;
 }
 .login h6 {
@@ -200,25 +205,24 @@ input {
   height: 2.5rem;
   width: 2.5rem;
   border-radius: 10%;
-  position: fixed;
   z-index: 2000;
   text-align: center;
   cursor: pointer;
 }
 
 .background {
-  height: 2.5rem;
+  /* height: 2.5rem;
   width: 2.5rem;
   border-radius: 50%;
-  position: fixed;
-  background-color: #ffeff1;
+  position: fixed; */
+  background-color: #939393cf;
   z-index: 1000;
-
+  margin-left: 7px;
   transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
 }
 
 .nav {
-  height: 100vh;
+  height: 41%;
   position: fixed;
   top: 0;
   right: -60vw;
@@ -246,7 +250,7 @@ input {
 
 .item {
   margin: 1rem;
-  font-size: 25px;
+  font-size: 22px;
 }
 
 .link:link,
@@ -274,11 +278,11 @@ input {
 
 /* functionality */
 .checkbox:checked ~ .background {
-  transform: scale(220);
+  transform: scale(50, 25);
 }
 .checkbox:checked ~ .nav {
   opacity: 1;
-  width: 100%;
+  width: 26%;
   right: 0;
 }
 
@@ -390,8 +394,9 @@ h1 {
 }
 
 .profile-img {
-  width: 100px;
-  height: 100px;
+  width: 139px;
+  height: 139px;
+  margin-top: 50px;
 }
 
 /*slider*/
@@ -399,8 +404,9 @@ h1 {
 .slider {
   position: relative;
   overflow: hidden;
-  width: 800px;
+  width: 70%;
   height: 400px;
+  margin-left: 117px;
 }
 
 .slider-wrapper {
@@ -483,3 +489,168 @@ h1 {
 .carousel-control-next-icon {
   background-color: rgb(0, 0, 0);
 }
+
+/* write section*/
+/*제품이미지*/
+.write_section span {
+  margin: 20px 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 15px 0;
+  border-bottom: 1px solid #d6d6d6;
+}
+/* -------------------------------------------------- */
+.breadcrumb {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+.breadcrumb1 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+  list-style: none;
+  color: #6c757d;
+}
+.breadcrumb2 {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+#content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.mytomato2 nav {
+  display: flex;
+  flex-direction: row;
+}
+#col {
+  margin-right: 120px;
+}
+/* -------------------------------------------------- */
+/* info section */
+.info_section {
+  position: relative;
+  background-color: #2d2d2d;
+  color: #ffffff;
+  margin: 0 45px 45px;
+  margin-top: 170px;
+}
+
+.info_section .social_container {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-top: 25px;
+  margin-bottom: 30px;
+}
+
+.info_section .social_container .social_box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.info_section .social_container .social_box a {
+  margin: 0 10px;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.info_section .info_form form input {
+  outline: none;
+  width: 100%;
+  padding: 7px 10px;
+}
+
+.info_section .info_form form button {
+  padding: 8px 35px;
+  outline: none;
+  border: none;
+  color: #ffffff;
+  background: #f89cab;
+  margin-top: 15px;
+  text-transform: uppercase;
+}
+
+.info_section .row > div {
+  margin-top: 25px;
+}
+
+.info_section a {
+  text-transform: none;
+}
+
+.info_section h6 {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.info_section p {
+  color: #cbc9c9;
+}
+
+.info_section .info_link-box a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.info_section .info_link-box a:hover {
+  color: #ffffff;
+}
+
+.info_section .info_link-box a i {
+  color: #ffffff;
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+.info_section .info_link-box a span {
+  color: #cbc9c9;
+}
+
+.info_section .info_link-box a:hover span {
+  color: #ffffff;
+}
+
+/* end info section */
+/* footer section*/
+.footer_section {
+  margin-top: 45px;
+  font-weight: 500;
+}
+
+.footer_section p {
+  padding: 20px 0;
+  margin: 0 auto;
+  text-align: center;
+  /* border-top: 1.5px solid #eeeeee; */
+  width: 80%;
+}
+
+.footer_section a {
+  color: #cbc9c9;
+}
+
+/* end footer section*/
