@@ -330,8 +330,27 @@ input {
   transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
 }
 
+.background {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  background-color: #ffeff1;
+  z-index: 1000;
+
+  transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+}
+.nav ul {
+  background-color: whitesmoke;
+  padding: 30px;
+  margin-bottom: 50px;
+  border: whitesmoke solid 1px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 400;
+}
+
 .nav {
-  height: 41%;
+  height: 100vh;
   position: fixed;
   top: 0;
   right: -60vw;
@@ -339,9 +358,6 @@ input {
   opacity: 0;
   width: 0;
   transition: all 0.8s;
-}
-.logo {
-  margin-right: 220px;
 }
 .logo img {
   width: 55px;
@@ -387,11 +403,11 @@ input {
 
 /* functionality */
 .checkbox:checked ~ .background {
-  transform: scale(50, 25);
+  transform: scale(220);
 }
 .checkbox:checked ~ .nav {
   opacity: 1;
-  width: 26%;
+  width: 100%;
   right: 0;
 }
 
@@ -1107,7 +1123,6 @@ input {
   position: relative;
   background-color: #2d2d2d;
   color: #ffffff;
-  margin: 0 45px 45px;
 }
 
 .info_section .social_container {

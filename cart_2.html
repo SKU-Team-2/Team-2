@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>장바구니</title>
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="main.css"/>
+    <link rel="stylesheet" href="see_near/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script>
+        var IMP = window.IMP; 
+        IMP.init("imp53883146");
+
+        {% comment %} var productName = "{{ cart_items.product.name }}"; {% endcomment %}
+        {% comment %} var productName="good"; {% endcomment %}
+        var productName="{% for item in cart_items %}{{item.product.name}}<br> {% endfor %}";
+        var counter="{{ counter }}";
+        var total="{{ total }}"; 
+
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+        
+
+        function requestPay() {
+            IMP.request_pay({
+                pg : 'kcp',
+                pay_method : 'card',
+                merchant_uid: "IMP"+makeMerchantUid, 
+                name : productName,
+                amount : total,
+                buyer_email : 'Iamport@chai.finance',
+                buyer_name : '아임포트 기술지원팀',
+                buyer_tel : '010-1234-5678',
+                buyer_addr : '서울특별시 강남구 삼성동',
+                buyer_postcode : '123-456'
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    console.log(rsp);
+                } else {
+                    console.log(rsp);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <section class="cart">
+        <header class="header_section">
+            <nav class="navbar navbar-expand-lg custom_nav-container">
+              <a class="navbar-brand" href="#">
+                <span> 心心한 토마토 </span>
+              </a>
+              <form class="d-flex" method="POST" action="">
+              <div class="search_mode">
+                <input type="search" placeholder="Search" name="searched" aria-label="Search" >
+                <button class="search_btn" type="submit">
+                  <i class="icon1"></i>
+                </button>
+              </div>
+            </form>
+              <div class="nav2">
+              <!-- 로그인한 경우: 로그아웃 버튼과 회원정보 수정 버튼 표시 -->
+                <div class="basket">
+                <a href ="#">
+                  <h6>로그아웃<h6>
+                </a>
+                </div>
+                <div class="basket">
+                  <a href="#">
+                    <h6>장바구니</h6>
+                  </a>
+                </div>
+            <div>
+              <input type="checkbox" id="navi-toggle" class="checkbox" />
+              <label for="navi-toggle" class="button">
+                <span class="icon">&nbsp;</span>
+              </label>
+              <div class="background">&nbsp;</div>
+    
+              <!-- nav -->
+              <nav class="nav nav-style">
+                <ul class="list">
+                  <li class="item"><a class="link" href="#">마이페이지</a></li>
+                  <li class="item"><a class="link">서비스 소개</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+              </div>
+            </nav>
+          </header>
+        <table class="cart__list">
+            <form  method="post" action="">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td colspan="2">상품정보</td>
+                        <td>옵션</td>
+                        <td>상품금액</td>
+                        <td>배송비</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="cart__list__detail">
+                        <td><input id="selected" type="checkbox" name="selected"></td>
+                        <td><a href="{{ cart_item.product.get_absolute_url }}"><img src="" alt="magic keyboard"></td></a>
+                        <td><a href="#">애플 공식 브랜드스토어</a><span class="cart__list__smartstore"> 스마트스토어</span>
+                            <p>제목</p>
+                            <span class="price">10,000원</span>
+
+                        </td>
+                        <td class="cart__list__option">
+                            <p>상품 주문 수량: 5개</p>
+                            
+                            <span class="quantity">
+                                <a href="" class="quantity__decrease">
+                                    -
+                                </a>
+                                5
+                                <a href="" class="quantity__increase">
+                                    +
+                                </a>
+                            </span>
+                        </td>
+                        <td><span class="price">50000원</span><br></td>
+                        <td>무료</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4"><button class="cart__list__optionbtn" type="submit">선택상품 삭제</button></td>
+                        <td colspan="2">총 가격: <b>50000원</b></td>
+                    
+                    </tr>
+                </tfoot>
+            </form>
+        </table>
+        <div class="cart__mainbtns">
+            <a href="#"><button class="cart__bigorderbtn left">쇼핑 계속하기</button></a>
+            <button class="cart__bigorderbtn right" onclick="requestPay()">결제하기</button>
+        </div>
+    </section>
+    <script>
+        document.querySelectorAll('.quantity__increase').forEach(function(increaseButton) {
+          increaseButton.addEventListener('click', function() {
+            const quantityInput = this.previousElementSibling;
+            quantityInput.value = parseInt(quantityInput.value) + 1;
+          });
+        });
+      
+        document.querySelectorAll('.quantity__decrease').forEach(function(decreaseButton) {
+          decreaseButton.addEventListener('click', function() {
+            const quantityInput = this.nextElementSibling;
+            if (parseInt(quantityInput.value) > 1) {
+              quantityInput.value = parseInt(quantityInput.value) - 1;
+            }
+          });
+        });
+      </script>
+      
+</body>
+</html>

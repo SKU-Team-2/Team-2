@@ -74,10 +74,15 @@
   width: 20px;
   height: 20px;
 }
+.btn-buy {
+  background-color: #ebebeb;
+  width: 400px;
+  height: 40px;
+}
 
-.button-heart:hover {
-  background-color: black;
-  color: wheat;
+.btn-buy:hover {
+  background-color: rgb(255, 220, 217);
+  color: #d50000;
 }
 
 /*후기통계와 전체후기*/
