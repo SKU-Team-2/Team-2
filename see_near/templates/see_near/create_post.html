@@ -30,7 +30,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6TpVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href={% static "see_near/css/post.css" %} />
     <link rel="stylesheet" href={% static "see_near/css/font-awesome.min.css" %}/>
   </head>
@@ -39,38 +39,9 @@
       <!-- header section strats -->
       <header class="header_section">
         <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href="Main.html">
+          <a class="navbar-brand" href="{% url 'home' %}">
             <span> 心心한 토마토 </span>
           </a>
-          {% comment %} <div class="search_mode">
-            <input type="search" placeholder="검색" />
-            <button type="submit" class="search_btn">
-              <i class="icon"></i>
-            </button>
-          </div> {% endcomment %}
-          {% comment %} <div class="nav2">
-            <div class="login">
-              <a href="{% url 'login' %}">
-                <h6>로그인</h6>
-              </a>
-            </div>
-            <div class="basket">
-              <a href="{% url 'cart_detail' %}">
-                <h6>장바구니</h6>
-              </a>
-            </div> {% endcomment %}
-            <div>
-            <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class=""></span>
-          </button>
           </div>
         </nav>
       </header>
@@ -129,7 +100,6 @@
                                       <h5><label for="title">제목</label></h5>
                                       <input type="text" name="title" placeholder="상품명을 입력하세요" required><br>
                                     </div>
-
                                     <div class="product" id="title">
                                       {% comment %} <h5>상품명</h5><input type="text" placeholder="상품명을 입력하세요"> {% endcomment %}
                                       <h5><label for="name">상품명</label></h5>
@@ -161,8 +131,7 @@
                                         {% endfor %}
                                       </select>
                                     </div>
-                                    <h5>상품 사진</h5>
-                                    
+                                    <br/>
                                     <div class="product">
                                       {% comment %} <h5>판매상태</h5>
                                       <select class="form-select form-select-sm" id="category select" aria-label=".form-select-sm example">
@@ -171,11 +140,6 @@
                                         <option value="2">판매완료</option>
                                       </select> {% endcomment %}
                                       
-                                    </div>
-
-                                    <div id="date">
-                                      <p class="producer mb-2">배송기간: 2~3일</p>
-                                      <br/>
                                     </div>
                               </div>
                           </div>

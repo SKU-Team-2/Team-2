@@ -39,7 +39,7 @@
       <!-- header section strats -->
       <header class="header_section">
         <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href={url "home" }>
+          <a class="navbar-brand" href="{% url "home" %}">
             <span> 心心한 토마토 </span>
           </a>
           <form class="d-flex" method="POST" action="{% url 'search' %}">

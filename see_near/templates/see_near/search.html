@@ -37,38 +37,50 @@
       <!-- header section strats -->
       <header class="header_section">
         <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href="Main.html">
+          <a class="navbar-brand" href="{% url "home" %}">
             <span> 心心한 토마토 </span>
           </a>
+          <form class="d-flex" method="POST" action="{% url 'search' %}">
+            {% csrf_token %}
           <div class="search_mode">
-            <input type="search" placeholder="검색" />
-            <button type="submit" class="search_btn">
+            <input type="search" placeholder="Search" name="searched" aria-label="Search" >
+            <button class="search_btn" type="submit">
               <i class="icon1"></i>
             </button>
           </div>
+        </form>
           <div class="nav2">
-            <div class="login">
-              <a href="">
-                <h6>로그인</h6>
-              </a>
+            {% if request.user.is_authenticated %}
+            <div class="basket">
+            <a href ="{% url 'logout' %}">
+              <h6>로그아웃<h6>
+            </a>
             </div>
             <div class="basket">
-              <a href="">
+              <a href="{% url 'cart_detail' %}">
                 <h6>장바구니</h6>
               </a>
             </div>
+          {% else %}
+            <div class="login">
+              <a href="{% url 'login' %}">
+                <h6>로그인</h6>
+              </a>
+            </div>
+          {% endif %}
             <div>
-            <input type="checkbox" id="navi-toggle" class="checkbox" />
-            <label for="navi-toggle" class="button">
-              <span class="icon">&nbsp;</span>
-            </label>
-            <div class="background">&nbsp;</div>
-  
+              <input type="checkbox" id="navi-toggle" class="checkbox" />
+              <label for="navi-toggle" class="button">
+                <span class="icon">&nbsp;</span>
+              </label>
+              <div class="background">&nbsp;</div>
             <!-- nav -->
             <nav class="nav nav-style">
               <ul class="list">
-                <li class="item"><a class="link" href="./mypage/myp.html">마이페이지</a></li>
-                <li class="item"><a class="link">서비스 소개</a></li>
+                {% if request.user.is_authenticated %}
+                  <li class="item"><a class="link" href="{% url 'user_page' user.pk %}">마이페이지</a></li>
+                {% endif %}
+                  <li class="item"><a class="link">서비스 소개</a></li>
               </ul>
             </nav>
           </div>
@@ -78,325 +90,51 @@
       </header>
       <!-- end header section -->
       <!--banner section-->
+      {% for post in products %}
       <section class="banner_section">
         <h5>
         <span class="text">
-        <span>검색어</span> 에 대한 검색결과입니다.
+        '<span>{{ searched }}</span>'에 대한 검색결과입니다.
         </span>
-      </h5>
+        </h5>
       </section>
       <!--end banner section-->
       <!---------------------------------------------------------->
       <!-- shop section -->
       <section class="shop_section layout_padding">
         <div class="container">
-            <div class="heading_container heading_center2">
+          <div class="heading_container heading_center2">
               <h2>전체 상품</h2>
             </div>
             <div class="row2">
               <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="box">
-                  <a href="">
+                  <a href="{% url 'post_detail' post_id=post.pk %}">
                     <div class="img-box">
-                      <img src="./images/peech.jpeg" alt="복숭아" />
+                      <img src="{{ post.images.url }}" alt="검색상품" />
                     </div>
                     <div class="detail-box">
-                      <h6>햇사레 복숭아 </h6>
+                      <h6>{{ post.title }}</h6>
                       <h6>
-                        <span> 22% </span>
+                        <span>{{ post.price }}</span>
                       </h6>
                     </div>
                   </a>
                 </div>
               </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/pumkin.jpeg" alt="단호박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>제주 미니 밤호박</h6>
-                      <h6>
-                        <span> 7% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/potato.jpeg" alt="감자" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>국내산 햇감자</h6>
-                      <h6>
-                        <span> 5%</span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/squid.jpeg" alt="오징어" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>생물 오징어</h6>
-                      <h6>
-                        <span> 10% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/watermelon.jpeg" alt="수박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>고당도 꿀수박</h6>
-                      <h6>
-                        <span> 5% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/peech.jpeg" alt="복숭아" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>햇사레 복숭아 </h6>
-                      <h6>
-                        <span> 22% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/pumkin.jpeg" alt="단호박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>제주 미니 밤호박</h6>
-                      <h6>
-                        <span> 7% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/potato.jpeg" alt="감자" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>국내산 햇감자</h6>
-                      <h6>
-                        <span> 5%</span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/squid.jpeg" alt="오징어" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>생물 오징어</h6>
-                      <h6>
-                        <span> 10% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/watermelon.jpeg" alt="수박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>고당도 꿀수박</h6>
-                      <h6>
-                        <span> 5% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/peech.jpeg" alt="복숭아" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>햇사레 복숭아 </h6>
-                      <h6>
-                        <span> 22% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/pumkin.jpeg" alt="단호박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>제주 미니 밤호박</h6>
-                      <h6>
-                        <span> 7% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/potato.jpeg" alt="감자" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>국내산 햇감자</h6>
-                      <h6>
-                        <span> 5%</span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/squid.jpeg" alt="오징어" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>생물 오징어</h6>
-                      <h6>
-                        <span> 10% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/watermelon.jpeg" alt="수박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>고당도 꿀수박</h6>
-                      <h6>
-                        <span> 5% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/peech.jpeg" alt="복숭아" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>햇사레 복숭아 </h6>
-                      <h6>
-                        <span> 22% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/pumkin.jpeg" alt="단호박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>제주 미니 밤호박</h6>
-                      <h6>
-                        <span> 7% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/potato.jpeg" alt="감자" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>국내산 햇감자</h6>
-                      <h6>
-                        <span> 5%</span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/squid.jpeg" alt="오징어" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>생물 오징어</h6>
-                      <h6>
-                        <span> 10% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="box">
-                  <a href="">
-                    <div class="img-box">
-                      <img src="./images/watermelon.jpeg" alt="수박" />
-                    </div>
-                    <div class="detail-box">
-                      <h6>고당도 꿀수박</h6>
-                      <h6>
-                        <span> 5% </span>
-                      </h6>
-                    </div>
-                  </a>
-                </div>
-              </div>
+            </div> 
           </div>
         </div>
       </section>
+      {% empty %}
+      <section class="banner_section">
+        <h5>
+        <span class="text">
+        '<span>{{ searched }}</span>'에 대한 검색결과가 없습니다.
+        </span>
+        </h5>
+      </section>
+      {% endfor %}
       </section>
       <!-- end slider section -->
       <!-- pagination -->
