@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-v_hp_wz*!fa^)bd7(ikcgt2u-76@i5vp8tq23cvsfyvcz!o1!2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['sku-team2.com']
+ALLOWED_HOSTS = ['*']
 
 IAMPORT_API_KEY = '8313685102373366'
 IAMPORT_API_SECRET = 'J45fsqiIBGcrNSm1u29a4YCZLBom7hzwRlU8Wp57oASRQijSZoYMUAhipdOjpQGnzjbj2s7SRkYOJwmL'
