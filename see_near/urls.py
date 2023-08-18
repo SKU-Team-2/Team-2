@@ -37,8 +37,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login_sn, name='login'),
     path("logout/", views.logout_view, name='logout'),
+    path('user_page/<int:pk>/', views.user_page, name='user_page'),
     path('update_user/<int:pk>/', views.update_user, name='update_user'),
-    
     # swagger api
     path('', include(router.urls))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

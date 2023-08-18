@@ -25,7 +25,7 @@
                       <div class=" display-block"><img src="../selling/sellingimg/user.png" class="profile-img" alt="개인프로필"></div>
                  <div>
                   <br/>
-                  <h2>닉네임</h2>
+                  <h2>{{ user.nickname }}</h2>
                   <p>회원등급</p>
                  </div>
                 <a href="{% url 'update_user' user.pk %}">정보 수정</a><br/>

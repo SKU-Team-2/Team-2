@@ -52,7 +52,7 @@ def product_list(request):
         'searched':searched
     }
     
-    return render(request, 'see_near/main.html', context)
+    return render(request, 'see_near/Main.html', context)
 
 # 상품 상세정보
 def product_detail(request, post_id):
@@ -89,26 +89,6 @@ def category_view(request, category_id):
     }
 
     return render(request, 'see_near/category.html', context)
-
-# 글 작성
-# @login_required
-# def create_post(request):
-#     if request.method == "POST":
-#         form = ProductForm(request.POST, request.FILES)
-
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.seller = request.user
-#             post.save()
-
-#             return redirect('home')
-#     else:
-#         form = ProductForm()
-#         categories = Category.objects.all()
-
-#     context = {'form': form, 'categories':categories}
-#     return render(request, 'see_near/create_post.html', context)
-
 
 @login_required
 def create_post(request):
@@ -350,7 +330,7 @@ def logout_view(request):
 
 # 마이페이지
 @login_required
-def update_user(request, pk):
+def user_page(request, pk):
     user = get_object_or_404(seenear_user, pk=pk)
     if request.method == 'POST':
         user.full_name = request.POST['full_name']
