@@ -1,0 +1,131 @@
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.gmarket-font {
+  font-family: "GmarketSansMedium";
+}
+
+.title {
+  margin-top: 30px;
+  color: brown;
+  font-size: 40px;
+  font-weight: 500px;
+}
+/*로그인 타이틀*/
+
+.login {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  padding: 22px;
+  width: 500px;
+  font-family: "GmarketSansMedium";
+}
+
+.btnround {
+  border-radius: 10px;
+  height: 40px;
+}
+
+.form-label {
+  padding: 3px 0px 0px;
+  margin-top: 10px;
+  text-align: left;
+}
+.signtitle {
+  color: brown;
+  text-align: center;
+  font-size: 15px;
+  text-decoration-line: none;
+  margin-top: 25px;
+}
+.signtitle:hover {
+  color: black;
+}
+
+.submit {
+  padding: 10px 15px;
+  font-size: 15px;
+}
+
+/*또는*/
+
+.or {
+  font-size: 15px;
+  font-family: "GmarketSansMedium";
+  text-align: center;
+  margin-bottom: 20px;
+}
+/*button*/
+
+.button {
+  position: relative;
+  padding: 10px 10px;
+  margin-bottom: 2px !important;
+  z-index: 1;
+  text-decoration-line: none;
+  text-align: center;
+  border-radius: 15px !important;
+  font-family: "GmarketSansMedium";
+}
+
+/*button google*/
+
+.asize {
+  width: 500px;
+}
+.signupbtn {
+  width: 450px;
+  padding: 10px 15px;
+}
+button .googleb-image {
+  width: 20px;
+  height: 20px;
+  border-radius: 15px;
+}
+
+.btn {
+  background-color: #505050;
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+  border-style: inherit;
+}
+
+.signupbtn:hover {
+  background-color: white;
+  color: black;
+  border-style: none;
+}
+
+.iphoneimg {
+  color: white;
+  z-index: -2;
+}
+
+.gotojoin {
+  text-align: right;
+  color: black;
+  text-decoration: underline;
+}
+
+.login input {
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  height: 40px;
+  padding: 0.375rem 0.75rem;
+}
+.btn:hover {
+  background-color: #ffeff1;
+  color: #d50000;
+}
+.btn:active {
+  background-color: #ffeff1;
+  color: #d50000;
+}
